@@ -112,7 +112,7 @@ export default function Hero() {
           variants={item}
           style={{
             fontFamily: 'var(--font-syne), sans-serif',
-            fontSize: 'clamp(2.8rem, 8vw, 6.5rem)',
+            fontSize: 'clamp(1.6rem, 8vw, 6.5rem)',
             fontWeight: 800,
             lineHeight: 0.95,
             letterSpacing: '-0.03em',

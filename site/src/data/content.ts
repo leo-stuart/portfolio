@@ -160,7 +160,7 @@ export const content = {
       subtitle: 'Open to freelance projects, collaborations, and full-time opportunities.',
       emailLabel: 'Send an email',
       email: 'leostuart05@gmail.com',
-      footer: '© 2026 Leonardo Stuart. Built with Next.js.',
+      footer: '© 2026 Leonardo Stuart',
     },
   },
   pt: {
@@ -308,7 +308,7 @@ export const content = {
       subtitle: 'Aberto a projetos freelance, colaborações e oportunidades de trabalho.',
       emailLabel: 'Enviar um email',
       email: 'leostuart05@gmail.com',
-      footer: '© 2026 Leonardo Stuart. Construído com Next.js.',
+      footer: '© 2026 Leonardo Stuart.',
     },
   },
 };

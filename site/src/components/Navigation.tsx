@@ -57,7 +57,7 @@ export default function Navigation() {
         </a>
 
         {/* Desktop links */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '32px' }} className="hidden md:flex">
+        <div style={{ alignItems: 'center', gap: '32px' }} className="hidden md:flex">
           {links.map((link) => (
             <a
               key={link.href}
@@ -121,9 +121,8 @@ export default function Navigation() {
               padding: '6px 14px',
               textDecoration: 'none',
               transition: 'background 0.2s, box-shadow 0.2s',
-              display: 'none',
             }}
-            className="md:inline-flex items-center gap-1"
+            className="hidden md:inline-flex items-center gap-1"
             onMouseEnter={e => {
               e.currentTarget.style.background = 'rgba(0,212,255,0.18)';
               e.currentTarget.style.boxShadow = '0 0 16px rgba(0,212,255,0.2)';
