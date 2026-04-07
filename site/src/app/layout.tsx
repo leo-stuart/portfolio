@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Syne, Outfit, JetBrains_Mono } from "next/font/google";
+import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
 
 const syne = Syne({
@@ -43,7 +44,10 @@ export default function RootLayout({
       lang="en"
       className={`${syne.variable} ${outfit.variable} ${jetbrainsMono.variable}`}
     >
-      <body className="grain">{children}</body>
+      <body className="grain">
+        {children}
+        <Analytics />
+      </body>
     </html>
   );
 }
