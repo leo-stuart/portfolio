@@ -1,6 +1,6 @@
 'use client';
 
-import { createContext, useContext, useState, ReactNode } from 'react';
+import { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 import { type Lang, content } from '@/data/content';
 
 interface LanguageContextType {
@@ -13,6 +13,12 @@ const LanguageContext = createContext<LanguageContextType | null>(null);
 
 export function LanguageProvider({ children }: { children: ReactNode }) {
   const [lang, setLang] = useState<Lang>('en');
+
+  useEffect(() => {
+    if (navigator.language.startsWith('pt')) {
+      setLang('pt');
+    }
+  }, []);
   return (
     <LanguageContext.Provider value={{ lang, setLang, t: content[lang] as typeof content['en'] }}>
       {children}
