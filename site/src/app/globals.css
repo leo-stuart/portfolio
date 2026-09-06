@@ -1,48 +1,48 @@
 @import "tailwindcss";
 
-/* Palette. Light is the base; dark overrides via data-theme (set before paint)
-   or via prefers-color-scheme when JS is unavailable. */
+/* Paper and ink. Light is the base; dark via data-theme (set before paint)
+   or prefers-color-scheme when JS is unavailable. */
 :root {
   color-scheme: light;
-  --c-bg: #fafafa;
-  --c-panel: #f1f1f1;
-  --c-fg: #141414;
-  --c-muted: #555555;
-  --c-dim: #8a8a8a;
-  --c-line: #e6e6e6;
-  --c-line-strong: #cfcfcf;
-  --c-accent: #b3640f;
-  --c-ok: #15803d;
-  --c-selection-fg: #fafafa;
+  --c-bg: #ffffff;
+  --c-panel: #f4f4f2;
+  --c-fg: #15171c;
+  --c-muted: #5b5f6a;
+  --c-dim: #8b8f99;
+  --c-line: #e3e4e1;
+  --c-line-strong: #c9cbc7;
+  --c-accent: #1f3bc7;
+  --c-ok: #1b8a4c;
+  --c-selection-fg: #ffffff;
 }
 
 :root[data-theme="dark"] {
   color-scheme: dark;
-  --c-bg: #0a0a0b;
-  --c-panel: #111113;
-  --c-fg: #ececec;
-  --c-muted: #a3a3a3;
-  --c-dim: #666668;
-  --c-line: #1f1f22;
-  --c-line-strong: #2e2e33;
-  --c-accent: #e5a542;
-  --c-ok: #3fb950;
-  --c-selection-fg: #0a0a0b;
+  --c-bg: #121317;
+  --c-panel: #1a1c22;
+  --c-fg: #ecebe6;
+  --c-muted: #a7aab3;
+  --c-dim: #6f737d;
+  --c-line: #272a32;
+  --c-line-strong: #383c46;
+  --c-accent: #93a4ff;
+  --c-ok: #4cc26e;
+  --c-selection-fg: #121317;
 }
 
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
     color-scheme: dark;
-    --c-bg: #0a0a0b;
-    --c-panel: #111113;
-    --c-fg: #ececec;
-    --c-muted: #a3a3a3;
-    --c-dim: #666668;
-    --c-line: #1f1f22;
-    --c-line-strong: #2e2e33;
-    --c-accent: #e5a542;
-    --c-ok: #3fb950;
-    --c-selection-fg: #0a0a0b;
+    --c-bg: #121317;
+    --c-panel: #1a1c22;
+    --c-fg: #ecebe6;
+    --c-muted: #a7aab3;
+    --c-dim: #6f737d;
+    --c-line: #272a32;
+    --c-line-strong: #383c46;
+    --c-accent: #93a4ff;
+    --c-ok: #4cc26e;
+    --c-selection-fg: #121317;
   }
 }
 
@@ -56,8 +56,8 @@
   --color-line-strong: var(--c-line-strong);
   --color-accent: var(--c-accent);
   --color-ok: var(--c-ok);
-  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
-  --font-mono: var(--font-geist-mono), ui-monospace, "SF Mono", Menlo, monospace;
+  --font-display: var(--font-display), "Helvetica Neue", Arial, sans-serif;
+  --font-serif: var(--font-serif), Georgia, "Times New Roman", serif;
 }
 
 @layer base {
@@ -67,26 +67,29 @@
 
   html {
     scroll-behavior: smooth;
-    scroll-padding-top: 72px;
+    scroll-padding-top: 80px;
     background-color: var(--c-bg);
-  }
-
-  @media (min-width: 1024px) {
-    html {
-      scroll-padding-top: 40px;
-    }
   }
 
   body {
     background-color: var(--c-bg);
     color: var(--c-fg);
-    font-family: var(--font-sans);
-    font-size: 15px;
+    font-family: var(--font-serif);
+    font-size: 18px;
     line-height: 1.6;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
-    transition: background-color 150ms ease, color 150ms ease;
+    font-feature-settings: "kern", "liga", "onum" 0;
+  }
+
+  h1,
+  h2,
+  h3,
+  dt,
+  button,
+  nav {
+    font-family: var(--font-display);
   }
 
   ::selection {
@@ -95,7 +98,7 @@
   }
 
   :focus-visible {
-    outline: 1px solid var(--c-accent);
+    outline: 2px solid var(--c-accent);
     outline-offset: 3px;
   }
 
@@ -105,19 +108,35 @@
   }
 }
 
+/* Reading links: thin underline that fills on hover. */
 @utility link {
   text-decoration: underline;
+  text-decoration-thickness: 1px;
   text-decoration-color: var(--c-line-strong);
-  text-underline-offset: 4px;
+  text-underline-offset: 0.18em;
   transition: text-decoration-color 120ms ease, color 120ms ease;
   &:hover {
-    color: var(--c-fg);
+    color: var(--c-accent);
     text-decoration-color: var(--c-accent);
   }
 }
 
 @utility hairline {
   border-color: var(--c-line);
+}
+
+/* Dash-marked lists for bullets, keeps the serif rhythm. */
+@utility dash-list {
+  & > li {
+    position: relative;
+    padding-left: 1.25rem;
+  }
+  & > li::before {
+    content: "–";
+    position: absolute;
+    left: 0;
+    color: var(--c-dim);
+  }
 }
 
 @keyframes pulse-dot {

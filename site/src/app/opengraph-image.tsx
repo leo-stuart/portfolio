@@ -23,7 +23,7 @@ export default function OpenGraphImage() {
         }}
       >
         <div style={{ display: 'flex', alignItems: 'center', gap: 16, fontSize: 24, color: '#a3a3a3' }}>
-          <div style={{ width: 10, height: 10, borderRadius: 999, background: '#3fb950' }} />
+          <div style={{ width: 10, height: 10, borderRadius: 999, background: '#4cc26e' }} />
           <span>{t.hero.name}</span>
           <span style={{ color: '#2e2e33' }}>·</span>
           <span>{t.hero.role}</span>
@@ -52,7 +52,7 @@ export default function OpenGraphImage() {
           }}
         >
           <span>github.com/leo-stuart · linkedin.com/in/leonardo-stuart</span>
-          <span style={{ color: '#e5a542' }}>allu. · Belo Horizonte</span>
+          <span style={{ color: '#93a4ff' }}>allu. · Belo Horizonte</span>
         </div>
       </div>
     ),

@@ -107,27 +107,27 @@ const SOCIAL: Link[] = [
 ];
 
 const PROJECT_LINKS = {
-  courty: [{ label: 'site', href: 'https://www.courtyapp.com' }],
+  courty: [{ label: 'Site', href: 'https://www.courtyapp.com' }],
   cockpit: [
-    { label: 'site', href: 'https://agent-cockpit.dev' },
-    { label: 'source', href: 'https://github.com/agent-cockpit/agent-cockpit' },
+    { label: 'Site', href: 'https://agent-cockpit.dev' },
+    { label: 'Source', href: 'https://github.com/agent-cockpit/agent-cockpit' },
     { label: 'npm', href: 'https://www.npmjs.com/package/@agentcockpit/agent-cockpit' },
   ],
   monity: [
-    { label: 'app', href: 'https://app.monity-finance.com' },
-    { label: 'site', href: 'https://monity-landing-page.vercel.app' },
-    { label: 'source', href: 'https://github.com/Monity-FinanceTracker/Monity' },
+    { label: 'App', href: 'https://app.monity-finance.com' },
+    { label: 'Site', href: 'https://monity-landing-page.vercel.app' },
+    { label: 'Source', href: 'https://github.com/Monity-FinanceTracker/Monity' },
   ],
-  sofia: [{ label: 'source', href: 'https://github.com/sofIA-Payment-Agent/sofIA-payment-agent' }],
+  sofia: [{ label: 'Source', href: 'https://github.com/sofIA-Payment-Agent/sofIA-payment-agent' }],
   postable: [
-    { label: 'app', href: 'https://app.thepostable.com' },
-    { label: 'site', href: 'https://thepostable.com' },
-    { label: 'source', href: 'https://github.com/postable-org/postable' },
+    { label: 'App', href: 'https://app.thepostable.com' },
+    { label: 'Site', href: 'https://thepostable.com' },
+    { label: 'Source', href: 'https://github.com/postable-org/postable' },
   ],
   algoflow: [
-    { label: 'app', href: 'https://app.thealgoflow.com' },
-    { label: 'site', href: 'https://thealgoflow.com' },
-    { label: 'source', href: 'https://github.com/TheAlgoFlow/AlgoFlow' },
+    { label: 'App', href: 'https://app.thealgoflow.com' },
+    { label: 'Site', href: 'https://thealgoflow.com' },
+    { label: 'Source', href: 'https://github.com/TheAlgoFlow/AlgoFlow' },
   ],
 };
 
@@ -153,27 +153,26 @@ const SKILLS = {
 export const content: Record<Lang, Content> = {
   en: {
     nav: {
-      about: 'about',
-      experience: 'experience',
-      projects: 'projects',
-      skills: 'skills',
-      contact: 'contact',
-      cv: 'cv',
+      about: 'About',
+      experience: 'Experience',
+      projects: 'Projects',
+      skills: 'Skills',
+      contact: 'Contact',
+      cv: 'CV',
     },
     hero: {
       name: 'Leonardo Stuart',
-      role: 'Software Engineer',
+      role: 'Software engineer',
       headline: 'I build customer-facing software used by a million people a month.',
       now: 'allu.',
       summary:
         'Software engineer on the growth team at allu., working on the customer-facing applications used by 1M+ people every month. Before that: payment infrastructure at allu., MCP tooling at dti Digital. Studying Computer Science at PUC Minas.',
-      status: 'Belo Horizonte, Brazil',
+      status: 'Belo Horizonte',
     },
     stats: [
-      { value: '1M+', label: 'monthly users of the apps I work on' },
-      { value: 'R$591K', label: 'revenue recovered in one month' },
-      { value: '98%', label: 'MCP token cost reduction' },
-      { value: '60K+', label: 'customers on payment infra I built' },
+      { value: 'R$ 591.791,91', label: 'recovered in one month by a failed-charge retry worker I built at allu.' },
+      { value: '1M+', label: 'people a month use the allu. apps I work on' },
+      { value: '98%', label: 'fewer context tokens in MCP tool discovery at dti Digital' },
     ],
     about: {
       title: 'About',
@@ -370,33 +369,32 @@ export const content: Record<Lang, Content> = {
       text: 'If you want to talk growth engineering, payments, agent tooling, or have something worth building together, email me.',
       email: 'leostuart05@gmail.com',
       links: SOCIAL,
-      footer: 'Leonardo Stuart · Belo Horizonte',
+      footer: 'Leonardo Stuart, Belo Horizonte',
     },
   },
 
   pt: {
     nav: {
-      about: 'sobre',
-      experience: 'experiência',
-      projects: 'projetos',
-      skills: 'skills',
-      contact: 'contato',
-      cv: 'cv',
+      about: 'Sobre',
+      experience: 'Experiência',
+      projects: 'Projetos',
+      skills: 'Skills',
+      contact: 'Contato',
+      cv: 'CV',
     },
     hero: {
       name: 'Leonardo Stuart',
-      role: 'Engenheiro de Software',
+      role: 'Engenheiro de software',
       headline: 'Construo produtos que um milhão de pessoas usam por mês.',
       now: 'allu.',
       summary:
         'Engenheiro de software no time de growth da allu., trabalhando nas aplicações voltadas ao cliente usadas por 1 milhão+ de pessoas por mês. Antes: infraestrutura de pagamentos na allu. e tooling MCP na dti Digital. Curso Ciência da Computação na PUC Minas.',
-      status: 'Belo Horizonte, Brasil',
+      status: 'Belo Horizonte',
     },
     stats: [
-      { value: '1M+', label: 'usuários mensais dos apps em que trabalho' },
-      { value: 'R$591K', label: 'receita recuperada em um mês' },
-      { value: '98%', label: 'redução de tokens no MCP' },
-      { value: '60K+', label: 'clientes na infra de pagamentos que construí' },
+      { value: 'R$ 591.791,91', label: 'recuperados em um mês por um worker de retentativa de cobranças que construí na allu.' },
+      { value: '1M+', label: 'pessoas por mês usam os apps da allu. em que trabalho' },
+      { value: '98%', label: 'menos tokens de contexto na descoberta de ferramentas MCP na dti Digital' },
     ],
     about: {
       title: 'Sobre',
@@ -593,7 +591,7 @@ export const content: Record<Lang, Content> = {
       text: 'Se quiser falar sobre engenharia de growth, pagamentos, tooling para agentes, ou tem algo que vale a pena construir junto, me mande um email.',
       email: 'leostuart05@gmail.com',
       links: SOCIAL,
-      footer: 'Leonardo Stuart · Belo Horizonte',
+      footer: 'Leonardo Stuart, Belo Horizonte',
     },
   },
 };

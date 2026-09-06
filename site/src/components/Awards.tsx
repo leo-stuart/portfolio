@@ -6,28 +6,22 @@ import Section, { Row } from './Section';
 export default function Awards() {
   const { t } = useLanguage();
   const edu = t.education;
+  const joiner = t.nav.about === 'Sobre' ? 'e' : '&';
 
   return (
-    <Section id="education" title={`${edu.title} & ${t.awards.title.toLowerCase()}`}>
-      <div className="border-t hairline">
+    <Section id="education" title={`${edu.title} ${joiner} ${t.awards.title.toLowerCase()}`}>
+      <dl className="border-t hairline">
         <Row left={edu.period}>
-          <p className="text-[14px] leading-6">
-            {edu.degree}
-            <span className="text-dim"> — </span>
-            <span className="text-muted">{edu.school}</span>
-          </p>
-          <p className="font-mono text-[12px] text-dim">{edu.note}</p>
+          {edu.degree}, {edu.school}
+          <span className="block text-[15px] italic text-dim">{edu.note}</span>
         </Row>
         {t.awards.items.map((a) => (
           <Row key={a.title} left={a.date}>
-            <p className="text-[14px] leading-6">
-              {a.title}
-              <span className="text-dim"> — </span>
-              <span className="text-accent">{a.place}</span>
-            </p>
+            {a.title}
+            <span className="text-muted">, {a.place}</span>
           </Row>
         ))}
-      </div>
+      </dl>
     </Section>
   );
 }

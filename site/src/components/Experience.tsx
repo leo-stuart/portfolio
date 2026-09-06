@@ -7,32 +7,33 @@ export default function Experience() {
   const { t } = useLanguage();
 
   return (
-    <Section id="experience" title={t.experience.title} meta={`${t.experience.jobs.length}`}>
-      <ol className="flex flex-col">
+    <Section id="experience" title={t.experience.title}>
+      {/* Chronological, so a timeline rule is honest here. */}
+      <ol className="relative ml-1 border-l hairline">
         {t.experience.jobs.map((job, i) => {
           const current = i === 0;
           return (
-            <li
-              key={`${job.company}-${job.period}`}
-              className={['py-7 first:pt-0 last:pb-0', i > 0 ? 'border-t hairline' : ''].join(' ')}
-            >
-              <div className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-1">
-                <h3 className="text-[16px] font-medium leading-6">
-                  {job.url ? (
-                    <a href={job.url} target="_blank" rel="noopener noreferrer" className="link">
-                      {job.company}
-                    </a>
-                  ) : (
-                    job.company
-                  )}
-                  <span className="font-normal text-muted"> — {job.role}</span>
-                </h3>
-                <span className="font-mono text-[12px] tabular-nums text-dim">
-                  {current && <span className="text-accent">● </span>}
-                  {job.period}
-                </span>
-              </div>
-              <p className="mt-0.5 font-mono text-[12px] text-dim">{job.location}</p>
+            <li key={`${job.company}-${job.period}`} className="relative pb-10 pl-7 last:pb-0">
+              <span
+                aria-hidden
+                className={[
+                  'absolute -left-[5px] top-[9px] h-[9px] w-[9px] rounded-full ring-4 ring-bg',
+                  current ? 'bg-accent' : 'bg-line-strong',
+                ].join(' ')}
+              />
+              <p className="font-display text-[13px] font-medium tabular-nums text-dim">{job.period}</p>
+              <h3 className="mt-1 font-display text-[21px] font-semibold leading-tight tracking-tight">
+                {job.url ? (
+                  <a href={job.url} target="_blank" rel="noopener noreferrer" className="link">
+                    {job.company}
+                  </a>
+                ) : (
+                  job.company
+                )}
+              </h3>
+              <p className="mt-0.5 text-[17px] italic text-muted">
+                {job.role}, {job.location}
+              </p>
               <div className="mt-4">
                 <Bullets items={job.bullets} />
               </div>

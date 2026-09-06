@@ -4,41 +4,52 @@ import Image from 'next/image';
 import { useLanguage } from '@/context/LanguageContext';
 
 export default function Hero() {
-  const { t } = useLanguage();
+  const { t, lang } = useLanguage();
+  const at = lang === 'pt' ? 'na' : 'at';
 
   return (
-    <section id="top" className="pt-10 pb-14 sm:pt-14 lg:pt-14 lg:pb-16">
-      <div className="flex items-center gap-4 lg:hidden">
+    <section
+      id="top"
+      className="grid gap-y-8 pt-12 pb-14 sm:pt-16 lg:grid-cols-[200px_minmax(0,1fr)] lg:gap-x-16 lg:pt-24 lg:pb-20"
+    >
+      <div>
         <Image
           src="/photo.jpg"
-          alt=""
-          width={48}
-          height={48}
+          alt="Leonardo Stuart"
+          width={160}
+          height={160}
           priority
-          className="h-12 w-12 rounded-md border hairline object-cover"
+          className="h-20 w-20 rounded-[4px] object-cover lg:h-40 lg:w-40"
         />
-        <div>
-          <p className="text-[16px] font-medium tracking-tight">{t.hero.name}</p>
-          <p className="font-mono text-[12px] text-dim">
-            {t.hero.role} · {t.hero.status}
-          </p>
-        </div>
       </div>
 
-      <h1 className="mt-8 max-w-[18ch] text-balance text-[34px] font-medium leading-[1.12] tracking-[-0.025em] sm:text-[42px] lg:mt-0 lg:text-[46px]">
-        {t.hero.headline}
-      </h1>
+      <div className="min-w-0">
+        <h1 className="font-display text-[44px] font-bold leading-[0.95] tracking-[-0.035em] sm:text-[64px] lg:text-[76px]">
+          {t.hero.name}
+        </h1>
+        <p className="mt-4 font-display text-[16px] text-muted sm:text-[17px]">
+          {t.hero.role} {at} {t.hero.now}, {t.hero.status}
+        </p>
 
-      <p className="mt-6 max-w-[58ch] text-[15px] leading-7 text-muted sm:text-[16px]">{t.hero.summary}</p>
+        <p className="mt-10 max-w-[26ch] text-[26px] leading-[1.3] tracking-[-0.01em] sm:text-[30px]">
+          {t.hero.headline}
+        </p>
+        <p className="mt-6 max-w-[62ch] text-[18px] leading-[1.6] text-muted">{t.hero.summary}</p>
 
-      <dl className="mt-10 grid grid-cols-2 gap-px overflow-hidden rounded-lg border hairline bg-line sm:grid-cols-4">
-        {t.stats.map((s) => (
-          <div key={s.label} className="bg-bg px-4 py-4">
-            <dd className="font-mono text-[22px] leading-none tabular-nums tracking-tight text-fg">{s.value}</dd>
-            <dt className="mt-2 text-[12px] leading-snug text-dim">{s.label}</dt>
-          </div>
-        ))}
-      </dl>
+        <dl className="mt-12 border-y hairline">
+          {t.stats.map((s) => (
+            <div
+              key={s.label}
+              className="grid items-baseline gap-x-8 gap-y-1 border-b hairline py-5 last:border-b-0 sm:grid-cols-[minmax(0,300px)_1fr]"
+            >
+              <dd className="font-display text-[34px] font-semibold leading-none tracking-[-0.02em] tabular-nums sm:text-[40px]">
+                {s.value}
+              </dd>
+              <dt className="font-serif text-[17px] leading-snug text-muted">{s.label}</dt>
+            </div>
+          ))}
+        </dl>
+      </div>
     </section>
   );
 }

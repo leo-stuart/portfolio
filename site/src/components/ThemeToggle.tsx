@@ -6,7 +6,7 @@ type Theme = 'light' | 'dark';
 
 function readTheme(): Theme {
   const t = document.documentElement.dataset.theme;
-  return t === 'light' || t === 'dark' ? t : 'dark';
+  return t === 'light' || t === 'dark' ? t : 'light';
 }
 
 export default function ThemeToggle() {
@@ -30,16 +30,16 @@ export default function ThemeToggle() {
     setTheme(next);
   };
 
+  const label = theme === 'dark' ? 'Light' : 'Dark';
+
   return (
     <button
       type="button"
       onClick={toggle}
       aria-label={theme === 'dark' ? 'Switch to light theme' : 'Switch to dark theme'}
-      className="shrink-0 cursor-pointer whitespace-nowrap font-mono text-[12px] text-dim transition-colors hover:text-muted"
+      className="shrink-0 cursor-pointer whitespace-nowrap font-display text-[14px] text-muted transition-colors hover:text-fg"
     >
-      <span className={theme === 'dark' ? 'text-fg' : ''}>dark</span>
-      <span className="text-line-strong"> / </span>
-      <span className={theme === 'light' ? 'text-fg' : ''}>light</span>
+      {theme ? label : 'Theme'}
     </button>
   );
 }
