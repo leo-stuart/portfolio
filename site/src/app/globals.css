@@ -1,15 +1,61 @@
 @import "tailwindcss";
 
-@theme {
-  --color-bg: #0a0a0b;
-  --color-panel: #111113;
-  --color-fg: #ececec;
-  --color-muted: #a3a3a3;
-  --color-dim: #666668;
-  --color-line: #1f1f22;
-  --color-line-strong: #2e2e33;
-  --color-accent: #e5a542;
-  --color-ok: #3fb950;
+/* Palette. Light is the base; dark overrides via data-theme (set before paint)
+   or via prefers-color-scheme when JS is unavailable. */
+:root {
+  color-scheme: light;
+  --c-bg: #fafafa;
+  --c-panel: #f1f1f1;
+  --c-fg: #141414;
+  --c-muted: #555555;
+  --c-dim: #8a8a8a;
+  --c-line: #e6e6e6;
+  --c-line-strong: #cfcfcf;
+  --c-accent: #b3640f;
+  --c-ok: #15803d;
+  --c-selection-fg: #fafafa;
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --c-bg: #0a0a0b;
+  --c-panel: #111113;
+  --c-fg: #ececec;
+  --c-muted: #a3a3a3;
+  --c-dim: #666668;
+  --c-line: #1f1f22;
+  --c-line-strong: #2e2e33;
+  --c-accent: #e5a542;
+  --c-ok: #3fb950;
+  --c-selection-fg: #0a0a0b;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --c-bg: #0a0a0b;
+    --c-panel: #111113;
+    --c-fg: #ececec;
+    --c-muted: #a3a3a3;
+    --c-dim: #666668;
+    --c-line: #1f1f22;
+    --c-line-strong: #2e2e33;
+    --c-accent: #e5a542;
+    --c-ok: #3fb950;
+    --c-selection-fg: #0a0a0b;
+  }
+}
+
+@theme inline {
+  --color-bg: var(--c-bg);
+  --color-panel: var(--c-panel);
+  --color-fg: var(--c-fg);
+  --color-muted: var(--c-muted);
+  --color-dim: var(--c-dim);
+  --color-line: var(--c-line);
+  --color-line-strong: var(--c-line-strong);
+  --color-accent: var(--c-accent);
+  --color-ok: var(--c-ok);
   --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
   --font-mono: var(--font-geist-mono), ui-monospace, "SF Mono", Menlo, monospace;
 }
@@ -22,7 +68,7 @@
   html {
     scroll-behavior: smooth;
     scroll-padding-top: 72px;
-    background-color: var(--color-bg);
+    background-color: var(--c-bg);
   }
 
   @media (min-width: 1024px) {
@@ -32,23 +78,24 @@
   }
 
   body {
-    background-color: var(--color-bg);
-    color: var(--color-fg);
+    background-color: var(--c-bg);
+    color: var(--c-fg);
     font-family: var(--font-sans);
     font-size: 15px;
     line-height: 1.6;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
+    transition: background-color 150ms ease, color 150ms ease;
   }
 
   ::selection {
-    background: var(--color-accent);
-    color: #0a0a0b;
+    background: var(--c-accent);
+    color: var(--c-selection-fg);
   }
 
   :focus-visible {
-    outline: 1px solid var(--color-accent);
+    outline: 1px solid var(--c-accent);
     outline-offset: 3px;
   }
 
@@ -60,27 +107,23 @@
 
 @utility link {
   text-decoration: underline;
-  text-decoration-color: var(--color-line-strong);
+  text-decoration-color: var(--c-line-strong);
   text-underline-offset: 4px;
   transition: text-decoration-color 120ms ease, color 120ms ease;
   &:hover {
-    color: var(--color-fg);
-    text-decoration-color: var(--color-accent);
+    color: var(--c-fg);
+    text-decoration-color: var(--c-accent);
   }
 }
 
 @utility hairline {
-  border-color: var(--color-line);
-}
-
-@utility hl {
-  color: var(--color-fg);
+  border-color: var(--c-line);
 }
 
 @keyframes pulse-dot {
   0%,
   100% {
-    box-shadow: 0 0 0 0 color-mix(in srgb, var(--color-ok) 45%, transparent);
+    box-shadow: 0 0 0 0 color-mix(in srgb, var(--c-ok) 45%, transparent);
   }
   70% {
     box-shadow: 0 0 0 6px transparent;
@@ -92,7 +135,7 @@
   width: 7px;
   height: 7px;
   border-radius: 9999px;
-  background: var(--color-ok);
+  background: var(--c-ok);
   animation: pulse-dot 2.4s ease-out infinite;
 }
 

@@ -25,7 +25,7 @@ export default function Hero() {
         </div>
       </div>
 
-      <h1 className="mt-8 max-w-[18ch] text-[34px] font-medium leading-[1.12] tracking-[-0.025em] sm:text-[42px] lg:mt-0 lg:text-[46px]">
+      <h1 className="mt-8 max-w-[18ch] text-balance text-[34px] font-medium leading-[1.12] tracking-[-0.025em] sm:text-[42px] lg:mt-0 lg:text-[46px]">
         {t.hero.headline}
       </h1>
 

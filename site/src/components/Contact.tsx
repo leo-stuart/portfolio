@@ -38,7 +38,14 @@ export default function Contact() {
         <span>
           © {new Date().getFullYear()} {t.contact.footer}
         </span>
-        <span>next.js · vercel</span>
+        <a
+          href={`https://github.com/leo-stuart/portfolio/commit/${process.env.NEXT_PUBLIC_COMMIT_SHA}`}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="link tabular-nums"
+        >
+          {process.env.NEXT_PUBLIC_COMMIT_SHA} · {process.env.NEXT_PUBLIC_BUILD_DATE}
+        </a>
       </footer>
     </>
   );

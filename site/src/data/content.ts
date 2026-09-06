@@ -192,6 +192,7 @@ export const content: Record<Lang, Content> = {
         {
           role: 'Software Engineering Intern',
           company: 'allu.',
+          url: 'https://www.allu.com.br',
           period: 'Apr 2026 — present',
           location: 'Belo Horizonte',
           bullets: [
@@ -204,6 +205,7 @@ export const content: Record<Lang, Content> = {
         {
           role: 'Software Engineering Intern',
           company: 'dti Digital',
+          url: 'https://www.dtidigital.com.br',
           period: 'Sep 2025 — Apr 2026',
           location: 'Belo Horizonte',
           bullets: [
@@ -225,6 +227,7 @@ export const content: Record<Lang, Content> = {
         {
           role: 'Backend Developer',
           company: 'PUC COMP (junior enterprise)',
+          url: 'https://www.puccomp.com.br',
           period: 'May 2025 — Sep 2025',
           location: 'Belo Horizonte',
           bullets: [
@@ -412,6 +415,7 @@ export const content: Record<Lang, Content> = {
         {
           role: 'Estagiário de Engenharia de Software',
           company: 'allu.',
+          url: 'https://www.allu.com.br',
           period: 'Abr 2026 — atual',
           location: 'Belo Horizonte',
           bullets: [
@@ -424,6 +428,7 @@ export const content: Record<Lang, Content> = {
         {
           role: 'Estagiário de Engenharia de Software',
           company: 'dti Digital',
+          url: 'https://www.dtidigital.com.br',
           period: 'Set 2025 — Abr 2026',
           location: 'Belo Horizonte',
           bullets: [
@@ -445,6 +450,7 @@ export const content: Record<Lang, Content> = {
         {
           role: 'Desenvolvedor Backend',
           company: 'PUC COMP (empresa júnior)',
+          url: 'https://www.puccomp.com.br',
           period: 'Mai 2025 — Set 2025',
           location: 'Belo Horizonte',
           bullets: [

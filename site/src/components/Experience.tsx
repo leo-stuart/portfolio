@@ -18,7 +18,13 @@ export default function Experience() {
             >
               <div className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-1">
                 <h3 className="text-[16px] font-medium leading-6">
-                  {job.company}
+                  {job.url ? (
+                    <a href={job.url} target="_blank" rel="noopener noreferrer" className="link">
+                      {job.company}
+                    </a>
+                  ) : (
+                    job.company
+                  )}
                   <span className="font-normal text-muted"> — {job.role}</span>
                 </h3>
                 <span className="font-mono text-[12px] tabular-nums text-dim">

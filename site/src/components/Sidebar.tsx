@@ -6,6 +6,7 @@ import { useLanguage } from '@/context/LanguageContext';
 import { useActiveSection } from '@/hooks/useActiveSection';
 import Clock from './Clock';
 import LangToggle from './LangToggle';
+import ThemeToggle from './ThemeToggle';
 
 export default function Sidebar() {
   const { t } = useLanguage();
@@ -101,14 +102,17 @@ export default function Sidebar() {
           </li>
         </ul>
 
-        <div className="flex items-center justify-between gap-3 border-t hairline pt-4 text-dim">
-          <span className="flex items-center gap-2 truncate whitespace-nowrap">
+        <div className="flex flex-col gap-2 border-t hairline pt-4 text-dim">
+          <span className="flex items-center gap-2 whitespace-nowrap">
             <span className="status-dot" aria-hidden />
             {t.hero.status.split(',')[0]}
-            <span className="text-line-strong"> · </span>
+            <span className="text-line-strong">·</span>
             <Clock />
           </span>
-          <LangToggle />
+          <span className="flex items-center gap-4">
+            <ThemeToggle />
+            <LangToggle />
+          </span>
         </div>
       </div>
     </aside>
