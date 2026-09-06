@@ -8,48 +8,50 @@ export default function Hero() {
   const at = lang === 'pt' ? 'na' : 'at';
 
   return (
-    <section
-      id="top"
-      className="grid gap-y-8 pt-12 pb-14 sm:pt-16 lg:grid-cols-[200px_minmax(0,1fr)] lg:gap-x-16 lg:pt-24 lg:pb-20"
-    >
-      <div>
-        <Image
-          src="/photo.jpg"
-          alt="Leonardo Stuart"
-          width={160}
-          height={160}
-          priority
-          className="h-20 w-20 rounded-[4px] object-cover lg:h-40 lg:w-40"
-        />
+    <section id="top" className="pt-12 sm:pt-16 lg:pt-20">
+      <div className="grid items-center gap-10 lg:grid-cols-[minmax(0,7fr)_minmax(0,5fr)] lg:gap-16">
+        <div className="min-w-0">
+          <p className="flex items-center gap-2 text-[14px] text-muted">
+            <span className="status-dot" aria-hidden />
+            {t.hero.role} {at} {t.hero.now}, {t.hero.status}
+          </p>
+          <h1 className="mt-5 max-w-[16ch] text-balance text-[38px] font-semibold leading-[1.08] tracking-[-0.03em] sm:text-[52px] lg:text-[58px]">
+            {t.hero.headline}
+          </h1>
+          <p className="mt-6 max-w-[56ch] text-[16px] leading-[1.65] text-muted sm:text-[17px]">
+            {t.hero.summary}
+          </p>
+          <div className="mt-8 flex flex-wrap gap-3">
+            <a href="#projects" className="btn btn-primary">
+              {t.hero.viewWork}
+            </a>
+            <a href={`mailto:${t.contact.email}`} className="btn btn-secondary">
+              {t.hero.getInTouch}
+            </a>
+          </div>
+        </div>
+
+        <div className="relative mx-auto w-full max-w-[420px] lg:max-w-none">
+          <Image
+            src="/photo.jpg"
+            alt="Leonardo Stuart"
+            width={1274}
+            height={1274}
+            priority
+            sizes="(min-width: 1024px) 460px, 100vw"
+            className="aspect-square w-full rounded-2xl object-cover"
+          />
+        </div>
       </div>
 
-      <div className="min-w-0">
-        <h1 className="font-display text-[44px] font-bold leading-[0.95] tracking-[-0.035em] sm:text-[64px] lg:text-[76px]">
-          {t.hero.name}
-        </h1>
-        <p className="mt-4 font-display text-[16px] text-muted sm:text-[17px]">
-          {t.hero.role} {at} {t.hero.now}, {t.hero.status}
-        </p>
-
-        <p className="mt-10 max-w-[26ch] text-[26px] leading-[1.3] tracking-[-0.01em] sm:text-[30px]">
-          {t.hero.headline}
-        </p>
-        <p className="mt-6 max-w-[62ch] text-[18px] leading-[1.6] text-muted">{t.hero.summary}</p>
-
-        <dl className="mt-12 border-y hairline">
-          {t.stats.map((s) => (
-            <div
-              key={s.label}
-              className="grid items-baseline gap-x-8 gap-y-1 border-b hairline py-5 last:border-b-0 sm:grid-cols-[minmax(0,300px)_1fr]"
-            >
-              <dd className="font-display text-[34px] font-semibold leading-none tracking-[-0.02em] tabular-nums sm:text-[40px]">
-                {s.value}
-              </dd>
-              <dt className="font-serif text-[17px] leading-snug text-muted">{s.label}</dt>
-            </div>
-          ))}
-        </dl>
-      </div>
+      <dl className="mt-14 grid gap-px overflow-hidden rounded-xl border hairline bg-line sm:grid-cols-3">
+        {t.stats.map((s) => (
+          <div key={s.label} className="bg-bg px-6 py-5">
+            <dd className="text-[30px] font-semibold leading-none tracking-[-0.02em] tabular-nums">{s.value}</dd>
+            <dt className="mt-2 text-[14px] leading-snug text-muted">{s.label}</dt>
+          </div>
+        ))}
+      </dl>
     </section>
   );
 }

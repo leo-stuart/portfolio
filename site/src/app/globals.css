@@ -1,48 +1,57 @@
 @import "tailwindcss";
 
-/* Paper and ink. Light is the base; dark via data-theme (set before paint)
-   or prefers-color-scheme when JS is unavailable. */
+/* Neutral palette, no tint. Light is the base; dark via data-theme
+   (set before paint) or prefers-color-scheme when JS is unavailable. */
 :root {
   color-scheme: light;
   --c-bg: #ffffff;
-  --c-panel: #f4f4f2;
-  --c-fg: #15171c;
-  --c-muted: #5b5f6a;
-  --c-dim: #8b8f99;
-  --c-line: #e3e4e1;
-  --c-line-strong: #c9cbc7;
-  --c-accent: #1f3bc7;
-  --c-ok: #1b8a4c;
-  --c-selection-fg: #ffffff;
+  --c-panel: #fafafa;
+  --c-fg: #0a0a0a;
+  --c-muted: #525252;
+  --c-dim: #737373;
+  --c-line: #e5e5e5;
+  --c-line-strong: #d4d4d4;
+  --c-accent: #2563eb;
+  --c-ok: #16a34a;
+  --c-btn-bg: #0a0a0a;
+  --c-btn-fg: #ffffff;
+  --c-btn-shadow: 0 1px 2px rgb(10 10 10 / 0.22);
+  --c-btn-shadow-hover: 0 4px 14px rgb(10 10 10 / 0.26);
 }
 
 :root[data-theme="dark"] {
   color-scheme: dark;
-  --c-bg: #121317;
-  --c-panel: #1a1c22;
-  --c-fg: #ecebe6;
-  --c-muted: #a7aab3;
-  --c-dim: #6f737d;
-  --c-line: #272a32;
-  --c-line-strong: #383c46;
-  --c-accent: #93a4ff;
-  --c-ok: #4cc26e;
-  --c-selection-fg: #121317;
+  --c-bg: #0a0a0a;
+  --c-panel: #141414;
+  --c-fg: #fafafa;
+  --c-muted: #a3a3a3;
+  --c-dim: #737373;
+  --c-line: #262626;
+  --c-line-strong: #404040;
+  --c-accent: #60a5fa;
+  --c-ok: #22c55e;
+  --c-btn-bg: #fafafa;
+  --c-btn-fg: #0a0a0a;
+  --c-btn-shadow: 0 1px 2px rgb(0 0 0 / 0.6);
+  --c-btn-shadow-hover: 0 4px 16px rgb(250 250 250 / 0.16);
 }
 
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
     color-scheme: dark;
-    --c-bg: #121317;
-    --c-panel: #1a1c22;
-    --c-fg: #ecebe6;
-    --c-muted: #a7aab3;
-    --c-dim: #6f737d;
-    --c-line: #272a32;
-    --c-line-strong: #383c46;
-    --c-accent: #93a4ff;
-    --c-ok: #4cc26e;
-    --c-selection-fg: #121317;
+    --c-bg: #0a0a0a;
+    --c-panel: #141414;
+    --c-fg: #fafafa;
+    --c-muted: #a3a3a3;
+    --c-dim: #737373;
+    --c-line: #262626;
+    --c-line-strong: #404040;
+    --c-accent: #60a5fa;
+    --c-ok: #22c55e;
+    --c-btn-bg: #fafafa;
+    --c-btn-fg: #0a0a0a;
+    --c-btn-shadow: 0 1px 2px rgb(0 0 0 / 0.6);
+    --c-btn-shadow-hover: 0 4px 16px rgb(250 250 250 / 0.16);
   }
 }
 
@@ -56,8 +65,9 @@
   --color-line-strong: var(--c-line-strong);
   --color-accent: var(--c-accent);
   --color-ok: var(--c-ok);
-  --font-display: var(--font-display), "Helvetica Neue", Arial, sans-serif;
-  --font-serif: var(--font-serif), Georgia, "Times New Roman", serif;
+  --color-btn-bg: var(--c-btn-bg);
+  --color-btn-fg: var(--c-btn-fg);
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, -apple-system, sans-serif;
 }
 
 @layer base {
@@ -67,39 +77,30 @@
 
   html {
     scroll-behavior: smooth;
-    scroll-padding-top: 80px;
+    scroll-padding-top: 72px;
     background-color: var(--c-bg);
   }
 
   body {
     background-color: var(--c-bg);
     color: var(--c-fg);
-    font-family: var(--font-serif);
-    font-size: 18px;
+    font-family: var(--font-sans);
+    font-size: 15px;
     line-height: 1.6;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
-    font-feature-settings: "kern", "liga", "onum" 0;
-  }
-
-  h1,
-  h2,
-  h3,
-  dt,
-  button,
-  nav {
-    font-family: var(--font-display);
+    font-feature-settings: "cv11", "ss01";
   }
 
   ::selection {
-    background: var(--c-accent);
-    color: var(--c-selection-fg);
+    background: var(--c-fg);
+    color: var(--c-bg);
   }
 
   :focus-visible {
     outline: 2px solid var(--c-accent);
-    outline-offset: 3px;
+    outline-offset: 2px;
   }
 
   a {
@@ -108,16 +109,15 @@
   }
 }
 
-/* Reading links: thin underline that fills on hover. */
 @utility link {
   text-decoration: underline;
   text-decoration-thickness: 1px;
   text-decoration-color: var(--c-line-strong);
-  text-underline-offset: 0.18em;
+  text-underline-offset: 3px;
   transition: text-decoration-color 120ms ease, color 120ms ease;
   &:hover {
-    color: var(--c-accent);
-    text-decoration-color: var(--c-accent);
+    color: var(--c-fg);
+    text-decoration-color: var(--c-fg);
   }
 }
 
@@ -125,17 +125,81 @@
   border-color: var(--c-line);
 }
 
-/* Dash-marked lists for bullets, keeps the serif rhythm. */
+@layer components {
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    height: 44px;
+    padding: 0 1.125rem;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: -0.01em;
+    white-space: nowrap;
+    cursor: pointer;
+    transition: transform 120ms ease, box-shadow 120ms ease, background-color 120ms ease,
+      border-color 120ms ease, color 120ms ease;
+  }
+
+  .btn-primary {
+    background: var(--c-btn-bg);
+    color: var(--c-btn-fg);
+    box-shadow: var(--c-btn-shadow);
+  }
+
+  .btn-primary:hover {
+    transform: translateY(-1px);
+    box-shadow: var(--c-btn-shadow-hover);
+  }
+
+  .btn-secondary {
+    background: var(--c-bg);
+    color: var(--c-fg);
+    box-shadow: inset 0 0 0 1px var(--c-line-strong);
+  }
+
+  .btn-secondary:hover {
+    background: var(--c-panel);
+    box-shadow: inset 0 0 0 1px var(--c-fg);
+  }
+
+  .btn:active {
+    transform: translateY(0);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .btn:hover,
+    .btn:active {
+      transform: none;
+    }
+  }
+}
+
+@utility card {
+  border: 1px solid var(--c-line);
+  border-radius: 12px;
+  background: var(--c-bg);
+  transition: border-color 120ms ease;
+  &:hover {
+    border-color: var(--c-line-strong);
+  }
+}
+
 @utility dash-list {
   & > li {
     position: relative;
-    padding-left: 1.25rem;
+    padding-left: 1.1rem;
   }
   & > li::before {
-    content: "–";
+    content: "";
     position: absolute;
     left: 0;
-    color: var(--c-dim);
+    top: 0.72em;
+    width: 0.5rem;
+    height: 1px;
+    background: var(--c-line-strong);
   }
 }
 

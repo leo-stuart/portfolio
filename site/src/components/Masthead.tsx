@@ -1,7 +1,6 @@
 'use client';
 
 import { useMemo } from 'react';
-import Image from 'next/image';
 import { useLanguage } from '@/context/LanguageContext';
 import { useActiveSection } from '@/hooks/useActiveSection';
 import Clock from './Clock';
@@ -25,21 +24,13 @@ export default function Masthead() {
   const active = useActiveSection(ids);
 
   return (
-    <header className="sticky top-0 z-50 border-b hairline bg-bg/85 backdrop-blur-md">
-      <div className="mx-auto flex h-14 w-full max-w-[1040px] items-center justify-between gap-6 px-5 font-display text-[14px] sm:px-8">
-        <a href="#top" className="flex items-center gap-3 font-semibold tracking-tight">
-          <Image
-            src="/photo.jpg"
-            alt=""
-            width={28}
-            height={28}
-            priority
-            className="h-7 w-7 rounded-full object-cover"
-          />
+    <header className="sticky top-0 z-50 border-b hairline bg-bg/80 backdrop-blur-md">
+      <div className="mx-auto flex h-14 w-full max-w-[1200px] items-center justify-between gap-6 px-5 text-[14px] sm:px-8">
+        <a href="#top" className="font-semibold tracking-tight">
           {t.hero.name}
         </a>
 
-        <nav aria-label="Sections" className="hidden items-center gap-6 md:flex">
+        <nav aria-label="Sections" className="hidden items-center gap-1 md:flex">
           {nav.map((n) => {
             const isActive = active === n.id;
             return (
@@ -48,8 +39,8 @@ export default function Masthead() {
                 href={`#${n.id}`}
                 aria-current={isActive ? 'location' : undefined}
                 className={[
-                  'transition-colors',
-                  isActive ? 'text-accent' : 'text-muted hover:text-fg',
+                  'rounded-md px-3 py-1.5 transition-colors',
+                  isActive ? 'bg-panel text-fg' : 'text-muted hover:text-fg',
                 ].join(' ')}
               >
                 {n.label}
@@ -58,7 +49,7 @@ export default function Masthead() {
           })}
         </nav>
 
-        <div className="flex items-center gap-5 text-muted">
+        <div className="flex items-center gap-4 text-muted">
           <span className="hidden items-center gap-2 tabular-nums text-dim lg:flex">
             <span className="status-dot" aria-hidden />
             <Clock />

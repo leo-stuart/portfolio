@@ -62,6 +62,8 @@ export interface Content {
     summary: string;
     status: string;
     now: string;
+    viewWork: string;
+    getInTouch: string;
   };
   stats: Stat[];
   about: {
@@ -165,14 +167,16 @@ export const content: Record<Lang, Content> = {
       role: 'Software engineer',
       headline: 'I build customer-facing software used by a million people a month.',
       now: 'allu.',
+      viewWork: 'See projects',
+      getInTouch: 'Email me',
       summary:
         'Software engineer on the growth team at allu., working on the customer-facing applications used by 1M+ people every month. Before that: payment infrastructure at allu., MCP tooling at dti Digital. Studying Computer Science at PUC Minas.',
       status: 'Belo Horizonte',
     },
     stats: [
-      { value: 'R$ 591.791,91', label: 'recovered in one month by a failed-charge retry worker I built at allu.' },
-      { value: '1M+', label: 'people a month use the allu. apps I work on' },
-      { value: '98%', label: 'fewer context tokens in MCP tool discovery at dti Digital' },
+      { value: '1M+', label: 'monthly users of the allu. apps I work on' },
+      { value: 'R$ 591K', label: 'recovered in one month by a retry worker I built' },
+      { value: '98%', label: 'fewer context tokens in MCP tool discovery' },
     ],
     about: {
       title: 'About',
@@ -387,14 +391,16 @@ export const content: Record<Lang, Content> = {
       role: 'Engenheiro de software',
       headline: 'Construo produtos que um milhão de pessoas usam por mês.',
       now: 'allu.',
+      viewWork: 'Ver projetos',
+      getInTouch: 'Me mande um email',
       summary:
         'Engenheiro de software no time de growth da allu., trabalhando nas aplicações voltadas ao cliente usadas por 1 milhão+ de pessoas por mês. Antes: infraestrutura de pagamentos na allu. e tooling MCP na dti Digital. Curso Ciência da Computação na PUC Minas.',
       status: 'Belo Horizonte',
     },
     stats: [
-      { value: 'R$ 591.791,91', label: 'recuperados em um mês por um worker de retentativa de cobranças que construí na allu.' },
-      { value: '1M+', label: 'pessoas por mês usam os apps da allu. em que trabalho' },
-      { value: '98%', label: 'menos tokens de contexto na descoberta de ferramentas MCP na dti Digital' },
+      { value: '1M+', label: 'usuários mensais dos apps da allu. em que trabalho' },
+      { value: 'R$ 591K', label: 'recuperados em um mês por um worker de retentativa que construí' },
+      { value: '98%', label: 'menos tokens de contexto na descoberta de ferramentas MCP' },
     ],
     about: {
       title: 'Sobre',
