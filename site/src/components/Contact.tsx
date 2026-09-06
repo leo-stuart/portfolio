@@ -34,18 +34,8 @@ export default function Contact() {
         </ul>
       </Section>
 
-      <footer className="flex flex-wrap items-center justify-between gap-2 border-t hairline pt-6 font-mono text-[12px] text-dim">
-        <span>
-          © {new Date().getFullYear()} {t.contact.footer}
-        </span>
-        <a
-          href={`https://github.com/leo-stuart/portfolio/commit/${process.env.NEXT_PUBLIC_COMMIT_SHA}`}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="link tabular-nums"
-        >
-          {process.env.NEXT_PUBLIC_COMMIT_SHA} · {process.env.NEXT_PUBLIC_BUILD_DATE}
-        </a>
+      <footer className="border-t hairline pt-6 font-mono text-[12px] text-dim">
+        © {new Date().getFullYear()} {t.contact.footer}
       </footer>
     </>
   );
