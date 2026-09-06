@@ -1,41 +1,189 @@
 export type Lang = 'en' | 'pt';
 
-export interface ProjectItem {
-  name: string;
-  description: string;
-  metric: string;
-  metricLabel: string;
-  impact: string;
-  tech: string[];
-  github: string | null;
-  live: string | null;
-  landing: string | null;
-  role: string;
+export interface Link {
+  label: string;
+  href: string;
 }
 
-export const content = {
+export interface Job {
+  role: string;
+  company: string;
+  url?: string;
+  period: string;
+  location: string;
+  bullets: string[];
+}
+
+export interface Project {
+  name: string;
+  period: string;
+  role: string;
+  summary: string;
+  highlights: string[];
+  tech: string[];
+  links: Link[];
+  image?: string;
+}
+
+export interface Stat {
+  value: string;
+  label: string;
+}
+
+export interface Fact {
+  label: string;
+  value: string;
+}
+
+export interface SkillGroup {
+  label: string;
+  items: string[];
+}
+
+export interface Award {
+  title: string;
+  place: string;
+  date: string;
+}
+
+export interface Content {
+  nav: {
+    about: string;
+    experience: string;
+    projects: string;
+    skills: string;
+    contact: string;
+    cv: string;
+  };
+  hero: {
+    name: string;
+    role: string;
+    headline: string;
+    summary: string;
+    status: string;
+    now: string;
+  };
+  stats: Stat[];
+  about: {
+    title: string;
+    bio: string;
+    facts: Fact[];
+  };
+  experience: {
+    title: string;
+    jobs: Job[];
+  };
+  projects: {
+    title: string;
+    items: Project[];
+  };
+  skills: {
+    title: string;
+    groups: SkillGroup[];
+  };
+  education: {
+    title: string;
+    school: string;
+    degree: string;
+    period: string;
+    note: string;
+  };
+  awards: {
+    title: string;
+    items: Award[];
+  };
+  contact: {
+    title: string;
+    text: string;
+    email: string;
+    links: Link[];
+    footer: string;
+  };
+}
+
+const SOCIAL: Link[] = [
+  { label: 'github.com/leo-stuart', href: 'https://github.com/leo-stuart' },
+  { label: 'linkedin.com/in/leonardo-stuart', href: 'https://linkedin.com/in/leonardo-stuart' },
+];
+
+const PROJECT_LINKS = {
+  courty: [{ label: 'site', href: 'https://www.courtyapp.com' }],
+  cockpit: [
+    { label: 'site', href: 'https://agent-cockpit.dev' },
+    { label: 'source', href: 'https://github.com/agent-cockpit/agent-cockpit' },
+    { label: 'npm', href: 'https://www.npmjs.com/package/@agentcockpit/agent-cockpit' },
+  ],
+  monity: [
+    { label: 'app', href: 'https://app.monity-finance.com' },
+    { label: 'site', href: 'https://monity-landing-page.vercel.app' },
+    { label: 'source', href: 'https://github.com/Monity-FinanceTracker/Monity' },
+  ],
+  sofia: [{ label: 'source', href: 'https://github.com/sofIA-Payment-Agent/sofIA-payment-agent' }],
+  postable: [
+    { label: 'app', href: 'https://app.thepostable.com' },
+    { label: 'site', href: 'https://thepostable.com' },
+    { label: 'source', href: 'https://github.com/postable-org/postable' },
+  ],
+  algoflow: [
+    { label: 'app', href: 'https://app.thealgoflow.com' },
+    { label: 'site', href: 'https://thealgoflow.com' },
+    { label: 'source', href: 'https://github.com/TheAlgoFlow/AlgoFlow' },
+  ],
+};
+
+const TECH = {
+  courty: ['TypeScript', 'Express 5', 'Prisma', 'PostgreSQL', 'Redis', 'Socket.io', 'Asaas', 'Expo', 'Next.js'],
+  cockpit: ['TypeScript', 'Node.js', 'node-pty', 'WebSocket', 'SQLite', 'Vitest'],
+  monity: ['React', 'React Native', 'Node.js', 'PostgreSQL', 'Supabase', 'AWS', 'GitHub Actions'],
+  behold: ['Python', 'FastAPI', 'GraphQL', 'Shopify', 'Google ADK', 'Gemini 2.0 Flash', 'MCP'],
+  sofia: ['Python', 'FastAPI', 'Google ADK', 'Gemini 2.5 Flash', 'AP2', 'Node.js', 'PostgreSQL', 'Docker'],
+  postable: ['Go', 'Next.js', 'PostgreSQL', 'Supabase', 'Stripe', 'Docker'],
+  algoflow: ['Next.js', 'TypeScript', 'Tailwind CSS', 'Recharts'],
+};
+
+const SKILLS = {
+  languages: ['Python', 'TypeScript', 'JavaScript', 'Go', 'Java', 'SQL'],
+  backend: ['FastAPI', 'Node.js', 'Spring Boot', 'GraphQL', 'REST', 'JSON-RPC'],
+  frontend: ['React', 'Next.js', 'React Native', 'Tailwind CSS'],
+  data: ['PostgreSQL', 'Redis', 'Supabase'],
+  infra: ['AWS (S3, CloudFront, CLI)', 'Docker', 'GitHub Actions', 'CI/CD'],
+  ai: ['Model Context Protocol', 'Google ADK', 'Gemini', 'n8n'],
+};
+
+export const content: Record<Lang, Content> = {
   en: {
     nav: {
-      about: 'About',
-      experience: 'Experience',
-      projects: 'Projects',
-      skills: 'Skills',
-      contact: 'Contact',
-      downloadCV: 'Download CV',
+      about: 'about',
+      experience: 'experience',
+      projects: 'projects',
+      skills: 'skills',
+      contact: 'contact',
+      cv: 'cv',
     },
     hero: {
-      eyebrow: '> role.current',
-      roles: ['Software Engineer', 'AI Engineer', 'Full-Stack Developer'],
-      tagline: 'Building scalable systems at the intersection of AI and infrastructure.',
-      viewWork: 'View Projects',
-      getInTouch: 'Get in Touch',
+      name: 'Leonardo Stuart',
+      role: 'Software Engineer',
+      headline: 'I build customer-facing software used by a million people a month.',
+      now: 'allu.',
+      summary:
+        'Software engineer on the growth team at allu., working on the customer-facing applications used by 1M+ people every month. Before that: payment infrastructure at allu., MCP tooling at dti Digital. Studying Computer Science at PUC Minas.',
+      status: 'Belo Horizonte, Brazil',
     },
+    stats: [
+      { value: '1M+', label: 'monthly users of the apps I work on' },
+      { value: 'R$591K', label: 'revenue recovered in one month' },
+      { value: '98%', label: 'MCP token cost reduction' },
+      { value: '60K+', label: 'customers on payment infra I built' },
+    ],
     about: {
       title: 'About',
-      bio: "I'm a software engineer based in Belo Horizonte, Brazil, specializing in AI systems, backend infrastructure, and full-stack development. I'm currently pursuing a Computer Science degree at PUC Minas while running two simultaneous internships — building production-grade AI agents and automation systems.",
-      stats: [
-        { value: '1,000+', label: 'Users Impacted' },
-        { value: '1+', label: 'Year of Experience' },
+      bio: 'Software engineer with production experience across fintech, consulting, e-commerce and enterprise chatbot platforms. I like owning problems end to end: from the data model and the queue to the API and the UI. My recent work spans customer-facing product at scale, payment infrastructure and LLM tooling.',
+      facts: [
+        { label: 'now', value: 'Software Engineering Intern at allu., growth team' },
+        { label: 'education', value: 'B.Sc. Computer Science, PUC Minas (2025–2028)' },
+        { label: 'focus', value: 'growth engineering, payments, AI integration' },
+        { label: 'languages', value: 'Portuguese (native), English (C1, Cambridge)' },
+        { label: 'location', value: 'Belo Horizonte, MG, Brazil' },
       ],
     },
     experience: {
@@ -43,148 +191,219 @@ export const content = {
       jobs: [
         {
           role: 'Software Engineering Intern',
-          company: 'dti Digital',
-          period: 'Sep 2025 — Present',
-          location: 'Belo Horizonte, MG',
+          company: 'allu.',
+          period: 'Apr 2026 — present',
+          location: 'Belo Horizonte',
           bullets: [
-            'Reduced MCP Server context token consumption by 98% implementing MCP Optimizer, cutting API costs and improving chatbot response latency',
-            'Architected and migrated FastAPI chatbot infrastructure from legacy routing to Model Context Protocol (MCP) using JSON-RPC, ensuring scalability for production AI agent systems',
-            'Delivered end-to-end features from design to deployment — covering API integration, MCP tooling, and production testing',
+            'Now on the growth team, building and maintaining allu.\'s customer-facing applications, used by 1M+ people a month.',
+            'Previously worked on payment infrastructure projects on a platform processing millions of reais monthly for a 60K+ customer base.',
+            'Built a failed-charge retry system on Supabase Edge Functions as a serverless worker, batch-processing a PostgreSQL-backed queue. Recovered R$591,791.91 in a single month with no added infrastructure cost.',
+            'Designed a proprietary white-label payment gateway with multi-tenant isolation and real-time webhook event delivery, reusable across client-facing products.',
+          ],
+        },
+        {
+          role: 'Software Engineering Intern',
+          company: 'dti Digital',
+          period: 'Sep 2025 — Apr 2026',
+          location: 'Belo Horizonte',
+          bullets: [
+            'Cut context token consumption in MCP server tool discovery by 98% by building MCP Optimizer, lowering API cost and chatbot latency.',
+            'Designed and migrated FastAPI chatbot infrastructure from legacy routing to Model Context Protocol over JSON-RPC.',
+            'Shipped production features on FastAPI and MCP used daily by 1,000+ people, reducing manual task time in internal operations.',
           ],
         },
         {
           role: 'AI Engineering Intern',
           company: 'Magic Mango',
-          period: 'Dec 2025 — Present',
-          location: 'São Paulo, SP',
+          period: 'Dec 2025 — May 2026',
+          location: 'São Paulo',
           bullets: [
-            'Automated lead generation and sales prospecting workflows using n8n and Python/Go scripts, reducing manual outreach time by 90%',
-            'Built data aggregation pipelines to generate competitive intelligence reports, helping prospects benchmark against market alternatives',
+            'Automated lead generation and sales prospecting with n8n and Python/Go scripts, reducing manual outreach time by 90%.',
+            'Built competitive-analysis tooling for prospects, turning market data into inputs for startup strategy.',
           ],
         },
         {
           role: 'Backend Developer',
-          company: 'PUC COMP — Junior Company',
+          company: 'PUC COMP (junior enterprise)',
           period: 'May 2025 — Sep 2025',
-          location: 'Belo Horizonte, MG',
+          location: 'Belo Horizonte',
           bullets: [
-            'Developed robust microservices with Java Spring Boot for real client projects, focusing on scalable class architecture and enterprise-grade solutions',
-            'Worked in a cross-functional team to scope, estimate, and document technical requirements for external client deliverables',
+            'Built Java Spring Boot microservices for real client projects with a focus on maintainable architecture.',
+            'Translated business requirements into technical specifications with multidisciplinary teams.',
           ],
         },
       ],
     },
     projects: {
-      title: 'Selected Work',
+      title: 'Projects',
       items: [
         {
+          name: 'Courty',
+          period: 'May 2026 — Aug 2026',
+          role: 'Co-founder & CTO',
+          summary:
+            'Operating system and payment layer for independent sports arenas in Brazil: memberships, classes, recurring PIX billing, attendance and court bookings. Player app, owner dashboard and API.',
+          highlights: [
+            'Recurring billing on Asaas: PIX and card subscriptions, webhook reconciliation, per-arena fee split, partner revenue split and balance anticipation.',
+            'Booking engine with Redis distributed locks, weekly availability templates, expiry jobs and Socket.io real-time slot updates.',
+            'Expo app for players and owners, Next.js owner dashboard, and a growth engine with referrals and promo codes.',
+          ],
+          tech: TECH.courty,
+          links: PROJECT_LINKS.courty,
+          image: '/projects/courty.png',
+        },
+        {
+          name: 'Agent Cockpit',
+          period: 'Apr 2026 — Jun 2026',
+          role: 'Co-creator',
+          summary:
+            'Local-first control room for running several coding agents at once. Claude Code and Codex sessions side by side, each with a live terminal, a risk-rated approval queue, timeline and diffs.',
+          highlights: [
+            'Adapters for Claude Code (hook server) and Codex, each with a risk classifier that rates commands before they run.',
+            'SQLite event store with full-text search, WebSocket session catch-up and memory notes that persist across sessions.',
+            'Open source. Published to npm as @agentcockpit/agent-cockpit.',
+          ],
+          tech: TECH.cockpit,
+          links: PROJECT_LINKS.cockpit,
+          image: '/projects/agent-cockpit.png',
+        },
+        {
           name: 'Monity',
-
-          description: 'AI-powered personal finance platform with intelligent transaction categorization, collaborative expense splitting, real-time insights, and a companion mobile app. Scaled to 100+ users.',
-          metric: '100+ users',
-          metricLabel: 'Active Users',
-          impact: '80% better categorization accuracy vs. manual',
-          tech: ['React', 'React Native', 'Node.js', 'PostgreSQL', 'Supabase', 'ML', 'AWS'],
-          github: 'https://github.com/Monity-FinanceTracker/Monity',
-          live: 'https://app.monity-finance.com',
-          landing: 'https://monity-landing-page.vercel.app',
-          role: 'Founder & Full-Stack Developer',
+          period: 'Jan 2025 — Dec 2025',
+          role: 'Founder, full-stack',
+          summary:
+            'Personal finance app with ML-based transaction categorization, shared expenses and a companion mobile app. Grew to 100+ users.',
+          highlights: [
+            'ML categorization improved tracking accuracy by 80% over manual tagging.',
+            'Caching and batch processing cut duplicate API calls by 70–90%.',
+            'AWS S3 + CloudFront with automated deploys, 99.9% uptime; GitHub Actions took deploys from hours to minutes.',
+          ],
+          tech: TECH.monity,
+          links: PROJECT_LINKS.monity,
+          image: '/projects/monity.png',
         },
         {
-          name: 'AlgoFlow',
-          description: 'Interactive algorithm visualization platform with frame-by-frame playback, 25+ algorithms across sorting, searching, graph traversal, and dynamic programming, with synchronized pseudocode highlighting.',
-          metric: '200+',
-          metricLabel: 'Users',
-          impact: 'Open source under Apache 2.0 — covers 6 CS categories: sorting, searching, graph traversal, DP, and more',
-          tech: ['Next.js', 'TypeScript', 'Framer Motion', 'Recharts', 'Tailwind CSS'],
-          github: 'https://github.com/TheAlgoFlow/AlgoFlow',
-          live: 'https://app.thealgoflow.com',
-          landing: 'https://thealgoflow.com',
-          role: 'Founder & Solo Developer',
-        },
-        {
-          name: 'Postable',
-          description: 'SaaS platform for Brazilian SMBs to manage and AI-generate social media content. Analyzes local trends, maps competitors, and publishes ready-to-use posts across networks. Built with Go backend and Next.js frontend.',
-          metric: 'SMB',
-          metricLabel: 'Target Market',
-          impact: 'Production-ready: payments, auth, storage, automated publishing, and test coverage',
-          tech: ['Next.js', 'Go', 'PostgreSQL', 'Stripe', 'Supabase', 'Docker', 'AI'],
-          github: 'https://github.com/postable-org/postable',
-          live: 'https://app.thepostable.com',
-          landing: 'https://thepostable.com',
-          role: 'Co-founder & Product Engineer',
+          name: 'Behold',
+          period: 'Jun 2025 — Dec 2025',
+          role: 'Co-founder, AI engineer',
+          summary:
+            'Conversational e-commerce automation for Shopify stores: cart creation, discounts and shipping calculation handled by an AI agent.',
+          highlights: [
+            'Customer journey from discovery to checkout in under 30 seconds.',
+            'GraphQL + MCP integration on FastAPI with dynamic query generation, 99% API reliability on Shopify operations.',
+            'Google ADK agent on Gemini 2.0 Flash handling 50+ concurrent conversations with session-based state.',
+          ],
+          tech: TECH.behold,
+          links: [],
         },
         {
           name: 'sofIA',
-          description: 'Multi-agent AI payment platform for WhatsApp using Google\'s AP2 (Agent Payments Protocol). Handles PIX, boleto, and credit card payments through natural conversation with Gemini 2.5 Flash.',
-          metric: '90%',
-          metricLabel: 'Checkout Drop Reduction',
-          impact: 'Eliminates app installs and checkout forms — payments happen entirely inside a WhatsApp conversation',
-          tech: ['Python', 'FastAPI', 'Google ADK', 'Gemini 2.5', 'Node.js', 'PostgreSQL', 'Docker'],
-          github: 'https://github.com/sofIA-Payment-Agent/sofIA-payment-agent',
-          live: null,
-          landing: null as string | null,
-          role: 'Co-founder & AI/Backend Engineer',
+          period: '2025',
+          role: 'Co-founder, AI / backend',
+          summary:
+            "Multi-agent payment platform for WhatsApp built on Google's Agent Payments Protocol (AP2). PIX, boleto and card payments through plain conversation.",
+          highlights: [
+            'No app install and no checkout form: the whole flow lives inside a WhatsApp thread.',
+            'Gemini 2.5 Flash agents orchestrated with Google ADK.',
+          ],
+          tech: TECH.sofia,
+          links: PROJECT_LINKS.sofia,
+          image: '/projects/sofia.png',
+        },
+        {
+          name: 'Postable',
+          period: '2025',
+          role: 'Co-founder, product engineer',
+          summary:
+            'SaaS for Brazilian small businesses to plan, generate and publish social media content. Go backend, Next.js frontend.',
+          highlights: [
+            'Payments, auth, storage, scheduled publishing and test coverage in place.',
+            'Trend analysis and competitor mapping feed the content generator.',
+          ],
+          tech: TECH.postable,
+          links: PROJECT_LINKS.postable,
+          image: '/projects/postable.png',
+        },
+        {
+          name: 'AlgoFlow',
+          period: '2025',
+          role: 'Solo developer',
+          summary:
+            'Interactive algorithm visualizer with frame-by-frame playback and synchronized pseudocode. 25+ algorithms across sorting, searching, graphs and DP. Apache 2.0.',
+          highlights: ['200+ users.'],
+          tech: TECH.algoflow,
+          links: PROJECT_LINKS.algoflow,
+          image: '/projects/algoflow.png',
         },
       ],
     },
     skills: {
-      title: 'Tech Stack',
-      categories: [
-        { label: '// languages', items: ['Python', 'TypeScript', 'JavaScript', 'Go', 'Java', 'C#', 'SQL'] },
-        { label: '// backend', items: ['FastAPI', 'Node.js', 'NestJS', 'Express', 'Spring Boot', 'GraphQL', 'REST APIs', 'JSON-RPC'] },
-        { label: '// frontend', items: ['React', 'Next.js', 'Angular', 'Tailwind CSS', 'Framer Motion'] },
-        { label: '// infra & tools', items: ['AWS (S3, CloudFront)', 'Docker', 'GitHub Actions', 'CI/CD', 'Redis', 'PostgreSQL', 'MySQL'] },
-        { label: '// ai & ml', items: ['MCP Protocol', 'Gemini AI', 'Google ADK', 'n8n', 'Machine Learning', 'LLM Integration'] },
+      title: 'Skills',
+      groups: [
+        { label: 'languages', items: SKILLS.languages },
+        { label: 'backend', items: SKILLS.backend },
+        { label: 'frontend', items: SKILLS.frontend },
+        { label: 'data', items: SKILLS.data },
+        { label: 'infra', items: SKILLS.infra },
+        { label: 'ai', items: SKILLS.ai },
       ],
     },
+    education: {
+      title: 'Education',
+      school: 'PUC Minas',
+      degree: 'B.Sc. Computer Science',
+      period: '2025 — 2028',
+      note: 'Expected graduation 2028',
+    },
     awards: {
-      title: 'Recognition',
+      title: 'Awards',
       items: [
-        {
-          emoji: '🥇',
-          title: 'Best Software Development Work',
-          place: '1st Place',
-          date: 'August 2025',
-        },
-        {
-          emoji: '🥉',
-          title: '3rd Hackathon Unifecaf',
-          place: '3rd Place',
-          date: 'June 2025',
-        },
+        { title: 'Best Software Development Project', place: '1st place', date: 'Aug 2025' },
+        { title: '3rd Unifecaf Hackathon', place: '3rd place', date: 'Jun 2025' },
       ],
     },
     contact: {
-      title: "Let's build something.",
-      subtitle: 'Open to freelance projects, collaborations, and full-time opportunities.',
-      emailLabel: 'Send an email',
+      title: 'Contact',
+      text: 'If you want to talk growth engineering, payments, agent tooling, or have something worth building together, email me.',
       email: 'leostuart05@gmail.com',
-      footer: '© 2026 Leonardo Stuart',
+      links: SOCIAL,
+      footer: 'Leonardo Stuart · Belo Horizonte',
     },
   },
+
   pt: {
     nav: {
-      about: 'Sobre',
-      experience: 'Experiência',
-      projects: 'Projetos',
-      skills: 'Habilidades',
-      contact: 'Contato',
-      downloadCV: 'Baixar CV',
+      about: 'sobre',
+      experience: 'experiência',
+      projects: 'projetos',
+      skills: 'skills',
+      contact: 'contato',
+      cv: 'cv',
     },
     hero: {
-      eyebrow: '> role.atual',
-      roles: ['Engenheiro de Software', 'Engenheiro de IA', 'Desenvolvedor Full-Stack'],
-      tagline: 'Construindo sistemas escaláveis na interseção entre IA e infraestrutura.',
-      viewWork: 'Ver Projetos',
-      getInTouch: 'Entrar em Contato',
+      name: 'Leonardo Stuart',
+      role: 'Engenheiro de Software',
+      headline: 'Construo produtos que um milhão de pessoas usam por mês.',
+      now: 'allu.',
+      summary:
+        'Engenheiro de software no time de growth da allu., trabalhando nas aplicações voltadas ao cliente usadas por 1 milhão+ de pessoas por mês. Antes: infraestrutura de pagamentos na allu. e tooling MCP na dti Digital. Curso Ciência da Computação na PUC Minas.',
+      status: 'Belo Horizonte, Brasil',
     },
+    stats: [
+      { value: '1M+', label: 'usuários mensais dos apps em que trabalho' },
+      { value: 'R$591K', label: 'receita recuperada em um mês' },
+      { value: '98%', label: 'redução de tokens no MCP' },
+      { value: '60K+', label: 'clientes na infra de pagamentos que construí' },
+    ],
     about: {
       title: 'Sobre',
-      bio: 'Sou engenheiro de software baseado em Belo Horizonte, especializado em sistemas de IA, infraestrutura backend e desenvolvimento full-stack. Estudo Ciência da Computação na PUC Minas enquanto realizo dois estágios simultâneos — construindo agentes de IA e sistemas de automação em produção.',
-      stats: [
-        { value: '1.000+', label: 'Usuários Impactados' },
-        { value: '1+', label: 'Ano de Experiência' },
+      bio: 'Engenheiro de software com experiência em produção em fintech, consultoria, e-commerce e plataformas de chatbot corporativo. Gosto de ser dono do problema de ponta a ponta: do modelo de dados e da fila até a API e a interface. Meu trabalho recente passa por produto voltado ao cliente em escala, infraestrutura de pagamentos e ferramentas de LLM.',
+      facts: [
+        { label: 'agora', value: 'Estagiário de Engenharia de Software na allu., time de growth' },
+        { label: 'formação', value: 'Bacharelado em Ciência da Computação, PUC Minas (2025–2028)' },
+        { label: 'foco', value: 'engenharia de growth, pagamentos, integração de IA' },
+        { label: 'idiomas', value: 'Português (nativo), Inglês (C1, Cambridge)' },
+        { label: 'local', value: 'Belo Horizonte, MG, Brasil' },
       ],
     },
     experience: {
@@ -192,123 +411,183 @@ export const content = {
       jobs: [
         {
           role: 'Estagiário de Engenharia de Software',
-          company: 'dti Digital',
-          period: 'Set 2025 — Presente',
-          location: 'Belo Horizonte, MG',
+          company: 'allu.',
+          period: 'Abr 2026 — atual',
+          location: 'Belo Horizonte',
           bullets: [
-            'Reduziu em 98% o consumo de tokens do MCP Server implementando MCP Optimizer, diminuindo custos de API e melhorando latência do chatbot',
-            'Arquitetou e migrou a infraestrutura FastAPI de sistema de roteamento legado para Model Context Protocol (MCP) com JSON-RPC',
-            'Entregou funcionalidades de ponta a ponta — cobrindo integração de API, ferramentas MCP e testes em produção',
+            'Hoje no time de growth, desenvolvendo e mantendo as aplicações da allu. voltadas ao cliente, usadas por 1 milhão+ de pessoas por mês.',
+            'Antes, atuei em projetos de infraestrutura de pagamentos em uma plataforma que processa milhões de reais por mês para uma base de 60 mil+ clientes.',
+            'Construí um sistema de retentativa de cobranças falhas em Supabase Edge Functions como worker serverless, processando em lote uma fila em PostgreSQL. Recuperou R$591.791,91 em um único mês sem custo adicional de infraestrutura.',
+            'Projetei um gateway de pagamentos white-label proprietário com isolamento multi-tenant e entrega de eventos por webhook em tempo real, reutilizável em vários produtos.',
+          ],
+        },
+        {
+          role: 'Estagiário de Engenharia de Software',
+          company: 'dti Digital',
+          period: 'Set 2025 — Abr 2026',
+          location: 'Belo Horizonte',
+          bullets: [
+            'Reduzi em 98% o consumo de tokens de contexto na descoberta de ferramentas do MCP Server com o MCP Optimizer, diminuindo custo de API e latência do chatbot.',
+            'Projetei e migrei a infraestrutura do chatbot FastAPI de roteamento legado para Model Context Protocol sobre JSON-RPC.',
+            'Entreguei features em produção com FastAPI e MCP usadas diariamente por 1.000+ pessoas, reduzindo tempo de tarefas manuais.',
           ],
         },
         {
           role: 'Estagiário de Engenharia de IA',
           company: 'Magic Mango',
-          period: 'Dez 2025 — Presente',
-          location: 'São Paulo, SP',
+          period: 'Dez 2025 — Mai 2026',
+          location: 'São Paulo',
           bullets: [
-            'Automatizou workflows de geração de leads com n8n e Python/Go, reduzindo tempo de outreach manual em 90%',
-            'Construiu pipelines de agregação de dados para gerar relatórios de inteligência competitiva, auxiliando prospects a comparar alternativas de mercado',
+            'Automatizei geração de leads e prospecção de vendas com n8n e scripts em Python/Go, reduzindo tempo de outreach manual em 90%.',
+            'Construí ferramentas de análise competitiva para prospects, transformando dados de mercado em insumos para estratégia.',
           ],
         },
         {
           role: 'Desenvolvedor Backend',
-          company: 'PUC COMP — Empresa Júnior',
+          company: 'PUC COMP (empresa júnior)',
           period: 'Mai 2025 — Set 2025',
-          location: 'Belo Horizonte, MG',
+          location: 'Belo Horizonte',
           bullets: [
-            'Desenvolveu microsserviços robustos com Java Spring Boot para projetos de clientes reais, focando em arquitetura escalável',
-            'Atuou em equipe multidisciplinar para escopo, estimativa e documentação de requisitos técnicos de projetos para clientes externos',
+            'Desenvolvi microsserviços em Java Spring Boot para projetos de clientes reais, com foco em arquitetura sustentável.',
+            'Traduzi requisitos de negócio em especificações técnicas junto a equipes multidisciplinares.',
           ],
         },
       ],
     },
     projects: {
-      title: 'Trabalhos Selecionados',
+      title: 'Projetos',
       items: [
         {
+          name: 'Courty',
+          period: 'Mai 2026 — Ago 2026',
+          role: 'Co-fundador & CTO',
+          summary:
+            'Sistema operacional e camada de pagamentos para arenas esportivas independentes no Brasil: mensalistas, aulas, cobrança PIX recorrente, presença e reservas de quadra. App para jogadores, painel do dono e API.',
+          highlights: [
+            'Cobrança recorrente via Asaas: assinaturas PIX e cartão, conciliação por webhook, taxa por arena, split de receita entre sócios e antecipação de saldo.',
+            'Motor de reservas com locks distribuídos em Redis, templates de disponibilidade semanal, jobs de expiração e atualização de horários em tempo real com Socket.io.',
+            'App Expo para jogadores e donos, painel do dono em Next.js e motor de growth com indicações e códigos promocionais.',
+          ],
+          tech: TECH.courty,
+          links: PROJECT_LINKS.courty,
+          image: '/projects/courty.png',
+        },
+        {
+          name: 'Agent Cockpit',
+          period: 'Abr 2026 — Jun 2026',
+          role: 'Co-criador',
+          summary:
+            'Sala de controle local-first para rodar vários agentes de código ao mesmo tempo. Sessões de Claude Code e Codex lado a lado, cada uma com terminal ao vivo, fila de aprovações classificada por risco, timeline e diffs.',
+          highlights: [
+            'Adaptadores para Claude Code (hook server) e Codex, cada um com um classificador de risco que avalia comandos antes de executar.',
+            'Armazenamento de eventos em SQLite com busca full-text, catch-up de sessão via WebSocket e notas de memória persistentes entre sessões.',
+            'Open source. Publicado no npm como @agentcockpit/agent-cockpit.',
+          ],
+          tech: TECH.cockpit,
+          links: PROJECT_LINKS.cockpit,
+          image: '/projects/agent-cockpit.png',
+        },
+        {
           name: 'Monity',
-          description: 'Plataforma de finanças pessoais com IA, categorização inteligente de transações, divisão colaborativa de despesas, insights em tempo real e app mobile. Escalou para 100+ usuários.',
-          metric: '100+ usuários',
-          metricLabel: 'Usuários Ativos',
-          impact: '80% mais precisão na categorização vs. manual',
-          tech: ['React', 'React Native', 'Node.js', 'PostgreSQL', 'Supabase', 'ML', 'AWS'],
-          github: 'https://github.com/Monity-FinanceTracker/Monity',
-          live: 'https://app.monity-finance.com',
-          landing: 'https://monity-landing-page.vercel.app',
-          role: 'Fundador & Desenvolvedor Full-Stack',
+          period: 'Jan 2025 — Dez 2025',
+          role: 'Fundador, full-stack',
+          summary:
+            'App de finanças pessoais com categorização de transações por ML, despesas compartilhadas e app mobile. Chegou a 100+ usuários.',
+          highlights: [
+            'Categorização por ML melhorou a precisão em 80% em relação à marcação manual.',
+            'Cache e processamento em lote cortaram chamadas duplicadas de API em 70–90%.',
+            'AWS S3 + CloudFront com deploy automatizado, 99,9% de uptime; GitHub Actions levou o deploy de horas para minutos.',
+          ],
+          tech: TECH.monity,
+          links: PROJECT_LINKS.monity,
+          image: '/projects/monity.png',
         },
         {
-          name: 'AlgoFlow',
-          description: 'Plataforma de visualização interativa de algoritmos com reprodução quadro a quadro, 25+ algoritmos em sorting, busca, grafos e programação dinâmica, com pseudocódigo sincronizado.',
-          metric: '200+',
-          metricLabel: 'Usuários',
-          impact: 'Open source Apache 2.0 — cobre 6 categorias de CS: ordenação, busca, grafos, programação dinâmica e mais',
-          tech: ['Next.js', 'TypeScript', 'Framer Motion', 'Recharts', 'Tailwind CSS'],
-          github: 'https://github.com/TheAlgoFlow/AlgoFlow',
-          live: 'https://app.thealgoflow.com',
-          landing: 'https://thealgoflow.com',
-          role: 'Fundador & Desenvolvedor Solo',
-        },
-        {
-          name: 'Postable',
-          description: 'Plataforma SaaS para PMEs brasileiras gerenciarem e gerarem conteúdo para redes sociais com IA. Analisa tendências locais, mapeia concorrentes e publica posts prontos. Backend em Go e frontend em Next.js.',
-          metric: 'PME',
-          metricLabel: 'Mercado-Alvo',
-          impact: 'Pronto para produção: pagamentos, autenticação, storage, publicação automatizada e cobertura de testes',
-          tech: ['Next.js', 'Go', 'PostgreSQL', 'Stripe', 'Supabase', 'Docker', 'IA'],
-          github: 'https://github.com/postable-org/postable',
-          live: 'https://app.thepostable.com',
-          landing: null as string | null,
-          role: 'Co-fundador & Engenheiro de Produto',
+          name: 'Behold',
+          period: 'Jun 2025 — Dez 2025',
+          role: 'Co-fundador, engenheiro de IA',
+          summary:
+            'Automação conversacional de e-commerce para lojas Shopify: criação de carrinho, descontos e cálculo de frete feitos por um agente de IA.',
+          highlights: [
+            'Jornada do cliente da descoberta ao checkout em menos de 30 segundos.',
+            'Integração GraphQL + MCP em FastAPI com geração dinâmica de queries, 99% de confiabilidade nas operações Shopify.',
+            'Agente em Google ADK com Gemini 2.0 Flash atendendo 50+ conversas simultâneas com estado por sessão.',
+          ],
+          tech: TECH.behold,
+          links: [],
         },
         {
           name: 'sofIA',
-          description: 'Plataforma de pagamentos multi-agente para WhatsApp usando o AP2 (Agent Payments Protocol) do Google. Processa PIX, boleto e cartão via conversa natural com Gemini 2.5 Flash.',
-          metric: '90%',
-          metricLabel: 'Redução de Abandono',
-          impact: 'Elimina instalação de apps e formulários de checkout — pagamentos acontecem dentro de uma conversa no WhatsApp',
-          tech: ['Python', 'FastAPI', 'Google ADK', 'Gemini 2.5', 'Node.js', 'PostgreSQL', 'Docker'],
-          github: 'https://github.com/sofIA-Payment-Agent/sofIA-payment-agent',
-          live: null,
-          landing: null as string | null,
-          role: 'Co-fundador & Engenheiro de IA/Backend',
+          period: '2025',
+          role: 'Co-fundador, IA / backend',
+          summary:
+            'Plataforma de pagamentos multi-agente para WhatsApp construída sobre o Agent Payments Protocol (AP2) do Google. PIX, boleto e cartão por conversa.',
+          highlights: [
+            'Sem instalar app e sem formulário de checkout: o fluxo inteiro acontece na conversa do WhatsApp.',
+            'Agentes em Gemini 2.5 Flash orquestrados com Google ADK.',
+          ],
+          tech: TECH.sofia,
+          links: PROJECT_LINKS.sofia,
+          image: '/projects/sofia.png',
+        },
+        {
+          name: 'Postable',
+          period: '2025',
+          role: 'Co-fundador, engenheiro de produto',
+          summary:
+            'SaaS para pequenas empresas brasileiras planejarem, gerarem e publicarem conteúdo em redes sociais. Backend em Go, frontend em Next.js.',
+          highlights: [
+            'Pagamentos, autenticação, storage, publicação agendada e cobertura de testes.',
+            'Análise de tendências e mapeamento de concorrentes alimentam o gerador de conteúdo.',
+          ],
+          tech: TECH.postable,
+          links: PROJECT_LINKS.postable,
+          image: '/projects/postable.png',
+        },
+        {
+          name: 'AlgoFlow',
+          period: '2025',
+          role: 'Desenvolvedor solo',
+          summary:
+            'Visualizador interativo de algoritmos com reprodução quadro a quadro e pseudocódigo sincronizado. 25+ algoritmos de ordenação, busca, grafos e PD. Apache 2.0.',
+          highlights: ['200+ usuários.'],
+          tech: TECH.algoflow,
+          links: PROJECT_LINKS.algoflow,
+          image: '/projects/algoflow.png',
         },
       ],
     },
     skills: {
-      title: 'Stack Técnico',
-      categories: [
-        { label: '// linguagens', items: ['Python', 'TypeScript', 'JavaScript', 'Go', 'Java', 'C#', 'SQL'] },
-        { label: '// backend', items: ['FastAPI', 'Node.js', 'NestJS', 'Express', 'Spring Boot', 'GraphQL', 'REST APIs', 'JSON-RPC'] },
-        { label: '// frontend', items: ['React', 'Next.js', 'Angular', 'Tailwind CSS', 'Framer Motion'] },
-        { label: '// infra & ferramentas', items: ['AWS (S3, CloudFront)', 'Docker', 'GitHub Actions', 'CI/CD', 'Redis', 'PostgreSQL', 'MySQL'] },
-        { label: '// ia & ml', items: ['Protocolo MCP', 'Gemini AI', 'Google ADK', 'n8n', 'Machine Learning', 'Integração LLM'] },
+      title: 'Skills',
+      groups: [
+        { label: 'linguagens', items: SKILLS.languages },
+        { label: 'backend', items: SKILLS.backend },
+        { label: 'frontend', items: SKILLS.frontend },
+        { label: 'dados', items: SKILLS.data },
+        { label: 'infra', items: SKILLS.infra },
+        { label: 'ia', items: SKILLS.ai },
       ],
     },
+    education: {
+      title: 'Formação',
+      school: 'PUC Minas',
+      degree: 'Bacharelado em Ciência da Computação',
+      period: '2025 — 2028',
+      note: 'Conclusão prevista para 2028',
+    },
     awards: {
-      title: 'Reconhecimento',
+      title: 'Prêmios',
       items: [
-        {
-          emoji: '🥇',
-          title: 'Melhor Trabalho de Desenvolvimento de Software',
-          place: '1º Lugar',
-          date: 'Agosto 2025',
-        },
-        {
-          emoji: '🥉',
-          title: '3º Hackathon Unifecaf',
-          place: '3º Lugar',
-          date: 'Junho 2025',
-        },
+        { title: 'Melhor Trabalho de Desenvolvimento de Software', place: '1º lugar', date: 'Ago 2025' },
+        { title: '3º Hackathon Unifecaf', place: '3º lugar', date: 'Jun 2025' },
       ],
     },
     contact: {
-      title: 'Vamos construir algo.',
-      subtitle: 'Aberto a projetos freelance, colaborações e oportunidades de trabalho.',
-      emailLabel: 'Enviar um email',
+      title: 'Contato',
+      text: 'Se quiser falar sobre engenharia de growth, pagamentos, tooling para agentes, ou tem algo que vale a pena construir junto, me mande um email.',
       email: 'leostuart05@gmail.com',
-      footer: '© 2026 Leonardo Stuart.',
+      links: SOCIAL,
+      footer: 'Leonardo Stuart · Belo Horizonte',
     },
   },
 };
