@@ -195,7 +195,7 @@ export const content: Record<Lang, Content> = {
         {
           role: 'Software Engineering Intern',
           company: 'allu.',
-          url: 'https://www.allu.com.br',
+          url: 'https://allugator.com',
           period: 'Apr 2026 — present',
           location: 'Belo Horizonte',
           bullets: [
@@ -419,7 +419,7 @@ export const content: Record<Lang, Content> = {
         {
           role: 'Estagiário de Engenharia de Software',
           company: 'allu.',
-          url: 'https://www.allu.com.br',
+          url: 'https://allugator.com',
           period: 'Abr 2026 — atual',
           location: 'Belo Horizonte',
           bullets: [
