@@ -128,6 +128,7 @@ const PROJECT_LINKS = {
     { label: 'Source', href: 'https://github.com/postable-org/postable' },
   ],
   behold: [{ label: 'Demo', href: 'https://behold-bi-dashboard.vercel.app' }],
+  coldEmail: [{ label: 'Demo', href: 'https://cold-email-customization.vercel.app' }],
   algoflow: [
     { label: 'App', href: 'https://app.thealgoflow.com' },
     { label: 'Site', href: 'https://thealgoflow.com' },
@@ -143,6 +144,7 @@ const TECH = {
   behold: ['Python', 'FastAPI', 'GraphQL', 'Shopify', 'Google ADK', 'Gemini 2.0 Flash', 'MCP'],
   sofia: ['Python', 'FastAPI', 'Google ADK', 'Gemini 2.5 Flash', 'AP2', 'Node.js', 'PostgreSQL', 'Docker'],
   postable: ['Go', 'Next.js', 'PostgreSQL', 'Supabase', 'Stripe', 'Docker'],
+  coldEmail: ['Python', 'FastAPI', 'SQLAlchemy', 'Alembic', 'PostgreSQL', 'OpenAI', 'JWT', 'APScheduler', 'pytest'],
   algoflow: ['Next.js', 'TypeScript', 'FastAPI', 'Python', 'Tailwind CSS', 'Recharts'],
 };
 
@@ -347,6 +349,19 @@ export const content: Record<Lang, Content> = {
           tech: TECH.postable,
           links: PROJECT_LINKS.postable,
           image: '/projects/postable.png',
+        },
+        {
+          name: 'Cold Email Customization',
+          period: 'Jan 2026 — Feb 2026',
+          role: 'Full-stack developer',
+          summary:
+            'Outreach automation that researches each lead with OpenAI web search and writes a personalized 4-email sequence plus LinkedIn messages, then schedules and sends them.',
+          highlights: [
+            'Clean architecture on FastAPI: domain ports, use cases and SQLAlchemy repositories, with Alembic migrations on PostgreSQL.',
+            'APScheduler-driven sending with retries for failed emails, CSV lead import/export and JWT auth.',
+          ],
+          tech: TECH.coldEmail,
+          links: PROJECT_LINKS.coldEmail,
         },
         {
           name: 'AlgoFlow',
@@ -586,6 +601,19 @@ export const content: Record<Lang, Content> = {
           tech: TECH.postable,
           links: PROJECT_LINKS.postable,
           image: '/projects/postable.png',
+        },
+        {
+          name: 'Cold Email Customization',
+          period: 'Jan 2026 — Fev 2026',
+          role: 'Desenvolvedor full-stack',
+          summary:
+            'Automação de prospecção que pesquisa cada lead com a busca web da OpenAI e escreve uma sequência personalizada de 4 emails e mensagens de LinkedIn, depois agenda e envia.',
+          highlights: [
+            'Arquitetura limpa em FastAPI: ports de domínio, casos de uso e repositórios SQLAlchemy, com migrações Alembic em PostgreSQL.',
+            'Envio agendado com APScheduler e retentativa de emails falhos, importação/exportação de leads em CSV e autenticação JWT.',
+          ],
+          tech: TECH.coldEmail,
+          links: PROJECT_LINKS.coldEmail,
         },
         {
           name: 'AlgoFlow',
