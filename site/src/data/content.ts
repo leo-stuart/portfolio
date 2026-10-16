@@ -291,6 +291,7 @@ export const content: Record<Lang, Content> = {
           ],
           tech: TECH.testa,
           links: PROJECT_LINKS.testa,
+          image: '/projects/testa.png',
         },
         {
           name: 'Monity',
@@ -334,7 +335,7 @@ export const content: Record<Lang, Content> = {
           ],
           tech: TECH.sofia,
           links: PROJECT_LINKS.sofia,
-          image: '/projects/sofia.png',
+          image: '/projects/sofia-cover.png',
         },
         {
           name: 'Postable',
@@ -362,6 +363,7 @@ export const content: Record<Lang, Content> = {
           ],
           tech: TECH.coldEmail,
           links: PROJECT_LINKS.coldEmail,
+          image: '/projects/cold-email.png',
         },
         {
           name: 'AlgoFlow',
@@ -543,6 +545,7 @@ export const content: Record<Lang, Content> = {
           ],
           tech: TECH.testa,
           links: PROJECT_LINKS.testa,
+          image: '/projects/testa.png',
         },
         {
           name: 'Monity',
@@ -586,7 +589,7 @@ export const content: Record<Lang, Content> = {
           ],
           tech: TECH.sofia,
           links: PROJECT_LINKS.sofia,
-          image: '/projects/sofia.png',
+          image: '/projects/sofia-cover.png',
         },
         {
           name: 'Postable',
@@ -614,6 +617,7 @@ export const content: Record<Lang, Content> = {
           ],
           tech: TECH.coldEmail,
           links: PROJECT_LINKS.coldEmail,
+          image: '/projects/cold-email.png',
         },
         {
           name: 'AlgoFlow',
