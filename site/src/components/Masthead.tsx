@@ -54,6 +54,14 @@ export default function Masthead() {
             <span className="status-dot" aria-hidden />
             <Clock />
           </span>
+          <button
+            type="button"
+            onClick={() => window.dispatchEvent(new Event('open-palette'))}
+            className="hidden items-center gap-1.5 rounded-md border hairline px-2 py-1 font-mono text-[12px] transition-colors hover:text-fg md:flex"
+            aria-label="Command palette (Ctrl+K)"
+          >
+            <span className="kbd">⌘K</span>
+          </button>
           <a href="/cv.pdf" target="_blank" rel="noopener noreferrer" className="transition-colors hover:text-fg">
             {t.nav.cv}
           </a>
