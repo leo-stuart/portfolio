@@ -115,6 +115,7 @@ const PROJECT_LINKS = {
     { label: 'Source', href: 'https://github.com/agent-cockpit/agent-cockpit' },
     { label: 'npm', href: 'https://www.npmjs.com/package/@agentcockpit/agent-cockpit' },
   ],
+  testa: [{ label: 'Source', href: 'https://github.com/leo-stuart/testa' }],
   monity: [
     { label: 'App', href: 'https://app.monity-finance.com' },
     { label: 'Site', href: 'https://monity-landing-page.vercel.app' },
@@ -137,6 +138,7 @@ const PROJECT_LINKS = {
 const TECH = {
   courty: ['TypeScript', 'Express 5', 'Prisma', 'PostgreSQL', 'Redis', 'Socket.io', 'Asaas', 'Expo', 'Next.js'],
   cockpit: ['TypeScript', 'Node.js', 'node-pty', 'WebSocket', 'SQLite', 'Vitest'],
+  testa: ['JavaScript', 'Node.js', 'MCP SDK', 'Playwright', 'axe-core', 'zod'],
   monity: ['React', 'React Native', 'Node.js', 'PostgreSQL', 'Supabase', 'AWS', 'GitHub Actions'],
   behold: ['Python', 'FastAPI', 'GraphQL', 'Shopify', 'Google ADK', 'Gemini 2.0 Flash', 'MCP'],
   sofia: ['Python', 'FastAPI', 'Google ADK', 'Gemini 2.5 Flash', 'AP2', 'Node.js', 'PostgreSQL', 'Docker'],
@@ -273,6 +275,20 @@ export const content: Record<Lang, Content> = {
           tech: TECH.cockpit,
           links: PROJECT_LINKS.cockpit,
           image: '/projects/agent-cockpit.png',
+        },
+        {
+          name: 'testa',
+          period: 'Oct 2026 — present',
+          role: 'Creator',
+          summary:
+            'MCP server that lets coding agents like Claude Code, Codex and Cursor test the feature they just built, on the web through Playwright and on the iOS Simulator, including React Native apps.',
+          highlights: [
+            'Reads the git diff (feature_context) to plan scenarios, then runs them with assertions via run_scenario.',
+            'Replay with self-heal when the UI changes, accessibility audits with axe-core and network mocks.',
+            'Guardrails: needs_human escalation and explicit confirmation before risky actions like payments or deletes.',
+          ],
+          tech: TECH.testa,
+          links: PROJECT_LINKS.testa,
         },
         {
           name: 'Monity',
@@ -498,6 +514,20 @@ export const content: Record<Lang, Content> = {
           tech: TECH.cockpit,
           links: PROJECT_LINKS.cockpit,
           image: '/projects/agent-cockpit.png',
+        },
+        {
+          name: 'testa',
+          period: 'Out 2026 — atual',
+          role: 'Criador',
+          summary:
+            'Servidor MCP que permite a agentes de código como Claude Code, Codex e Cursor testar a feature que acabaram de implementar, na web via Playwright e no iOS Simulator, incluindo apps React Native.',
+          highlights: [
+            'Lê o git diff (feature_context) para planejar cenários e os executa com asserções via run_scenario.',
+            'Replay com self-heal quando a interface muda, auditoria de acessibilidade com axe-core e mocks de rede.',
+            'Guardrails: escalonamento needs_human e confirmação explícita antes de ações de risco, como pagamentos ou exclusões.',
+          ],
+          tech: TECH.testa,
+          links: PROJECT_LINKS.testa,
         },
         {
           name: 'Monity',
