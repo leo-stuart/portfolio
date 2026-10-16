@@ -7,6 +7,7 @@ import { useLanguage } from '@/context/LanguageContext';
 import { ui, slug } from '@/data/ui';
 import { OPEN_PROJECT } from './Projects';
 import { SHOW_MASCOT } from './Mascot';
+import { SECRETS, SECRET_INFO, unlock, useSecrets, setNeon } from '@/lib/secrets';
 
 export const OPEN_PALETTE = 'open-palette';
 
@@ -46,7 +47,12 @@ export default function CommandPalette() {
   const { t, lang, setLang } = useLanguage();
   const s = ui[lang];
   const [open, setOpen] = useState(false);
-  const [running, setRunning] = useState(false);
+  const [panel, setPanel] = useState<null | 'run' | 'sudo' | 'secrets' | 'pay'>(null);
+  const [search, setSearch] = useState('');
+  const found = useSecrets();
+  const digits = search.replace(/[\s-]/g, '');
+  const isCard = digits === '4242424242424242';
+  const isSudo = /^sudo\b/i.test(search.trim());
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
@@ -67,7 +73,8 @@ export default function CommandPalette() {
 
   const go = (fn: () => void) => () => {
     setOpen(false);
-    setRunning(false);
+    setPanel(null);
+    setSearch('');
     fn();
   };
   const scrollTo = (id: string) => document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
@@ -92,7 +99,10 @@ export default function CommandPalette() {
         open={open}
         onOpenChange={(o) => {
           setOpen(o);
-          if (!o) setRunning(false);
+          if (!o) {
+            setPanel(null);
+            setSearch('');
+          }
         }}
         label={s.openPalette}
         loop
@@ -101,7 +111,7 @@ export default function CommandPalette() {
       >
         <div className="flex items-center gap-2 border-b hairline px-4">
           <span className="font-mono text-ok">›</span>
-          <Command.Input placeholder={s.palettePlaceholder} className="h-12 w-full bg-transparent text-[15px] outline-none placeholder:text-dim" />
+          <Command.Input value={search} onValueChange={setSearch} placeholder={s.palettePlaceholder} className="h-12 w-full bg-transparent text-[15px] outline-none placeholder:text-dim" />
           <span className="kbd">esc</span>
         </div>
         <Command.List className="max-h-[50vh] overflow-y-auto p-2">
@@ -143,19 +153,79 @@ export default function CommandPalette() {
               </Command.Item>
             ))}
           </Command.Group>
+          {isCard && (
+            <Command.Group heading="checkout">
+              <Command.Item
+                value={search}
+                onSelect={() => {
+                  setNeon(true);
+                  unlock('neon');
+                  setPanel('pay');
+                }}
+                className={item}
+              >
+                {s.payItem} <span className="font-mono text-[11px] text-ok">pay</span>
+              </Command.Item>
+            </Command.Group>
+          )}
+          {isSudo && (
+            <Command.Group heading="root">
+              <Command.Item
+                value={search}
+                onSelect={() => {
+                  if (/^sudo\s+hire\s+leo/i.test(search.trim())) {
+                    unlock('sudo');
+                    setPanel('sudo');
+                  } else setSearch('sudo hire leo');
+                }}
+                className={item}
+              >
+                <span className="font-mono">sudo hire leo</span> <span className="font-mono text-[11px] text-amber">#</span>
+              </Command.Item>
+            </Command.Group>
+          )}
           <Command.Group heading={s.groupFun}>
+            <Command.Item value="secrets" keywords={['segredos', 'easter']} onSelect={() => setPanel('secrets')} className={item}>
+              {s.cmdSecrets} <span className="font-mono text-[11px] text-ok">{found.length}/{SECRETS.length}</span>
+            </Command.Item>
+            {found.includes('neon') && (
+              <Command.Item value="neon" onSelect={go(() => setNeon(!document.documentElement.hasAttribute('data-neon')))} className={item}>
+                {s.cmdNeon} <span className="font-mono text-[11px] text-dim">neon</span>
+              </Command.Item>
+            )}
             <Command.Item value="bot mascot" keywords={['mascote', 'robo']} onSelect={go(() => window.dispatchEvent(new Event(SHOW_MASCOT)))} className={item}>
               {s.cmdBot} <span className="font-mono text-[11px] text-dim">bot</span>
             </Command.Item>
-            <Command.Item value="run testa" onSelect={() => setRunning(true)} className={item}>
+            <Command.Item value="run testa" onSelect={() => setPanel('run')} className={item}>
               <span className="font-mono">{s.cmdRunTesta}</span> <span className="font-mono text-[11px] text-amber">▶</span>
             </Command.Item>
           </Command.Group>
         </Command.List>
         <AnimatePresence>
-          {running && (
+          {panel && (
             <motion.div initial={{ height: 0 }} animate={{ height: 'auto' }} exit={{ height: 0 }} className="overflow-hidden">
-              <RunLog note={s.runNote} />
+              {panel === 'run' && <RunLog note={s.runNote} />}
+              {panel === 'pay' && <p className="border-t hairline px-4 py-3 font-mono text-[12px] text-ok">✔ {s.payDone}</p>}
+              {panel === 'sudo' && (
+                <div className="border-t hairline px-4 py-3 font-mono text-[12px] leading-6">
+                  {s.sudoLines.map((l, i) => (
+                    <p key={i} className={i === 2 ? 'text-ok' : 'text-muted'}>{l}</p>
+                  ))}
+                  <a href={`mailto:${t.contact.email}`} className="btn btn-primary mt-3 h-9 text-[13px]">{s.sudoCta}</a>
+                </div>
+              )}
+              {panel === 'secrets' && (
+                <div className="border-t hairline px-4 py-3 font-mono text-[12px] leading-6">
+                  <p className="text-fg">secrets {found.length}/{SECRETS.length}</p>
+                  <ul>
+                    {SECRETS.map((id) => (
+                      <li key={id} className={found.includes(id) ? 'text-ok' : 'text-dim'}>
+                        {found.includes(id) ? `★ ${SECRET_INFO[lang][id].name}` : `☆ ${s.secretsLocked} · ${SECRET_INFO[lang][id].hint}`}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
             </motion.div>
           )}
         </AnimatePresence>
