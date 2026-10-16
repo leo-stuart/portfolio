@@ -3,6 +3,12 @@ import type { Lang } from './content';
 export const ui = {
   en: {
     pipelineLabel: 'agent pipeline',
+    ghTitle: 'GitHub, live',
+    ghTotal: 'contributions in the last year',
+    ghOne: 'contribution',
+    ghMany: 'contributions',
+    ghHint: 'Hover a day for details',
+    ghFeed: 'Latest public activity',
     pipelinePick: 'Choose a demo story',
     replay: 'Replay',
     pause: 'Pause',
@@ -30,6 +36,12 @@ export const ui = {
   },
   pt: {
     pipelineLabel: 'pipeline do agente',
+    ghTitle: 'GitHub, ao vivo',
+    ghTotal: 'contribuições no último ano',
+    ghOne: 'contribuição',
+    ghMany: 'contribuições',
+    ghHint: 'Passe o mouse num dia para ver detalhes',
+    ghFeed: 'Atividade pública recente',
     pipelinePick: 'Escolha uma história de demo',
     replay: 'Repetir',
     pause: 'Pausar',
