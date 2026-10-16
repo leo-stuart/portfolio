@@ -1,5 +1,6 @@
 'use client';
 
+import { MotionConfig } from 'motion/react';
 import { LanguageProvider } from '@/context/LanguageContext';
 import Masthead from '@/components/Masthead';
 import Hero from '@/components/Hero';
@@ -18,6 +19,7 @@ import CommandPalette from '@/components/CommandPalette';
 export default function HomeClient({ github }: { github: GitHubData }) {
   return (
     <LanguageProvider>
+      <MotionConfig reducedMotion="user">
       <Masthead />
       <main className="mx-auto w-full max-w-[1200px] px-5 pb-16 sm:px-8">
         <Hero />
@@ -32,6 +34,7 @@ export default function HomeClient({ github }: { github: GitHubData }) {
       <CommandPalette />
       <Mascot />
       <Secrets />
+      </MotionConfig>
     </LanguageProvider>
   );
 }

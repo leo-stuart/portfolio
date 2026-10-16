@@ -1,7 +1,8 @@
 'use client';
 
+import { useReducedMotionSafe } from '@/hooks/useReducedMotionSafe';
 import { useEffect, useMemo, useState } from 'react';
-import { AnimatePresence, motion, useReducedMotion, useScroll, useSpring, useTransform } from 'motion/react';
+import { AnimatePresence, motion, useScroll, useSpring, useTransform } from 'motion/react';
 import { useLanguage } from '@/context/LanguageContext';
 import { useActiveSection } from '@/hooks/useActiveSection';
 import { mascotLines, clueText, CLUE } from '@/data/mascot';
@@ -31,7 +32,7 @@ function Bot({ talking }: { talking: boolean }) {
 export default function Mascot() {
   const { lang } = useLanguage();
   const s = ui[lang];
-  const reduce = useReducedMotion();
+  const reduce = useReducedMotionSafe();
   const active = useActiveSection(IDS) ?? 'top';
   const [hidden, setHidden] = useState(true);
   const [idx, setIdx] = useState(0);
@@ -78,7 +79,7 @@ export default function Mascot() {
   if (hidden) return null;
 
   return (
-    <motion.div style={reduce ? { left: 12 } : { left }} className="fixed bottom-3 z-40 flex items-end gap-1 print:hidden">
+    <motion.div style={reduce ? { left: 12 } : { left }} className="fixed bottom-3 z-40 flex flex-col-reverse items-start gap-1 sm:flex-row sm:items-end print:hidden">
       <motion.button
         type="button"
         onClick={() => {
@@ -100,7 +101,7 @@ export default function Mascot() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 4 }}
             role="status"
-            className="mb-8 max-w-[240px] rounded-lg border hairline bg-bg px-3 py-2 font-mono text-[11.5px] leading-snug text-muted shadow-lg"
+            className="mb-4 max-w-[210px] sm:mb-8 sm:max-w-[240px] rounded-lg border hairline bg-bg px-3 py-2 font-mono text-[11.5px] leading-snug text-muted shadow-lg"
           >
             {text}
             <button

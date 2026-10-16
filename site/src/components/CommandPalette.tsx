@@ -1,8 +1,9 @@
 'use client';
 
+import { useReducedMotionSafe } from '@/hooks/useReducedMotionSafe';
 import { useEffect, useState } from 'react';
 import { Command } from 'cmdk';
-import { AnimatePresence, motion, useReducedMotion } from 'motion/react';
+import { AnimatePresence, motion } from 'motion/react';
 import { useLanguage } from '@/context/LanguageContext';
 import { ui, slug } from '@/data/ui';
 import { OPEN_PROJECT } from './Projects';
@@ -23,7 +24,7 @@ const LOG = [
 ];
 
 function RunLog({ note }: { note: string }) {
-  const reduce = useReducedMotion();
+  const reduce = useReducedMotionSafe();
   const [n, setN] = useState(reduce ? LOG.length : 0);
   useEffect(() => {
     if (reduce || n >= LOG.length) return;

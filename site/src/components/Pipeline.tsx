@@ -1,7 +1,8 @@
 'use client';
 
+import { useReducedMotionSafe } from '@/hooks/useReducedMotionSafe';
 import { useEffect, useRef, useState } from 'react';
-import { motion, useMotionValue, useSpring, useTransform, useReducedMotion } from 'motion/react';
+import { motion, useMotionValue, useSpring, useTransform } from 'motion/react';
 import { useLanguage } from '@/context/LanguageContext';
 import { ui } from '@/data/ui';
 
@@ -75,7 +76,7 @@ const COLOR = { ok: 'text-ok', amber: 'text-amber', dim: 'text-dim', fg: 'text-f
 export default function Pipeline() {
   const { lang } = useLanguage();
   const s = ui[lang];
-  const reduce = useReducedMotion();
+  const reduce = useReducedMotionSafe();
   const [tick, setTick] = useState(3);
   const step = tick % 6; // 4–5 hold the result
   const story = Math.floor(tick / 6) % STORIES.en.length;

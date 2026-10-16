@@ -1,7 +1,8 @@
 'use client';
 
+import { useReducedMotionSafe } from '@/hooks/useReducedMotionSafe';
 import { useRef } from 'react';
-import { motion, useScroll, useTransform, useReducedMotion, type MotionValue } from 'motion/react';
+import { motion, useScroll, useTransform, type MotionValue } from 'motion/react';
 import { useLanguage } from '@/context/LanguageContext';
 import { ui } from '@/data/ui';
 import Section from './Section';
@@ -35,7 +36,7 @@ export default function Funnel() {
   const { t, lang } = useLanguage();
   const s = ui[lang];
   const ref = useRef<HTMLOListElement>(null);
-  const reduce = useReducedMotion();
+  const reduce = useReducedMotionSafe();
   const { scrollYProgress } = useScroll({ target: ref, offset: ['start 0.85', 'end 0.55'] });
   const full = useTransform(scrollYProgress, () => 1);
   const progress = reduce ? full : scrollYProgress;

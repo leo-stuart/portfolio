@@ -1,7 +1,8 @@
 'use client';
 
+import { useReducedMotionSafe } from '@/hooks/useReducedMotionSafe';
 import { useRef, useState } from 'react';
-import { useInView, useReducedMotion } from 'motion/react';
+import { useInView } from 'motion/react';
 import { useLanguage } from '@/context/LanguageContext';
 import type { GitHubData, Day } from '@/lib/github-types';
 import { ui } from '@/data/ui';
@@ -26,7 +27,7 @@ export default function GitHubActivity({ data }: { data: GitHubData }) {
   const s = ui[lang];
   const ref = useRef<SVGSVGElement>(null);
   const inView = useInView(ref, { once: true, margin: '-80px' });
-  const reduce = useReducedMotion();
+  const reduce = useReducedMotionSafe();
   const [hover, setHover] = useState<Day | null>(null);
 
   if (!data.days.length && !data.activity.length) return null;
