@@ -130,10 +130,10 @@ export default function Pipeline() {
           const active = shown === i;
           const color = i === 3 && (done || active) ? 'text-ok' : done ? 'text-fg' : active ? 'text-amber' : 'text-dim';
           return (
-            <li key={label} className="relative bg-bg px-3 py-2.5">
-              <span className={`flex items-center gap-1.5 transition-colors ${color}`}>
+            <li key={label} className="relative bg-bg px-2 py-2.5 sm:px-3">
+              <span className={`flex items-center gap-1 whitespace-nowrap text-[11px] transition-colors sm:gap-1.5 sm:text-[12px] ${color}`}>
                 <span>{i === 3 ? (done || active ? '✓' : '○') : done ? '●' : active ? '◐' : '○'}</span>
-                <span className="truncate">{label}</span>
+                <span>{label}</span>
               </span>
               <motion.span
                 className="absolute inset-x-0 bottom-0 h-px origin-left bg-ok"
