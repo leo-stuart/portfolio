@@ -5,14 +5,80 @@ import { motion, useMotionValue, useSpring, useTransform, useReducedMotion } fro
 import { useLanguage } from '@/context/LanguageContext';
 import { ui } from '@/data/ui';
 
-const DIFF = ['+ export function checkout()', '+   await pay(card)', '-   legacyPay()'];
-const SCEN = ['pay with card', 'declined card', 'empty cart'];
+type L = { t: string; c?: 'ok' | 'amber' | 'dim' | 'fg' };
+type Story = { tag: string; steps: [L[], L[], L[], L[]] };
+
+// Demo data only: illustrative log of an agent using testa (MCP).
+const STORIES: Record<'en' | 'pt', Story[]> = {
+  en: [
+    {
+      tag: 'payments · pix checkout',
+      steps: [
+        [{ t: 'src/payments/pix.ts  +42 −6', c: 'fg' }, { t: '+ createPixCharge(order)', c: 'ok' }, { t: 'src/api/webhooks/asaas.ts  +18', c: 'fg' }, { t: '+ on("PAYMENT_RECEIVED")', c: 'ok' }],
+        [{ t: 'testa.feature_context()', c: 'fg' }, { t: '› route   /checkout/pix' }, { t: '› POST    /api/webhooks/asaas' }, { t: '› plan    3 scenarios' }],
+        [{ t: 'run_scenario("pix checkout")', c: 'fg' }, { t: '✓ QR code visible', c: 'ok' }, { t: '✓ webhook "paid" received', c: 'ok' }, { t: '! needs_human before "Pay"', c: 'amber' }],
+        [{ t: '✓ order status → paid', c: 'ok' }, { t: '✓ a11y_audit: 0 violations', c: 'ok' }, { t: '✓ human approved payment', c: 'ok' }, { t: '→ ready to merge', c: 'ok' }],
+      ],
+    },
+    {
+      tag: 'payments · failed retry',
+      steps: [
+        [{ t: 'src/billing/retry.ts  +31 −4', c: 'fg' }, { t: '+ scheduleRetry(charge, 3)', c: 'ok' }, { t: 'src/jobs/dunning.ts  +12', c: 'fg' }, { t: '- retryNow()', c: 'amber' }],
+        [{ t: 'testa.feature_context()', c: 'fg' }, { t: '› route   /account/billing' }, { t: '› mock    card_declined' }, { t: '› plan    2 scenarios' }],
+        [{ t: 'run_scenario("declined card")', c: 'fg' }, { t: '✓ banner "payment failed"', c: 'ok' }, { t: '✓ retry scheduled in 24h', c: 'ok' }, { t: '! needs_human before "Retry now"', c: 'amber' }],
+        [{ t: '✓ status past_due → active', c: 'ok' }, { t: '✓ a11y_audit: 0 violations', c: 'ok' }, { t: '✓ replay self-healed 1 selector', c: 'ok' }, { t: '→ ready to merge', c: 'ok' }],
+      ],
+    },
+    {
+      tag: 'growth · onboarding A/B',
+      steps: [
+        [{ t: 'src/onboarding/steps.tsx  +27', c: 'fg' }, { t: '+ variant B: skip phone step', c: 'ok' }, { t: 'src/flags/experiments.ts  +5', c: 'fg' }, { t: '+ onboarding_v2: 50/50', c: 'ok' }],
+        [{ t: 'testa.feature_context()', c: 'fg' }, { t: '› route   /signup' }, { t: '› flag    onboarding_v2=A|B' }, { t: '› plan    2 scenarios' }],
+        [{ t: 'run_scenario("signup · B")', c: 'fg' }, { t: '✓ phone step hidden', c: 'ok' }, { t: '✓ event signup_completed', c: 'ok' }, { t: '✓ variant A unchanged', c: 'ok' }],
+        [{ t: '✓ ios sim: same flow passes', c: 'ok' }, { t: '✓ a11y_audit: 0 violations', c: 'ok' }, { t: '✓ 2/2 scenarios passed', c: 'ok' }, { t: '→ ready to merge', c: 'ok' }],
+      ],
+    },
+  ],
+  pt: [
+    {
+      tag: 'pagamentos · checkout pix',
+      steps: [
+        [{ t: 'src/payments/pix.ts  +42 −6', c: 'fg' }, { t: '+ createPixCharge(order)', c: 'ok' }, { t: 'src/api/webhooks/asaas.ts  +18', c: 'fg' }, { t: '+ on("PAYMENT_RECEIVED")', c: 'ok' }],
+        [{ t: 'testa.feature_context()', c: 'fg' }, { t: '› rota    /checkout/pix' }, { t: '› POST    /api/webhooks/asaas' }, { t: '› plano   3 cenários' }],
+        [{ t: 'run_scenario("checkout pix")', c: 'fg' }, { t: '✓ QR code exibido', c: 'ok' }, { t: '✓ webhook "paid" recebido', c: 'ok' }, { t: '! needs_human antes de "Pagar"', c: 'amber' }],
+        [{ t: '✓ pedido → pago', c: 'ok' }, { t: '✓ a11y_audit: 0 violações', c: 'ok' }, { t: '✓ pagamento aprovado por humano', c: 'ok' }, { t: '→ pronto para merge', c: 'ok' }],
+      ],
+    },
+    {
+      tag: 'pagamentos · retry de falha',
+      steps: [
+        [{ t: 'src/billing/retry.ts  +31 −4', c: 'fg' }, { t: '+ scheduleRetry(charge, 3)', c: 'ok' }, { t: 'src/jobs/dunning.ts  +12', c: 'fg' }, { t: '- retryNow()', c: 'amber' }],
+        [{ t: 'testa.feature_context()', c: 'fg' }, { t: '› rota    /account/billing' }, { t: '› mock    card_declined' }, { t: '› plano   2 cenários' }],
+        [{ t: 'run_scenario("cartão recusado")', c: 'fg' }, { t: '✓ aviso "pagamento falhou"', c: 'ok' }, { t: '✓ retry agendado em 24h', c: 'ok' }, { t: '! needs_human antes de "Tentar agora"', c: 'amber' }],
+        [{ t: '✓ status past_due → active', c: 'ok' }, { t: '✓ a11y_audit: 0 violações', c: 'ok' }, { t: '✓ replay corrigiu 1 seletor', c: 'ok' }, { t: '→ pronto para merge', c: 'ok' }],
+      ],
+    },
+    {
+      tag: 'growth · onboarding A/B',
+      steps: [
+        [{ t: 'src/onboarding/steps.tsx  +27', c: 'fg' }, { t: '+ variante B: pula telefone', c: 'ok' }, { t: 'src/flags/experiments.ts  +5', c: 'fg' }, { t: '+ onboarding_v2: 50/50', c: 'ok' }],
+        [{ t: 'testa.feature_context()', c: 'fg' }, { t: '› rota    /signup' }, { t: '› flag    onboarding_v2=A|B' }, { t: '› plano   2 cenários' }],
+        [{ t: 'run_scenario("cadastro · B")', c: 'fg' }, { t: '✓ etapa de telefone oculta', c: 'ok' }, { t: '✓ evento signup_completed', c: 'ok' }, { t: '✓ variante A inalterada', c: 'ok' }],
+        [{ t: '✓ ios sim: mesmo fluxo passa', c: 'ok' }, { t: '✓ a11y_audit: 0 violações', c: 'ok' }, { t: '✓ 2/2 cenários passaram', c: 'ok' }, { t: '→ pronto para merge', c: 'ok' }],
+      ],
+    },
+  ],
+};
+
+const COLOR = { ok: 'text-ok', amber: 'text-amber', dim: 'text-dim', fg: 'text-fg' };
 
 export default function Pipeline() {
   const { lang } = useLanguage();
   const s = ui[lang];
   const reduce = useReducedMotion();
-  const [step, setStep] = useState(3);
+  const [tick, setTick] = useState(3);
+  const step = tick % 6; // 4–5 hold the result
+  const story = Math.floor(tick / 6) % STORIES.en.length;
   const ref = useRef<HTMLDivElement>(null);
 
   const mx = useMotionValue(0);
@@ -22,11 +88,12 @@ export default function Pipeline() {
 
   useEffect(() => {
     if (reduce) return;
-    const id = setInterval(() => setStep((v) => (v + 1) % 5), 1400);
+    const id = setInterval(() => setTick((v) => v + 1), 1500);
     return () => clearInterval(id);
   }, [reduce]);
 
-  const shown = reduce ? 3 : step;
+  const shown = reduce ? 3 : Math.min(step, 3);
+  const st = STORIES[lang][reduce ? 0 : story];
 
   function onMove(e: React.PointerEvent) {
     if (reduce || !ref.current) return;
@@ -49,7 +116,7 @@ export default function Pipeline() {
       className="card mt-10 overflow-hidden bg-bg/90 font-mono text-[12px] backdrop-blur-sm"
     >
       <div className="flex items-center justify-between border-b hairline px-4 py-2">
-        <span className="mono-label">~/{s.pipelineLabel}</span>
+        <span className="mono-label truncate"><span className="hidden sm:inline">~/{s.pipelineLabel} · </span><span className="text-amber">{st.tag}</span> · demo</span>
         <span className="flex gap-1.5" aria-hidden>
           <i className="h-2 w-2 rounded-full bg-line-strong" />
           <i className="h-2 w-2 rounded-full bg-line-strong" />
@@ -79,26 +146,18 @@ export default function Pipeline() {
         })}
       </ol>
 
-      <div className="grid min-h-[92px] gap-1 px-4 py-3 leading-5" aria-hidden>
-        {(shown === 0 || shown === 4) &&
-          DIFF.map((l, i) => (
-            <motion.p key={'d' + i} initial={{ opacity: 0, x: -6 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: reduce ? 0 : i * 0.15 }} className={l.startsWith('+') ? 'text-ok' : 'text-amber'}>
-              {l}
-            </motion.p>
-          ))}
-        {shown === 1 &&
-          SCEN.map((l, i) => (
-            <motion.p key={'s' + i} initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: i * 0.15 }} className="text-muted">
-              <span className="text-amber">›</span> scenario: {l}
-            </motion.p>
-          ))}
-        {(shown === 2 || shown === 3) &&
-          SCEN.map((l, i) => (
-            <motion.p key={'t' + i} initial={reduce ? false : { opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: i * 0.2 }} className="text-muted">
-              <span className={shown === 3 || i < 2 ? 'text-ok' : 'text-amber'}>{shown === 3 || i < 2 ? '✓' : '…'}</span> {l}
-              {shown === 3 && i === 2 && <span className="ml-2 text-ok">3/3 passed</span>}
-            </motion.p>
-          ))}
+      <div className="grid min-h-[116px] gap-0.5 px-4 py-3 leading-5" aria-hidden>
+        {st.steps[shown].map((l, i) => (
+          <motion.p
+            key={`${story}-${shown}-${i}`}
+            initial={reduce ? false : { opacity: 0, x: -6 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ delay: reduce ? 0 : i * 0.18 }}
+            className={`truncate ${l.c ? COLOR[l.c] : 'text-muted'} ${shown === 3 && i === 3 ? 'font-semibold' : ''}`}
+          >
+            {l.t}
+          </motion.p>
+        ))}
       </div>
     </motion.div>
   );
