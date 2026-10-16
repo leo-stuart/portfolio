@@ -14,6 +14,7 @@ import type { GitHubData } from '@/lib/github-types';
 import Mascot from '@/components/Mascot';
 import Secrets from '@/components/Secrets';
 import BootIntro from '@/components/BootIntro';
+import VisitorMap from '@/components/VisitorMap';
 import CommandPalette from '@/components/CommandPalette';
 
 export default function HomeClient({ github }: { github: GitHubData }) {
@@ -28,6 +29,7 @@ export default function HomeClient({ github }: { github: GitHubData }) {
         <Experience />
         <Projects />
         <GitHubActivity data={github} />
+        <VisitorMap />
         <Skills />
         <Contact />
       </main>
