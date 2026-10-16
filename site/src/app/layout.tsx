@@ -18,11 +18,12 @@ const mono = JetBrains_Mono({
 export const metadata: Metadata = {
   title: "Leonardo Stuart — Software Engineer",
   description:
-    "Software engineer on the growth team at allu., working on customer-facing apps used by 1M+ people a month. Payments, distributed systems, AI integration. Belo Horizonte, Brazil.",
+    "Software engineer on the growth team at allu., working on customer-facing apps used by 1M+ people a month. Focused on AI growth, agent tooling and LLM features. Belo Horizonte, Brazil.",
   keywords: [
     "software engineer",
     "growth engineering",
-    "payments",
+    "AI growth",
+    "agent tooling",
     "distributed systems",
     "AI integration",
     "Python",
@@ -35,7 +36,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Leonardo Stuart — Software Engineer",
     description:
-      "Customer-facing software at scale, payments and AI integration.",
+      "Software engineer focused on AI growth and agent tooling.",
     type: "website",
   },
 };

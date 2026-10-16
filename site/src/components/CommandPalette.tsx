@@ -51,8 +51,7 @@ export default function CommandPalette() {
   const [panel, setPanel] = useState<null | 'run' | 'sudo' | 'secrets' | 'pay'>(null);
   const [search, setSearch] = useState('');
   const found = useSecrets();
-  const digits = search.replace(/[\s-]/g, '');
-  const isCard = digits === '4242424242424242';
+  const isDeploy = /^deploy\b/i.test(search.trim());
   const isSudo = /^sudo\b/i.test(search.trim());
 
   useEffect(() => {
@@ -154,18 +153,20 @@ export default function CommandPalette() {
               </Command.Item>
             ))}
           </Command.Group>
-          {isCard && (
-            <Command.Group heading="checkout">
+          {isDeploy && (
+            <Command.Group heading="ship">
               <Command.Item
                 value={search}
                 onSelect={() => {
-                  setNeon(true);
-                  unlock('neon');
-                  setPanel('pay');
+                  if (/^deploy\s+--to\s+prod\b/i.test(search.trim())) {
+                    setNeon(true);
+                    unlock('neon');
+                    setPanel('pay');
+                  } else setSearch('deploy --to prod');
                 }}
                 className={item}
               >
-                {s.payItem} <span className="font-mono text-[11px] text-ok">pay</span>
+                <span className="font-mono">{s.payItem}</span> <span className="font-mono text-[11px] text-ok">🚀</span>
               </Command.Item>
             </Command.Group>
           )}

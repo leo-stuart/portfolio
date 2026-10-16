@@ -54,7 +54,7 @@ export default function Projects() {
 
   return (
     <MotionConfig reducedMotion="user" transition={{ type: 'spring', stiffness: 380, damping: 34 }}>
-      <Section id="projects" title={t.projects.title} aside={<span className="font-mono">{t.projects.items.length} txns</span>}>
+      <Section id="projects" title={t.projects.title} aside={<span className="font-mono">{t.projects.items.length} deploys</span>}>
         <p className="mb-3 font-mono text-[12px] text-dim">{s.ledgerHint}</p>
         <div className="card overflow-hidden">
           <div className="hidden grid-cols-[110px_minmax(0,1.2fr)_minmax(0,1.4fr)_170px] gap-4 border-b hairline bg-panel px-5 py-2 sm:grid">

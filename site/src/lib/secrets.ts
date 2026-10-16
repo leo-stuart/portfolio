@@ -9,7 +9,7 @@ export type SecretId = (typeof SECRETS)[number];
 export const SECRET_INFO: Record<Lang, Record<SecretId, { name: string; hint: string }>> = {
   en: {
     konami: { name: 'Konami code', hint: 'Old-school gamers know the sequence. ↑↑…' },
-    neon: { name: 'Secret checkout', hint: 'Pay in ⌘K with the most famous test card.' },
+    neon: { name: 'Ship it', hint: 'Every engineer’s favorite command, typed in ⌘K: deploy --to …' },
     sudo: { name: 'sudo', hint: 'Recruiters have root access in ⌘K.' },
     avatar: { name: 'Poke', hint: 'The photo is ticklish. Try a few clicks.' },
     clue: { name: 'Bot whisper', hint: 'Keep clicking the bot in Projects.' },
@@ -18,7 +18,7 @@ export const SECRET_INFO: Record<Lang, Record<SecretId, { name: string; hint: st
   },
   pt: {
     konami: { name: 'Código Konami', hint: 'Gamers das antigas sabem a sequência. ↑↑…' },
-    neon: { name: 'Checkout secreto', hint: 'Pague no ⌘K com o cartão de teste mais famoso.' },
+    neon: { name: 'Manda pra prod', hint: 'O comando favorito de todo engenheiro, no ⌘K: deploy --to …' },
     sudo: { name: 'sudo', hint: 'Recrutadores têm acesso root no ⌘K.' },
     avatar: { name: 'Cutucada', hint: 'A foto sente cócegas. Tente alguns cliques.' },
     clue: { name: 'Sussurro do robô', hint: 'Continue clicando no robô em Projetos.' },
