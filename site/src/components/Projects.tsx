@@ -112,7 +112,7 @@ export default function Projects() {
                           <span className="text-dim">{slug(p.name)}</span>
                           <span className="deploy-status flex items-center gap-1.5">
                             <span className={`h-1.5 w-1.5 rounded-full ${live ? 'bg-ok' : 'bg-amber'}`} />
-                            <span className="deploy-building text-amber">building…</span>
+                            <span className="deploy-building inline-block text-amber">building…</span>
                             <span className={`deploy-done ${live ? 'text-ok' : 'text-amber'}`}>{live ? s.statusLive : s.statusDone}</span>
                           </span>
                         </div>

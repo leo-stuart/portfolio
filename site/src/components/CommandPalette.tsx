@@ -110,6 +110,12 @@ export default function CommandPalette() {
         }}
         label={s.openPalette}
         loop
+        filter={(value, q, keywords) => {
+          const hay = `${value} ${(keywords ?? []).join(' ')}`.toLowerCase();
+          const needle = q.toLowerCase().trim();
+          if (!needle || hay.includes(needle)) return 1;
+          return needle.split(/\s+/).every((w) => hay.includes(w)) ? 0.5 : 0;
+        }}
         overlayClassName="fixed inset-0 z-[70] bg-black/40 backdrop-blur-[2px]"
         contentClassName="fixed left-1/2 top-[12vh] z-[71] w-[calc(100%-2rem)] max-w-[560px] -translate-x-1/2 overflow-hidden rounded-xl border hairline bg-bg shadow-2xl"
       >
@@ -132,16 +138,16 @@ export default function CommandPalette() {
         <Command.List className="max-h-[50vh] overflow-y-auto p-2">
           <Command.Empty className="px-3 py-6 text-center text-[14px] text-dim">{s.paletteEmpty}</Command.Empty>
           <Command.Group heading={s.groupNav}>
-            <Command.Item value="projects" keywords={['projetos']} onSelect={go(() => scrollTo('projects'))} className={item}>
+            <Command.Item value="projects" keywords={['projetos', s.cmdProjects]} onSelect={go(() => scrollTo('projects'))} className={item}>
               {s.cmdProjects} <span className="font-mono text-[11px] text-dim">projects</span>
             </Command.Item>
-            <Command.Item value="contact" keywords={['contato', 'email']} onSelect={go(() => scrollTo('contact'))} className={item}>
+            <Command.Item value="contact" keywords={['contato', 'email', s.cmdContact]} onSelect={go(() => scrollTo('contact'))} className={item}>
               {s.cmdContact} <span className="font-mono text-[11px] text-dim">contact</span>
             </Command.Item>
-            <Command.Item value="cv" keywords={['resume', 'curriculo']} onSelect={go(() => ext('/cv.pdf'))} className={item}>
+            <Command.Item value="cv" keywords={['resume', 'curriculo', 'currículo']} onSelect={go(() => ext('/cv.pdf'))} className={item}>
               {s.cmdCv} <span className="font-mono text-[11px] text-dim">cv</span>
             </Command.Item>
-            <Command.Item value="language" keywords={['idioma', 'lang', 'pt', 'en']} onSelect={go(() => setLang(lang === 'en' ? 'pt' : 'en'))} className={item}>
+            <Command.Item value="language" keywords={['idioma', 'lang', 'english', 'português', s.cmdLang]} onSelect={go(() => setLang(lang === 'en' ? 'pt' : 'en'))} className={item}>
               {s.cmdLang} <span className="font-mono text-[11px] text-dim">lang</span>
             </Command.Item>
           </Command.Group>
@@ -202,10 +208,10 @@ export default function CommandPalette() {
             </Command.Group>
           )}
           <Command.Group heading={s.groupFun}>
-            <Command.Item value="agent leo terminal whoami help" keywords={['terminal', 'chat', 'ask']} onSelect={() => setPanel('agent')} className={item}>
+            <Command.Item value="agent leo terminal whoami help" keywords={['terminal', 'chat', 'ask', 'agente', s.cmdAgent]} onSelect={() => setPanel('agent')} className={item}>
               {s.cmdAgent} <span className="font-mono text-[11px] text-ok">$_</span>
             </Command.Item>
-            <Command.Item value="secrets" keywords={['segredos', 'easter']} onSelect={() => setPanel('secrets')} className={item}>
+            <Command.Item value="secrets" keywords={['segredos', 'easter', 'eggs']} onSelect={() => setPanel('secrets')} className={item}>
               {s.cmdSecrets} <span className="font-mono text-[11px] text-ok">{found.length}/{SECRETS.length}</span>
             </Command.Item>
             {found.includes('neon') && (
@@ -213,7 +219,7 @@ export default function CommandPalette() {
                 {s.cmdNeon} <span className="font-mono text-[11px] text-dim">neon</span>
               </Command.Item>
             )}
-            <Command.Item value="bot mascot" keywords={['mascote', 'robo']} onSelect={go(() => window.dispatchEvent(new Event(SHOW_MASCOT)))} className={item}>
+            <Command.Item value="bot mascot" keywords={['mascote', 'robo', 'robô', s.cmdBot]} onSelect={go(() => window.dispatchEvent(new Event(SHOW_MASCOT)))} className={item}>
               {s.cmdBot} <span className="font-mono text-[11px] text-dim">bot</span>
             </Command.Item>
             <Command.Item value="run testa" onSelect={() => setPanel('run')} className={item}>

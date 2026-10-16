@@ -76,7 +76,7 @@ export default function AgentTerm({ onOpenProject }: { onOpenProject: (id: strin
         ))}
       </div>
       <div className="flex items-center gap-2 border-t hairline px-4">
-        <span className="text-ok">leo@agent $</span>
+        <span className="whitespace-nowrap text-ok">leo@agent $</span>
         <input
           ref={input}
           value={val}
