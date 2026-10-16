@@ -3,6 +3,10 @@ import type { Lang } from './content';
 export const ui = {
   en: {
     pipelineLabel: 'agent pipeline',
+    pipelinePick: 'Choose a demo story',
+    replay: 'Replay',
+    pause: 'Pause',
+    play: 'Play',
     pipelineAria: 'Animated diagram: an agent reads a diff, plans scenarios, runs tests and passes.',
     steps: ['diff', 'scenarios', 'tests', 'passed'],
     ledgerCols: ['status', 'project', 'stack', 'period'],
@@ -26,6 +30,10 @@ export const ui = {
   },
   pt: {
     pipelineLabel: 'pipeline do agente',
+    pipelinePick: 'Escolha uma história de demo',
+    replay: 'Repetir',
+    pause: 'Pausar',
+    play: 'Continuar',
     pipelineAria: 'Diagrama animado: um agente lê o diff, planeja cenários, roda testes e passa.',
     steps: ['diff', 'cenários', 'testes', 'passou'],
     ledgerCols: ['status', 'projeto', 'stack', 'período'],

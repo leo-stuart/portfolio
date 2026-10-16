@@ -6,13 +6,13 @@ import { useLanguage } from '@/context/LanguageContext';
 import { ui } from '@/data/ui';
 
 type L = { t: string; c?: 'ok' | 'amber' | 'dim' | 'fg' };
-type Story = { tag: string; steps: [L[], L[], L[], L[]] };
+type Story = { tag: string; short: string; steps: [L[], L[], L[], L[]] };
 
 // Demo data only: illustrative log of an agent using testa (MCP).
 const STORIES: Record<'en' | 'pt', Story[]> = {
   en: [
     {
-      tag: 'payments · pix checkout',
+      tag: 'payments · pix checkout', short: 'PIX',
       steps: [
         [{ t: 'src/payments/pix.ts  +42 −6', c: 'fg' }, { t: '+ createPixCharge(order)', c: 'ok' }, { t: 'src/api/webhooks/asaas.ts  +18', c: 'fg' }, { t: '+ on("PAYMENT_RECEIVED")', c: 'ok' }],
         [{ t: 'testa.feature_context()', c: 'fg' }, { t: '› route   /checkout/pix' }, { t: '› POST    /api/webhooks/asaas' }, { t: '› plan    3 scenarios' }],
@@ -21,7 +21,7 @@ const STORIES: Record<'en' | 'pt', Story[]> = {
       ],
     },
     {
-      tag: 'payments · failed retry',
+      tag: 'payments · failed retry', short: 'retry',
       steps: [
         [{ t: 'src/billing/retry.ts  +31 −4', c: 'fg' }, { t: '+ scheduleRetry(charge, 3)', c: 'ok' }, { t: 'src/jobs/dunning.ts  +12', c: 'fg' }, { t: '- retryNow()', c: 'amber' }],
         [{ t: 'testa.feature_context()', c: 'fg' }, { t: '› route   /account/billing' }, { t: '› mock    card_declined' }, { t: '› plan    2 scenarios' }],
@@ -30,7 +30,7 @@ const STORIES: Record<'en' | 'pt', Story[]> = {
       ],
     },
     {
-      tag: 'growth · onboarding A/B',
+      tag: 'growth · onboarding A/B', short: 'A/B',
       steps: [
         [{ t: 'src/onboarding/steps.tsx  +27', c: 'fg' }, { t: '+ variant B: skip phone step', c: 'ok' }, { t: 'src/flags/experiments.ts  +5', c: 'fg' }, { t: '+ onboarding_v2: 50/50', c: 'ok' }],
         [{ t: 'testa.feature_context()', c: 'fg' }, { t: '› route   /signup' }, { t: '› flag    onboarding_v2=A|B' }, { t: '› plan    2 scenarios' }],
@@ -41,7 +41,7 @@ const STORIES: Record<'en' | 'pt', Story[]> = {
   ],
   pt: [
     {
-      tag: 'pagamentos · checkout pix',
+      tag: 'pagamentos · checkout pix', short: 'PIX',
       steps: [
         [{ t: 'src/payments/pix.ts  +42 −6', c: 'fg' }, { t: '+ createPixCharge(order)', c: 'ok' }, { t: 'src/api/webhooks/asaas.ts  +18', c: 'fg' }, { t: '+ on("PAYMENT_RECEIVED")', c: 'ok' }],
         [{ t: 'testa.feature_context()', c: 'fg' }, { t: '› rota    /checkout/pix' }, { t: '› POST    /api/webhooks/asaas' }, { t: '› plano   3 cenários' }],
@@ -50,7 +50,7 @@ const STORIES: Record<'en' | 'pt', Story[]> = {
       ],
     },
     {
-      tag: 'pagamentos · retry de falha',
+      tag: 'pagamentos · retry de falha', short: 'retry',
       steps: [
         [{ t: 'src/billing/retry.ts  +31 −4', c: 'fg' }, { t: '+ scheduleRetry(charge, 3)', c: 'ok' }, { t: 'src/jobs/dunning.ts  +12', c: 'fg' }, { t: '- retryNow()', c: 'amber' }],
         [{ t: 'testa.feature_context()', c: 'fg' }, { t: '› rota    /account/billing' }, { t: '› mock    card_declined' }, { t: '› plano   2 cenários' }],
@@ -59,7 +59,7 @@ const STORIES: Record<'en' | 'pt', Story[]> = {
       ],
     },
     {
-      tag: 'growth · onboarding A/B',
+      tag: 'growth · onboarding A/B', short: 'A/B',
       steps: [
         [{ t: 'src/onboarding/steps.tsx  +27', c: 'fg' }, { t: '+ variante B: pula telefone', c: 'ok' }, { t: 'src/flags/experiments.ts  +5', c: 'fg' }, { t: '+ onboarding_v2: 50/50', c: 'ok' }],
         [{ t: 'testa.feature_context()', c: 'fg' }, { t: '› rota    /signup' }, { t: '› flag    onboarding_v2=A|B' }, { t: '› plano   2 cenários' }],
@@ -86,14 +86,23 @@ export default function Pipeline() {
   const rx = useSpring(useTransform(my, [-1, 1], [3, -3]), { stiffness: 120, damping: 20 });
   const ry = useSpring(useTransform(mx, [-1, 1], [-4, 4]), { stiffness: 120, damping: 20 });
 
+  const [paused, setPaused] = useState(false);
+  const [hover, setHover] = useState(false);
+  const playing = !reduce && !paused && !hover;
+
   useEffect(() => {
-    if (reduce) return;
+    if (!playing) return;
     const id = setInterval(() => setTick((v) => v + 1), 1500);
     return () => clearInterval(id);
-  }, [reduce]);
+  }, [playing]);
+
+  const pick = (i: number) => {
+    setTick(i * 6);
+    window.dispatchEvent(new CustomEvent('pipeline-story', { detail: i }));
+  };
 
   const shown = reduce ? 3 : Math.min(step, 3);
-  const st = STORIES[lang][reduce ? 0 : story];
+  const st = STORIES[lang][story];
 
   function onMove(e: React.PointerEvent) {
     if (reduce || !ref.current) return;
@@ -106,13 +115,17 @@ export default function Pipeline() {
     <motion.div
       ref={ref}
       onPointerMove={onMove}
+      onPointerEnter={() => setHover(true)}
       onPointerLeave={() => {
         mx.set(0);
         my.set(0);
+        setHover(false);
+      }}
+      onFocus={() => setHover(true)}
+      onBlur={(e) => {
+        if (!e.currentTarget.contains(e.relatedTarget as Node)) setHover(false);
       }}
       style={reduce ? undefined : { rotateX: rx, rotateY: ry, transformPerspective: 900 }}
-      role="img"
-      aria-label={s.pipelineAria}
       className="card mt-10 overflow-hidden bg-bg/90 font-mono text-[12px] backdrop-blur-sm"
     >
       <div className="flex items-center justify-between border-b hairline px-4 py-2">
@@ -123,6 +136,29 @@ export default function Pipeline() {
           <i className="h-2 w-2 rounded-full bg-line-strong" />
         </span>
       </div>
+
+      <div className="flex flex-wrap items-center gap-1.5 border-b hairline px-3 py-2" role="group" aria-label={s.pipelinePick}>
+        {STORIES[lang].map((x, i) => (
+          <button
+            key={x.tag}
+            type="button"
+            aria-pressed={i === story}
+            onClick={() => pick(i)}
+            className={`rounded-full border px-2.5 py-0.5 text-[11px] transition-colors ${i === story ? 'border-ok text-ok' : 'hairline text-dim hover:text-fg'}`}
+          >
+            {x.short}
+          </button>
+        ))}
+        <span className="ml-auto flex gap-1">
+          <button type="button" onClick={() => setTick(story * 6)} aria-label={s.replay} title={s.replay} className="rounded px-1.5 text-dim hover:text-fg">↺</button>
+          {!reduce && (
+            <button type="button" onClick={() => setPaused((v) => !v)} aria-label={paused ? s.play : s.pause} title={paused ? s.play : s.pause} className="rounded px-1.5 text-dim hover:text-fg">
+              {paused ? '▶' : '❚❚'}
+            </button>
+          )}
+        </span>
+      </div>
+      <p className="sr-only" aria-live="polite">{s.pipelineAria} {st.tag}</p>
 
       <ol className="grid grid-cols-4 gap-px bg-line" aria-hidden>
         {s.steps.map((label, i) => {
