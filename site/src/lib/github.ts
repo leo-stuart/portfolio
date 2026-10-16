@@ -25,9 +25,18 @@ async function viaGraphQL(token: string): Promise<Day[] | null> {
   );
 }
 
-async function viaScrape(): Promise<Day[] | null> {
-  const res = await fetch(`https://github.com/users/${USER}/contributions`, { headers: UA, next: { revalidate: REVALIDATE } });
-  if (!res.ok) return null;
+export class ScrapeError extends Error {
+  constructor(public status: number) {
+    super(`github ${status}`);
+  }
+}
+
+async function viaScrape(user = USER, strict = false): Promise<Day[] | null> {
+  const res = await fetch(`https://github.com/users/${encodeURIComponent(user)}/contributions`, { headers: UA, next: { revalidate: REVALIDATE } });
+  if (!res.ok) {
+    if (strict) throw new ScrapeError(res.status);
+    return null;
+  }
   const html = await res.text();
   const counts = new Map<string, number>();
   for (const m of html.matchAll(/<tool-tip[^>]*for="([^"]+)"[^>]*>([^<]*)</g)) {
@@ -44,6 +53,12 @@ async function viaScrape(): Promise<Day[] | null> {
   }
   days.sort((a, b) => a.date.localeCompare(b.date));
   return days.length > 300 ? days : null;
+}
+
+export async function getContributions(user: string) {
+  const days = await viaScrape(user, true);
+  if (!days) throw new ScrapeError(502);
+  return { days, total: days.reduce((n, d) => n + d.count, 0) };
 }
 
 type Ev = { type: string; repo: { name: string }; created_at: string; payload: { action?: string; ref_type?: string; number?: number; pull_request?: { title?: string; html_url?: string; merged?: boolean }; release?: { tag_name?: string; html_url?: string } } };

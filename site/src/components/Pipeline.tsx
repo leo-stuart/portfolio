@@ -22,12 +22,12 @@ const STORIES: Record<'en' | 'pt', Story[]> = {
       ],
     },
     {
-      tag: 'payments · failed retry', short: 'retry',
+      tag: 'AI · reactivation agent', short: 'AI agent',
       steps: [
-        [{ t: 'src/billing/retry.ts  +31 −4', c: 'fg' }, { t: '+ scheduleRetry(charge, 3)', c: 'ok' }, { t: 'src/jobs/dunning.ts  +12', c: 'fg' }, { t: '- retryNow()', c: 'amber' }],
-        [{ t: 'testa.feature_context()', c: 'fg' }, { t: '› route   /account/billing' }, { t: '› mock    card_declined' }, { t: '› plan    2 scenarios' }],
-        [{ t: 'run_scenario("declined card")', c: 'fg' }, { t: '✓ banner "payment failed"', c: 'ok' }, { t: '✓ retry scheduled in 24h', c: 'ok' }, { t: '! needs_human before "Retry now"', c: 'amber' }],
-        [{ t: '✓ status past_due → active', c: 'ok' }, { t: '✓ a11y_audit: 0 violations', c: 'ok' }, { t: '✓ replay self-healed 1 selector', c: 'ok' }, { t: '→ ready to merge', c: 'ok' }],
+        [{ t: 'src/agents/reactivation.ts  +38', c: 'fg' }, { t: '+ draftMessage(user, history)', c: 'ok' }, { t: 'evals/reactivation.yaml  +22', c: 'fg' }, { t: '+ checks: tone, policy, lang', c: 'ok' }],
+        [{ t: 'testa.feature_context()', c: 'fg' }, { t: '› route   /admin/campaigns' }, { t: '› tool    llm.generate (mocked)' }, { t: '› plan    3 scenarios' }],
+        [{ t: 'run_scenario("draft · inactive user")', c: 'fg' }, { t: '✓ message in user’s language', c: 'ok' }, { t: '✓ no offer outside policy', c: 'ok' }, { t: '! needs_human before "Send"', c: 'amber' }],
+        [{ t: '✓ eval suite: tone · policy · lang', c: 'ok' }, { t: '✓ a11y_audit: 0 violations', c: 'ok' }, { t: '✓ human reviewed the draft', c: 'ok' }, { t: '→ ready to merge', c: 'ok' }],
       ],
     },
     {
@@ -51,12 +51,12 @@ const STORIES: Record<'en' | 'pt', Story[]> = {
       ],
     },
     {
-      tag: 'pagamentos · retry de falha', short: 'retry',
+      tag: 'IA · agente de reativação', short: 'agente IA',
       steps: [
-        [{ t: 'src/billing/retry.ts  +31 −4', c: 'fg' }, { t: '+ scheduleRetry(charge, 3)', c: 'ok' }, { t: 'src/jobs/dunning.ts  +12', c: 'fg' }, { t: '- retryNow()', c: 'amber' }],
-        [{ t: 'testa.feature_context()', c: 'fg' }, { t: '› rota    /account/billing' }, { t: '› mock    card_declined' }, { t: '› plano   2 cenários' }],
-        [{ t: 'run_scenario("cartão recusado")', c: 'fg' }, { t: '✓ aviso "pagamento falhou"', c: 'ok' }, { t: '✓ retry agendado em 24h', c: 'ok' }, { t: '! needs_human antes de "Tentar agora"', c: 'amber' }],
-        [{ t: '✓ status past_due → active', c: 'ok' }, { t: '✓ a11y_audit: 0 violações', c: 'ok' }, { t: '✓ replay corrigiu 1 seletor', c: 'ok' }, { t: '→ pronto para merge', c: 'ok' }],
+        [{ t: 'src/agents/reactivation.ts  +38', c: 'fg' }, { t: '+ draftMessage(user, history)', c: 'ok' }, { t: 'evals/reactivation.yaml  +22', c: 'fg' }, { t: '+ checks: tom, política, idioma', c: 'ok' }],
+        [{ t: 'testa.feature_context()', c: 'fg' }, { t: '› rota    /admin/campaigns' }, { t: '› tool    llm.generate (mock)' }, { t: '› plano   3 cenários' }],
+        [{ t: 'run_scenario("rascunho · inativo")', c: 'fg' }, { t: '✓ mensagem no idioma do usuário', c: 'ok' }, { t: '✓ nenhuma oferta fora da política', c: 'ok' }, { t: '! needs_human antes de "Enviar"', c: 'amber' }],
+        [{ t: '✓ evals: tom · política · idioma', c: 'ok' }, { t: '✓ a11y_audit: 0 violações', c: 'ok' }, { t: '✓ rascunho revisado por humano', c: 'ok' }, { t: '→ pronto para merge', c: 'ok' }],
       ],
     },
     {

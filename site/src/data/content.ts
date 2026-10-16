@@ -185,11 +185,11 @@ export const content: Record<Lang, Content> = {
     ],
     about: {
       title: 'About',
-      bio: 'Software engineer with production experience across fintech, consulting, e-commerce and enterprise chatbot platforms. I like owning problems end to end: from the data model and the queue to the API and the UI. My recent work spans customer-facing product at scale, payment infrastructure and LLM tooling.',
+      bio: 'Software engineer with production experience across fintech, consulting, e-commerce and enterprise chatbot platforms. I like owning problems end to end: from the data model and the queue to the API and the UI. My focus is AI growth: agent tooling, LLM features and customer-facing product at scale. Recent work also included a payment infrastructure project.',
       facts: [
         { label: 'now', value: 'Software Engineering Intern at allu., growth team' },
         { label: 'education', value: 'B.Sc. Computer Science, PUC Minas (2025–2028)' },
-        { label: 'focus', value: 'growth engineering, payments, AI integration' },
+        { label: 'focus', value: 'AI growth, agent tooling, growth engineering' },
         { label: 'languages', value: 'Portuguese (native), English (C1, Cambridge)' },
         { label: 'location', value: 'Belo Horizonte, MG, Brazil' },
       ],
@@ -405,7 +405,7 @@ export const content: Record<Lang, Content> = {
     },
     contact: {
       title: 'Contact',
-      text: 'If you want to talk growth engineering, payments, agent tooling, or have something worth building together, email me.',
+      text: 'If you want to talk AI growth, agent tooling, growth engineering, or have something worth building together, email me.',
       email: 'leostuart05@gmail.com',
       links: SOCIAL,
       footer: 'Leonardo Stuart, Belo Horizonte',
@@ -439,11 +439,11 @@ export const content: Record<Lang, Content> = {
     ],
     about: {
       title: 'Sobre',
-      bio: 'Engenheiro de software com experiência em produção em fintech, consultoria, e-commerce e plataformas de chatbot corporativo. Gosto de ser dono do problema de ponta a ponta: do modelo de dados e da fila até a API e a interface. Meu trabalho recente passa por produto voltado ao cliente em escala, infraestrutura de pagamentos e ferramentas de LLM.',
+      bio: 'Engenheiro de software com experiência em produção em fintech, consultoria, e-commerce e plataformas de chatbot corporativo. Gosto de ser dono do problema de ponta a ponta: do modelo de dados e da fila até a API e a interface. Meu foco é AI growth: ferramentas para agentes, features com LLM e produto voltado ao cliente em escala. Recentemente também trabalhei num projeto de infraestrutura de pagamentos.',
       facts: [
         { label: 'agora', value: 'Estagiário de Engenharia de Software na allu., time de growth' },
         { label: 'formação', value: 'Bacharelado em Ciência da Computação, PUC Minas (2025–2028)' },
-        { label: 'foco', value: 'engenharia de growth, pagamentos, integração de IA' },
+        { label: 'foco', value: 'AI growth, ferramentas para agentes, engenharia de growth' },
         { label: 'idiomas', value: 'Português (nativo), Inglês (C1, Cambridge)' },
         { label: 'local', value: 'Belo Horizonte, MG, Brasil' },
       ],
@@ -659,7 +659,7 @@ export const content: Record<Lang, Content> = {
     },
     contact: {
       title: 'Contato',
-      text: 'Se quiser falar sobre engenharia de growth, pagamentos, tooling para agentes, ou tem algo que vale a pena construir junto, me mande um email.',
+      text: 'Se quiser falar sobre AI growth, ferramentas para agentes, engenharia de growth, ou tem algo que vale a pena construir junto, me mande um email.',
       email: 'leostuart05@gmail.com',
       links: SOCIAL,
       footer: 'Leonardo Stuart, Belo Horizonte',

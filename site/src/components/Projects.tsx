@@ -25,6 +25,7 @@ export default function Projects() {
   const { t, lang } = useLanguage();
   const s = ui[lang];
   const [open, setOpen] = useState<string | null>(null);
+  const [peek, setPeek] = useState<string | null>(null);
   const closeRef = useRef<HTMLButtonElement>(null);
   const lastFocus = useRef<HTMLElement | null>(null);
   const current = t.projects.items.find((p) => slug(p.name) === open);
@@ -54,7 +55,7 @@ export default function Projects() {
 
   return (
     <MotionConfig reducedMotion="user" transition={{ type: 'spring', stiffness: 380, damping: 34 }}>
-      <Section id="projects" title={t.projects.title} aside={<span className="font-mono">{t.projects.items.length} txns</span>}>
+      <Section id="projects" title={t.projects.title} aside={<span className="font-mono">{t.projects.items.length} deploys</span>}>
         <p className="mb-3 font-mono text-[12px] text-dim">{s.ledgerHint}</p>
         <div className="card overflow-hidden">
           <div className="hidden grid-cols-[110px_minmax(0,1.2fr)_minmax(0,1.4fr)_170px] gap-4 border-b hairline bg-panel px-5 py-2 sm:grid">
@@ -67,7 +68,15 @@ export default function Projects() {
               const id = slug(p.name);
               const live = isLive(p);
               return (
-                <motion.li key={p.name} layoutId={`row-${id}`} className="border-b hairline bg-bg last:border-b-0">
+                <motion.li
+                  key={p.name}
+                  layoutId={`row-${id}`}
+                  className="relative border-b hairline bg-bg last:border-b-0"
+                  onMouseEnter={() => setPeek(id)}
+                  onMouseLeave={() => setPeek((v) => (v === id ? null : v))}
+                  onFocus={() => setPeek(id)}
+                  onBlur={() => setPeek((v) => (v === id ? null : v))}
+                >
                   <button
                     type="button"
                     onClick={(e) => {
@@ -88,6 +97,29 @@ export default function Projects() {
                     </span>
                     <span className="order-4 col-span-2 font-mono text-[12px] tabular-nums text-dim sm:order-none sm:col-span-1">{p.period}</span>
                   </button>
+                  <AnimatePresence>
+                    {peek === id && !open && p.image && (
+                      <motion.div
+                        initial={{ opacity: 0, y: 8, scale: 0.97 }}
+                        animate={{ opacity: 1, y: 0, scale: 1 }}
+                        exit={{ opacity: 0, y: 4 }}
+                        transition={{ duration: 0.18 }}
+                        aria-hidden
+                        className="pointer-events-none absolute bottom-full right-6 z-30 mb-2 hidden w-[280px] overflow-hidden rounded-lg border hairline bg-bg shadow-2xl lg:block"
+                      >
+                        <Image src={p.image} alt="" width={560} height={315} sizes="280px" className="aspect-[16/9] w-full object-cover object-top" />
+                        <div className="flex items-center justify-between px-3 py-2 font-mono text-[11px]">
+                          <span className="text-dim">{slug(p.name)}</span>
+                          <span className="deploy-status flex items-center gap-1.5">
+                            <span className={`h-1.5 w-1.5 rounded-full ${live ? 'bg-ok' : 'bg-amber'}`} />
+                            <span className="deploy-building inline-block text-amber">building…</span>
+                            <span className={`deploy-done ${live ? 'text-ok' : 'text-amber'}`}>{live ? s.statusLive : s.statusDone}</span>
+                          </span>
+                        </div>
+                        <span className="deploy-bar block h-0.5 origin-left bg-ok" />
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
                 </motion.li>
               );
             })}
