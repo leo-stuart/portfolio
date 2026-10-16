@@ -7,6 +7,7 @@ import { AnimatePresence, motion } from 'motion/react';
 import { useLanguage } from '@/context/LanguageContext';
 import { ui, slug } from '@/data/ui';
 import { OPEN_PROJECT } from './Projects';
+import AgentTerm from './AgentTerm';
 import { SHOW_MASCOT } from './Mascot';
 import { SECRETS, SECRET_INFO, unlock, useSecrets, setNeon } from '@/lib/secrets';
 
@@ -48,7 +49,7 @@ export default function CommandPalette() {
   const { t, lang, setLang } = useLanguage();
   const s = ui[lang];
   const [open, setOpen] = useState(false);
-  const [panel, setPanel] = useState<null | 'run' | 'sudo' | 'secrets' | 'pay'>(null);
+  const [panel, setPanel] = useState<null | 'run' | 'sudo' | 'secrets' | 'pay' | 'agent'>(null);
   const [search, setSearch] = useState('');
   const found = useSecrets();
   const isDeploy = /^deploy\b/i.test(search.trim());
@@ -112,6 +113,17 @@ export default function CommandPalette() {
         overlayClassName="fixed inset-0 z-[70] bg-black/40 backdrop-blur-[2px]"
         contentClassName="fixed left-1/2 top-[12vh] z-[71] w-[calc(100%-2rem)] max-w-[560px] -translate-x-1/2 overflow-hidden rounded-xl border hairline bg-bg shadow-2xl"
       >
+        {panel === 'agent' ? (
+          <AgentTerm
+            onOpenProject={(id) => {
+              setOpen(false);
+              setPanel(null);
+              document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' });
+              window.dispatchEvent(new CustomEvent(OPEN_PROJECT, { detail: id }));
+            }}
+          />
+        ) : (
+          <>
         <div className="flex items-center gap-2 border-b hairline px-4">
           <span className="font-mono text-ok">›</span>
           <Command.Input value={search} onValueChange={setSearch} placeholder={s.palettePlaceholder} className="h-12 w-full bg-transparent text-[15px] outline-none placeholder:text-dim" />
@@ -190,6 +202,9 @@ export default function CommandPalette() {
             </Command.Group>
           )}
           <Command.Group heading={s.groupFun}>
+            <Command.Item value="agent leo terminal whoami help" keywords={['terminal', 'chat', 'ask']} onSelect={() => setPanel('agent')} className={item}>
+              {s.cmdAgent} <span className="font-mono text-[11px] text-ok">$_</span>
+            </Command.Item>
             <Command.Item value="secrets" keywords={['segredos', 'easter']} onSelect={() => setPanel('secrets')} className={item}>
               {s.cmdSecrets} <span className="font-mono text-[11px] text-ok">{found.length}/{SECRETS.length}</span>
             </Command.Item>
@@ -206,8 +221,10 @@ export default function CommandPalette() {
             </Command.Item>
           </Command.Group>
         </Command.List>
+          </>
+        )}
         <AnimatePresence>
-          {panel && (
+          {panel && panel !== 'agent' && (
             <motion.div initial={{ height: 0 }} animate={{ height: 'auto' }} exit={{ height: 0 }} className="overflow-hidden">
               {panel === 'run' && <RunLog note={s.runNote} />}
               {panel === 'pay' && <p className="border-t hairline px-4 py-3 font-mono text-[12px] text-ok">✔ {s.payDone}</p>}

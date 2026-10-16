@@ -329,3 +329,14 @@
   -webkit-mask: linear-gradient(#000 0 0) top/100% calc(100% - 8px) no-repeat, conic-gradient(from -45deg at bottom, #0000, #000 1deg 89deg, #0000 90deg) bottom/12px 8px repeat-x;
   mask: linear-gradient(#000 0 0) top/100% calc(100% - 8px) no-repeat, conic-gradient(from -45deg at bottom, #0000, #000 1deg 89deg, #0000 90deg) bottom/12px 8px repeat-x;
 }
+
+/* Ledger hover preview: fake deploy status */
+@keyframes deploy-bar { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+@keyframes deploy-hide { 0%, 99% { opacity: 1; } 100% { opacity: 0; width: 0; } }
+@keyframes deploy-show { 0%, 99% { opacity: 0; } 100% { opacity: 1; } }
+.deploy-bar { animation: deploy-bar 700ms ease-out both; }
+.deploy-building { animation: deploy-hide 700ms steps(1) both; overflow: hidden; }
+.deploy-done { animation: deploy-show 700ms steps(1) both; }
+@media (prefers-reduced-motion: reduce) {
+  .deploy-bar, .deploy-building, .deploy-done { animation-duration: 1ms; }
+}
