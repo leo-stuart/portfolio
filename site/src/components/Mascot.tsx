@@ -7,6 +7,7 @@ import { useLanguage } from '@/context/LanguageContext';
 import { useActiveSection } from '@/hooks/useActiveSection';
 import { mascotLines, clueText, CLUE } from '@/data/mascot';
 import { ui } from '@/data/ui';
+import { useBoot } from '@/lib/boot';
 
 const IDS = ['about', 'experience', 'projects', 'github', 'skills', 'contact'];
 export const SHOW_MASCOT = 'show-mascot';
@@ -35,6 +36,7 @@ export default function Mascot() {
   const reduce = useReducedMotionSafe();
   const active = useActiveSection(IDS) ?? 'top';
   const [hidden, setHidden] = useState(true);
+  const boot = useBoot();
   const [idx, setIdx] = useState(0);
   const [open, setOpen] = useState(false);
 
@@ -76,10 +78,15 @@ export default function Mascot() {
   const walk = useSpring(useTransform(scrollYProgress, [0, 1], [0, 1]), { stiffness: 60, damping: 20 });
   const left = useTransform(walk, (v) => `calc(${(v * 22).toFixed(2)}vw + 12px)`);
 
-  if (hidden) return null;
+  if (hidden || boot !== 'done') return null;
 
   return (
-    <motion.div style={reduce ? { left: 12 } : { left }} className="fixed bottom-3 z-40 flex flex-col-reverse items-start gap-1 sm:flex-row sm:items-end print:hidden">
+    <motion.div
+      initial={reduce ? false : { opacity: 0, y: -80, scale: 0.5 }}
+      animate={{ opacity: 1, y: 0, scale: 1 }}
+      transition={{ type: 'spring', stiffness: 200, damping: 18 }}
+      style={reduce ? { left: 12 } : { left }}
+      className="fixed bottom-3 z-40 flex flex-col-reverse items-start gap-1 sm:flex-row sm:items-end print:hidden">
       <motion.button
         type="button"
         onClick={() => {

@@ -13,12 +13,14 @@ import GitHubActivity from '@/components/GitHubActivity';
 import type { GitHubData } from '@/lib/github-types';
 import Mascot from '@/components/Mascot';
 import Secrets from '@/components/Secrets';
+import BootIntro from '@/components/BootIntro';
 import CommandPalette from '@/components/CommandPalette';
 
 export default function HomeClient({ github }: { github: GitHubData }) {
   return (
     <LanguageProvider>
       <MotionConfig reducedMotion="user">
+      <BootIntro />
       <Masthead />
       <main className="mx-auto w-full max-w-[1200px] px-5 pb-16 sm:px-8">
         <Hero />

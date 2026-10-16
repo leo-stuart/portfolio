@@ -3,6 +3,7 @@
 import Image from 'next/image';
 import { useLanguage } from '@/context/LanguageContext';
 import Pipeline from './Pipeline';
+import { BootBar } from './BootIntro';
 import { useRef } from 'react';
 import { unlock } from '@/lib/secrets';
 
@@ -56,7 +57,8 @@ export default function Hero() {
         </div>
       </div>
 
-      <dl className="mt-14 grid gap-px overflow-hidden rounded-xl border hairline bg-line sm:grid-cols-3">
+      <BootBar />
+      <dl className="mt-6 grid gap-px overflow-hidden rounded-xl border hairline bg-line sm:grid-cols-3">
         {t.stats.map((s) => (
           <div key={s.label} className="bg-bg px-6 py-5">
             <dd className="text-[30px] font-semibold leading-none tracking-[-0.02em] tabular-nums">{s.value}</dd>

@@ -300,3 +300,8 @@
 :root[data-neon] .card {
   box-shadow: 0 0 0 1px color-mix(in srgb, var(--c-ok) 35%, transparent), 0 0 24px -8px var(--c-ok);
 }
+
+/* Boot intro: only shown when the head script flags a first visit. */
+.boot-overlay { display: none; }
+:root[data-boot] .boot-overlay { display: flex; }
+:root[data-boot] body { overflow: hidden; }

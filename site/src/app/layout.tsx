@@ -43,7 +43,7 @@ export const metadata: Metadata = {
 
 // Resolve theme before first paint so there is no flash. Mirrors the CSS
 // fallback: saved choice > system preference.
-const themeScript = `(function(){try{var t=localStorage.getItem('theme');if(t!=='light'&&t!=='dark'){t=window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'}document.documentElement.dataset.theme=t}catch(e){document.documentElement.dataset.theme='light'}})();`;
+const themeScript = `(function(){try{if(!sessionStorage.getItem('booted')&&!matchMedia('(prefers-reduced-motion: reduce)').matches&&!/[?&]noboot/.test(location.search))document.documentElement.setAttribute('data-boot','')}catch(e){}})();(function(){try{var t=localStorage.getItem('theme');if(t!=='light'&&t!=='dark'){t=window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'}document.documentElement.dataset.theme=t}catch(e){document.documentElement.dataset.theme='light'}})();`;
 
 export default function RootLayout({
   children,

@@ -3,6 +3,9 @@ import type { Lang } from './content';
 export const ui = {
   en: {
     pipelineLabel: 'agent pipeline',
+    bootLines: ['loading context: experience, projects', 'mounting tools: testa, agent-cockpit, github', 'warming up the bot', 'ready'],
+    bootSkip: 'click or press any key to skip',
+    bootAria: 'Loading intro, click or press any key to skip',
     mascotAria: 'Mascot bot: click for another line',
     mascotHide: 'hide bot (⌘K → bot brings it back)',
     secretFound: 'secret found:',
@@ -47,6 +50,9 @@ export const ui = {
   },
   pt: {
     pipelineLabel: 'pipeline do agente',
+    bootLines: ['carregando contexto: experiência, projetos', 'montando tools: testa, agent-cockpit, github', 'aquecendo o robô', 'pronto'],
+    bootSkip: 'clique ou aperte qualquer tecla para pular',
+    bootAria: 'Intro carregando, clique ou aperte qualquer tecla para pular',
     mascotAria: 'Robô mascote: clique para outra fala',
     mascotHide: 'esconder robô (⌘K → bot traz de volta)',
     secretFound: 'segredo encontrado:',
