@@ -61,7 +61,10 @@ export default function CommandPalette() {
         setOpen((o) => !o);
       }
     };
-    const onOpen = () => setOpen(true);
+    const onOpen = (e: Event) => {
+      setOpen(true);
+      if ((e as CustomEvent).detail === 'secrets') setPanel('secrets');
+    };
     document.addEventListener('keydown', onKey);
     window.addEventListener(OPEN_PALETTE, onOpen);
     return () => {

@@ -321,3 +321,11 @@
 }
 
 @keyframes fade-in { from { opacity: 0; } to { opacity: 1; } }
+
+/* Achievement receipt with torn edge */
+.receipt {
+  border: 1px solid var(--c-line-strong);
+  border-bottom: none;
+  -webkit-mask: linear-gradient(#000 0 0) top/100% calc(100% - 8px) no-repeat, conic-gradient(from -45deg at bottom, #0000, #000 1deg 89deg, #0000 90deg) bottom/12px 8px repeat-x;
+  mask: linear-gradient(#000 0 0) top/100% calc(100% - 8px) no-repeat, conic-gradient(from -45deg at bottom, #0000, #000 1deg 89deg, #0000 90deg) bottom/12px 8px repeat-x;
+}

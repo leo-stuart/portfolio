@@ -12,7 +12,7 @@ import Contact from '@/components/Contact';
 import GitHubActivity from '@/components/GitHubActivity';
 import type { GitHubData } from '@/lib/github-types';
 import Mascot from '@/components/Mascot';
-import Secrets from '@/components/Secrets';
+import Secrets, { SecretsCounter } from '@/components/Secrets';
 import BootIntro from '@/components/BootIntro';
 import VisitorMap from '@/components/VisitorMap';
 import CommandPalette from '@/components/CommandPalette';
@@ -33,6 +33,9 @@ export default function HomeClient({ github }: { github: GitHubData }) {
         <Skills />
         <Contact />
       </main>
+      <footer className="mx-auto flex w-full max-w-[1200px] justify-end px-5 pb-24 sm:px-8">
+        <SecretsCounter />
+      </footer>
       <CommandPalette />
       <Mascot />
       <Secrets />
