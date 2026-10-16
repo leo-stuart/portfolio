@@ -6,6 +6,7 @@ import { AnimatePresence, motion, useReducedMotion } from 'motion/react';
 import { useLanguage } from '@/context/LanguageContext';
 import { ui, slug } from '@/data/ui';
 import { OPEN_PROJECT } from './Projects';
+import { SHOW_MASCOT } from './Mascot';
 
 export const OPEN_PALETTE = 'open-palette';
 
@@ -143,6 +144,9 @@ export default function CommandPalette() {
             ))}
           </Command.Group>
           <Command.Group heading={s.groupFun}>
+            <Command.Item value="bot mascot" keywords={['mascote', 'robo']} onSelect={go(() => window.dispatchEvent(new Event(SHOW_MASCOT)))} className={item}>
+              {s.cmdBot} <span className="font-mono text-[11px] text-dim">bot</span>
+            </Command.Item>
             <Command.Item value="run testa" onSelect={() => setRunning(true)} className={item}>
               <span className="font-mono">{s.cmdRunTesta}</span> <span className="font-mono text-[11px] text-amber">▶</span>
             </Command.Item>

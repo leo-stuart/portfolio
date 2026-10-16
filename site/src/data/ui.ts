@@ -12,6 +12,8 @@ export const ui = {
       'First value fast, including for the agents that ship the code.',
       'Where it pays off: billing that recovers revenue instead of losing it.',
     ],
+    mascotAria: 'Mascot bot: click for another line',
+    mascotHide: 'hide bot (⌘K → bot brings it back)',
     ghTitle: 'GitHub, live',
     ghTotal: 'contributions in the last year',
     ghOne: 'contribution',
@@ -41,6 +43,7 @@ export const ui = {
     cmdCv: 'Open CV (PDF)',
     cmdLang: 'Switch to Português',
     cmdRunTesta: 'run testa (demo)',
+    cmdBot: 'Show the bot',
     runNote: 'just for fun · fake log, nothing is actually running',
   },
   pt: {
@@ -54,6 +57,8 @@ export const ui = {
       'Valor rápido, inclusive para os agentes que entregam o código.',
       'Onde dá retorno: cobrança que recupera receita em vez de perder.',
     ],
+    mascotAria: 'Robô mascote: clique para outra fala',
+    mascotHide: 'esconder robô (⌘K → bot traz de volta)',
     ghTitle: 'GitHub, ao vivo',
     ghTotal: 'contribuições no último ano',
     ghOne: 'contribuição',
@@ -83,6 +88,7 @@ export const ui = {
     cmdCv: 'Abrir CV (PDF)',
     cmdLang: 'Switch to English',
     cmdRunTesta: 'run testa (demo)',
+    cmdBot: 'Mostrar o robô',
     runNote: 'só de brincadeira · log fake, nada está rodando de verdade',
   },
 } satisfies Record<Lang, Record<string, string | string[]>>;
