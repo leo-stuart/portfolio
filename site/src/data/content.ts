@@ -126,6 +126,7 @@ const PROJECT_LINKS = {
     { label: 'Site', href: 'https://thepostable.com' },
     { label: 'Source', href: 'https://github.com/postable-org/postable' },
   ],
+  behold: [{ label: 'Demo', href: 'https://behold-bi-dashboard.vercel.app' }],
   algoflow: [
     { label: 'App', href: 'https://app.thealgoflow.com' },
     { label: 'Site', href: 'https://thealgoflow.com' },
@@ -300,7 +301,8 @@ export const content: Record<Lang, Content> = {
             'Google ADK agent on Gemini 2.0 Flash handling 50+ concurrent conversations with session-based state.',
           ],
           tech: TECH.behold,
-          links: [],
+          links: PROJECT_LINKS.behold,
+          image: '/projects/behold.png',
         },
         {
           name: 'sofIA',
@@ -524,7 +526,8 @@ export const content: Record<Lang, Content> = {
             'Agente em Google ADK com Gemini 2.0 Flash atendendo 50+ conversas simultâneas com estado por sessão.',
           ],
           tech: TECH.behold,
-          links: [],
+          links: PROJECT_LINKS.behold,
+          image: '/projects/behold.png',
         },
         {
           name: 'sofIA',
