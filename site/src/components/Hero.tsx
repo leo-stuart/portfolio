@@ -2,10 +2,14 @@
 
 import Image from 'next/image';
 import { useLanguage } from '@/context/LanguageContext';
+import Pipeline from './Pipeline';
+import { useRef } from 'react';
+import { unlock } from '@/lib/secrets';
 
 export default function Hero() {
   const { t, lang } = useLanguage();
   const at = lang === 'pt' ? 'na' : 'at';
+  const pokes = useRef(0);
 
   return (
     <section id="top" className="pt-12 sm:pt-16 lg:pt-20">
@@ -29,9 +33,17 @@ export default function Hero() {
               {t.hero.getInTouch}
             </a>
           </div>
+          <Pipeline />
         </div>
 
-        <div className="relative mx-auto w-full max-w-[420px] lg:max-w-none">
+        <div
+          className="relative mx-auto w-full max-w-[420px] lg:max-w-none"
+          onClick={(e) => {
+            pokes.current += 1;
+            e.currentTarget.animate?.([{ transform: 'rotate(0)' }, { transform: 'rotate(-1.5deg)' }, { transform: 'rotate(1.5deg)' }, { transform: 'rotate(0)' }], { duration: 300 });
+            if (pokes.current >= 5) unlock('avatar');
+          }}
+        >
           <Image
             src="/photo.jpg"
             alt="Leonardo Stuart"

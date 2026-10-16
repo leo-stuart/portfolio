@@ -13,6 +13,8 @@
   --c-line-strong: #d4d4d4;
   --c-accent: #2563eb;
   --c-ok: #16a34a;
+  --c-amber: #b45309;
+  --c-grid: rgb(10 10 10 / 0.045);
   --c-btn-bg: #0a0a0a;
   --c-btn-fg: #ffffff;
   --c-btn-shadow: 0 1px 2px rgb(10 10 10 / 0.22);
@@ -30,6 +32,8 @@
   --c-line-strong: #404040;
   --c-accent: #60a5fa;
   --c-ok: #22c55e;
+  --c-amber: #f59e0b;
+  --c-grid: rgb(250 250 250 / 0.04);
   --c-btn-bg: #fafafa;
   --c-btn-fg: #0a0a0a;
   --c-btn-shadow: 0 1px 2px rgb(0 0 0 / 0.6);
@@ -67,6 +71,8 @@
   --color-ok: var(--c-ok);
   --color-btn-bg: var(--c-btn-bg);
   --color-btn-fg: var(--c-btn-fg);
+  --color-amber: var(--c-amber);
+  --font-mono: var(--font-mono), ui-monospace, SFMono-Regular, Menlo, monospace;
   --font-sans: var(--font-inter), ui-sans-serif, system-ui, -apple-system, sans-serif;
 }
 
@@ -83,6 +89,10 @@
 
   body {
     background-color: var(--c-bg);
+    background-image: linear-gradient(var(--c-grid) 1px, transparent 1px),
+      linear-gradient(90deg, var(--c-grid) 1px, transparent 1px);
+    background-size: 32px 32px;
+    background-position: center top;
     color: var(--c-fg);
     font-family: var(--font-sans);
     font-size: 15px;
@@ -229,4 +239,64 @@
   .status-dot {
     animation: none;
   }
+}
+
+/* Console theme bits */
+@utility mono-label {
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--c-dim);
+}
+
+@utility kbd {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  border: 1px solid var(--c-line-strong);
+  border-bottom-width: 2px;
+  border-radius: 5px;
+  padding: 0 5px;
+  line-height: 18px;
+  color: var(--c-muted);
+}
+
+@keyframes caret {
+  50% { opacity: 0; }
+}
+.caret::after {
+  content: "▍";
+  margin-left: 2px;
+  color: var(--c-ok);
+  animation: caret 1s steps(1) infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .caret::after { animation: none; }
+}
+
+[cmdk-item][data-selected="true"] {
+  background: var(--c-panel);
+  color: var(--c-fg);
+}
+[cmdk-group-heading] {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--c-dim);
+  padding: 8px 10px 4px;
+}
+
+/* Neon mode (secret checkout easter egg) */
+:root[data-neon] {
+  --c-ok: #39ff14;
+  --c-amber: #ff2bd6;
+  --c-accent: #00e5ff;
+}
+:root[data-neon] .text-ok,
+:root[data-neon] .text-amber {
+  text-shadow: 0 0 8px currentColor;
+}
+:root[data-neon] .card {
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--c-ok) 35%, transparent), 0 0 24px -8px var(--c-ok);
 }
