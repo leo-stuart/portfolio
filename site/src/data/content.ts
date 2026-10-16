@@ -143,7 +143,7 @@ const TECH = {
   behold: ['Python', 'FastAPI', 'GraphQL', 'Shopify', 'Google ADK', 'Gemini 2.0 Flash', 'MCP'],
   sofia: ['Python', 'FastAPI', 'Google ADK', 'Gemini 2.5 Flash', 'AP2', 'Node.js', 'PostgreSQL', 'Docker'],
   postable: ['Go', 'Next.js', 'PostgreSQL', 'Supabase', 'Stripe', 'Docker'],
-  algoflow: ['Next.js', 'TypeScript', 'Tailwind CSS', 'Recharts'],
+  algoflow: ['Next.js', 'TypeScript', 'FastAPI', 'Python', 'Tailwind CSS', 'Recharts'],
 };
 
 const SKILLS = {
@@ -353,8 +353,8 @@ export const content: Record<Lang, Content> = {
           period: '2025',
           role: 'Solo developer',
           summary:
-            'Interactive algorithm visualizer with frame-by-frame playback and synchronized pseudocode. 25+ algorithms across sorting, searching, graphs and DP. Apache 2.0.',
-          highlights: ['200+ users.'],
+            'Interactive algorithm visualizer with frame-by-frame playback and synchronized pseudocode. 31 algorithms across 4 categories: sorting, searching, data structures and DP. Apache 2.0.',
+          highlights: ['FastAPI backend for step-by-step code execution in 8 languages.', '200+ users.'],
           tech: TECH.algoflow,
           links: PROJECT_LINKS.algoflow,
           image: '/projects/algoflow.png',
@@ -592,8 +592,8 @@ export const content: Record<Lang, Content> = {
           period: '2025',
           role: 'Desenvolvedor solo',
           summary:
-            'Visualizador interativo de algoritmos com reprodução quadro a quadro e pseudocódigo sincronizado. 25+ algoritmos de ordenação, busca, grafos e PD. Apache 2.0.',
-          highlights: ['200+ usuários.'],
+            'Visualizador interativo de algoritmos com reprodução quadro a quadro e pseudocódigo sincronizado. 31 algoritmos em 4 categorias: ordenação, busca, estruturas de dados e PD. Apache 2.0.',
+          highlights: ['Backend em FastAPI com execução de código passo a passo em 8 linguagens.', '200+ usuários.'],
           tech: TECH.algoflow,
           links: PROJECT_LINKS.algoflow,
           image: '/projects/algoflow.png',
