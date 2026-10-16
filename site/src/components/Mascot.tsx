@@ -8,7 +8,7 @@ import { useActiveSection } from '@/hooks/useActiveSection';
 import { mascotLines, clueText, CLUE } from '@/data/mascot';
 import { ui } from '@/data/ui';
 
-const IDS = ['about', 'experience', 'funnel', 'projects', 'github', 'skills', 'contact'];
+const IDS = ['about', 'experience', 'projects', 'github', 'skills', 'contact'];
 export const SHOW_MASCOT = 'show-mascot';
 
 function Bot({ talking }: { talking: boolean }) {
