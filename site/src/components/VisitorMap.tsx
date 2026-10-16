@@ -8,7 +8,9 @@ import { LAND, MAP_W, MAP_H, LAT_TOP, LAT_SPAN } from '@/data/worldPixels';
 import { ui } from '@/data/ui';
 import Section from './Section';
 
-type Geo = { country: string | null; city: string | null; lat: number | null; lon: number | null };
+import type { VisitStats } from '@/lib/visit-types';
+
+type Geo = { country: string | null; city: string | null; lat: number | null; lon: number | null; stats: VisitStats | null };
 const BH = { lat: -19.92, lon: -43.94 };
 const CELL = 8;
 const W = MAP_W * CELL;
@@ -33,6 +35,14 @@ function arc(ctx: CanvasRenderingContext2D, a: { x: number; y: number }, b: { x:
   ctx.stroke();
 }
 
+function regionName(code: string, lang: 'en' | 'pt') {
+  try {
+    return new Intl.DisplayNames([lang === 'pt' ? 'pt-BR' : 'en'], { type: 'region' }).of(code) ?? code;
+  } catch {
+    return code;
+  }
+}
+
 export default function VisitorMap() {
   const { lang } = useLanguage();
   const s = ui[lang];
@@ -42,10 +52,15 @@ export default function VisitorMap() {
   const [geo, setGeo] = useState<Geo | null>(null);
 
   useEffect(() => {
-    fetch('/api/geo')
-      .then((r) => (r.ok ? r.json() : null))
-      .then((g: Geo | null) => g && setGeo(g))
-      .catch(() => {});
+    const load = (ping: boolean) =>
+      fetch(ping ? '/api/geo?ping=1' : '/api/geo')
+        .then((r) => (r.ok ? r.json() : null))
+        .then((g: Geo | null) => g && setGeo(g))
+        .catch(() => {});
+    load(false);
+    // Keep presence fresh while the tab is visible.
+    const id = setInterval(() => document.visibilityState === 'visible' && load(true), 30_000);
+    return () => clearInterval(id);
   }, []);
 
   useEffect(() => {
@@ -64,6 +79,9 @@ export default function VisitorMap() {
     const bh = project(BH.lat, BH.lon);
     const me = geo?.lat != null && geo?.lon != null ? project(geo.lat, geo.lon) : null;
     type Ping = { from: { x: number; y: number }; born: number };
+    const recent = (geo?.stats?.recent ?? []).filter((v) => v.lat != null && v.lon != null).map((v) => project(v.lat!, v.lon!));
+    const real = geo?.stats != null;
+    let k = 0;
     let pings: Ping[] = [];
     let raf = 0;
     let last = 0;
@@ -76,7 +94,9 @@ export default function VisitorMap() {
       if (!reduce) {
         if (now - last > 900) {
           last = now;
-          pings.push({ from: landCells[Math.floor(Math.random() * landCells.length)], born: now });
+          if (real) {
+            if (recent.length) pings.push({ from: recent[k++ % recent.length], born: now });
+          } else pings.push({ from: landCells[Math.floor(Math.random() * landCells.length)], born: now });
         }
         pings = pings.filter((p) => now - p.born < 2600);
         for (const p of pings) {
@@ -118,13 +138,7 @@ export default function VisitorMap() {
     return () => cancelAnimationFrame(raf);
   }, [geo, reduce, inView]);
 
-  const country = geo?.country ? (() => {
-    try {
-      return new Intl.DisplayNames([lang === 'pt' ? 'pt-BR' : 'en'], { type: 'region' }).of(geo.country!) ?? geo.country;
-    } catch {
-      return geo.country;
-    }
-  })() : null;
+  const country = geo?.country ? regionName(geo.country, lang) : null;
 
   return (
     <Section id="visitors" title={s.mapTitle} aside={<span className="font-mono">→ Belo Horizonte</span>}>
@@ -139,9 +153,30 @@ export default function VisitorMap() {
           )}
         </p>
         <canvas ref={ref} role="img" aria-label={s.mapAria} className="mt-4 h-auto w-full" style={{ aspectRatio: `${W} / ${H}` }} />
-        <p className="mt-3 font-mono text-[11px] text-dim">
-          <span className="text-amber">●</span> {s.mapLegend}
-        </p>
+        {geo?.stats ? (
+          <div className="mt-4 grid gap-3 font-mono text-[12px] sm:grid-cols-[auto_auto_1fr] sm:items-start sm:gap-8">
+            <p>
+              <span className="text-[20px] font-semibold text-fg tabular-nums">{geo.stats.now}</span> <span className="text-ok">●</span> <span className="text-dim">{s.mapNow}</span>
+            </p>
+            <p>
+              <span className="text-[20px] font-semibold text-fg tabular-nums">{geo.stats.total.toLocaleString(lang === 'pt' ? 'pt-BR' : 'en-US')}</span> <span className="text-dim">{s.mapTotal}</span>
+            </p>
+            <ul className="flex flex-wrap gap-x-4 gap-y-1 text-muted">
+              {geo.stats.countries.slice(0, 6).map(([c, n]) => (
+                <li key={c}>
+                  {regionName(c, lang)} <span className="text-fg tabular-nums">{n}</span>
+                </li>
+              ))}
+            </ul>
+            <p className="text-[11px] text-dim sm:col-span-3">
+              <span className="text-amber">●</span> {s.mapLegendReal}
+            </p>
+          </div>
+        ) : (
+          <p className="mt-3 font-mono text-[11px] text-dim">
+            <span className="text-amber">●</span> {s.mapLegend}
+          </p>
+        )}
       </div>
     </Section>
   );
