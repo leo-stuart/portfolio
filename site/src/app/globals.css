@@ -319,3 +319,5 @@
 @media (prefers-reduced-motion: reduce) {
   .skeleton { animation: none; }
 }
+
+@keyframes fade-in { from { opacity: 0; } to { opacity: 1; } }
