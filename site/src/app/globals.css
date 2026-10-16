@@ -305,3 +305,17 @@
 .boot-overlay { display: none; }
 :root[data-boot] .boot-overlay { display: flex; }
 :root[data-boot] body { overflow: hidden; }
+
+/* Streaming skeleton */
+@keyframes shimmer {
+  from { background-position: -200px 0; }
+  to { background-position: 200px 0; }
+}
+.skeleton {
+  background: linear-gradient(90deg, var(--c-line) 0, var(--c-panel) 80px, var(--c-line) 160px) var(--c-line);
+  background-size: 400px 100%;
+  animation: shimmer 1.2s linear infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .skeleton { animation: none; }
+}

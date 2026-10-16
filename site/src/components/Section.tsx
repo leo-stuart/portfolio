@@ -1,4 +1,7 @@
+'use client';
+
 import type { ReactNode } from 'react';
+import { TokenStream, Streamed } from './Stream';
 
 interface SectionProps {
   id?: string;
@@ -11,10 +14,12 @@ export default function Section({ id, title, aside, children }: SectionProps) {
   return (
     <section id={id} className="scroll-mt-16 border-t hairline py-14 sm:py-16">
       <div className="mb-8 flex items-end justify-between gap-6">
-        <h2 className="text-[22px] font-semibold tracking-tight">{title}</h2>
+        <h2 className="text-[22px] font-semibold tracking-tight">
+          <TokenStream text={title} />
+        </h2>
         {aside && <div className="text-[13px] text-dim">{aside}</div>}
       </div>
-      {children}
+      <Streamed>{children}</Streamed>
     </section>
   );
 }
