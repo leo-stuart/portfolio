@@ -2,6 +2,7 @@
 
 import Image from 'next/image';
 import { useLanguage } from '@/context/LanguageContext';
+import Pipeline from './Pipeline';
 
 export default function Hero() {
   const { t, lang } = useLanguage();
@@ -29,6 +30,7 @@ export default function Hero() {
               {t.hero.getInTouch}
             </a>
           </div>
+          <Pipeline />
         </div>
 
         <div className="relative mx-auto w-full max-w-[420px] lg:max-w-none">
