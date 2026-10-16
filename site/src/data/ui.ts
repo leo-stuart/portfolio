@@ -3,6 +3,15 @@ import type { Lang } from './content';
 export const ui = {
   en: {
     pipelineLabel: 'agent pipeline',
+    funnelTitle: 'The funnel I work on',
+    funnelAside: 'visit → paid',
+    funnelSteps: ['visit', 'signup', 'activation', 'payment'],
+    funnelCopy: [
+      'Top of the funnel: customer-facing apps at real scale.',
+      'Getting people in: onboarding, referrals and promo codes.',
+      'First value fast, including for the agents that ship the code.',
+      'Where it pays off: billing that recovers revenue instead of losing it.',
+    ],
     ghTitle: 'GitHub, live',
     ghTotal: 'contributions in the last year',
     ghOne: 'contribution',
@@ -36,6 +45,15 @@ export const ui = {
   },
   pt: {
     pipelineLabel: 'pipeline do agente',
+    funnelTitle: 'O funil em que eu trabalho',
+    funnelAside: 'visita → pago',
+    funnelSteps: ['visita', 'signup', 'ativação', 'pagamento'],
+    funnelCopy: [
+      'Topo do funil: apps voltados ao cliente em escala real.',
+      'Trazer gente para dentro: onboarding, indicações e cupons.',
+      'Valor rápido, inclusive para os agentes que entregam o código.',
+      'Onde dá retorno: cobrança que recupera receita em vez de perder.',
+    ],
     ghTitle: 'GitHub, ao vivo',
     ghTotal: 'contribuições no último ano',
     ghOne: 'contribuição',

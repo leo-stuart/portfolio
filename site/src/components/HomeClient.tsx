@@ -10,6 +10,7 @@ import Skills from '@/components/Skills';
 import Contact from '@/components/Contact';
 import GitHubActivity from '@/components/GitHubActivity';
 import type { GitHubData } from '@/lib/github-types';
+import Funnel from '@/components/Funnel';
 import CommandPalette from '@/components/CommandPalette';
 
 export default function HomeClient({ github }: { github: GitHubData }) {
@@ -20,6 +21,7 @@ export default function HomeClient({ github }: { github: GitHubData }) {
         <Hero />
         <About />
         <Experience />
+        <Funnel />
         <Projects />
         <GitHubActivity data={github} />
         <Skills />
