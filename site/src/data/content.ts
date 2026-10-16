@@ -115,6 +115,7 @@ const PROJECT_LINKS = {
     { label: 'Source', href: 'https://github.com/agent-cockpit/agent-cockpit' },
     { label: 'npm', href: 'https://www.npmjs.com/package/@agentcockpit/agent-cockpit' },
   ],
+  testa: [{ label: 'Source', href: 'https://github.com/leo-stuart/testa' }],
   monity: [
     { label: 'App', href: 'https://app.monity-finance.com' },
     { label: 'Site', href: 'https://monity-landing-page.vercel.app' },
@@ -126,6 +127,8 @@ const PROJECT_LINKS = {
     { label: 'Site', href: 'https://thepostable.com' },
     { label: 'Source', href: 'https://github.com/postable-org/postable' },
   ],
+  behold: [{ label: 'Demo', href: 'https://behold-bi-dashboard.vercel.app' }],
+  coldEmail: [{ label: 'Demo', href: 'https://cold-email-customization.vercel.app' }],
   algoflow: [
     { label: 'App', href: 'https://app.thealgoflow.com' },
     { label: 'Site', href: 'https://thealgoflow.com' },
@@ -136,11 +139,13 @@ const PROJECT_LINKS = {
 const TECH = {
   courty: ['TypeScript', 'Express 5', 'Prisma', 'PostgreSQL', 'Redis', 'Socket.io', 'Asaas', 'Expo', 'Next.js'],
   cockpit: ['TypeScript', 'Node.js', 'node-pty', 'WebSocket', 'SQLite', 'Vitest'],
+  testa: ['JavaScript', 'Node.js', 'MCP SDK', 'Playwright', 'axe-core', 'zod'],
   monity: ['React', 'React Native', 'Node.js', 'PostgreSQL', 'Supabase', 'AWS', 'GitHub Actions'],
   behold: ['Python', 'FastAPI', 'GraphQL', 'Shopify', 'Google ADK', 'Gemini 2.0 Flash', 'MCP'],
   sofia: ['Python', 'FastAPI', 'Google ADK', 'Gemini 2.5 Flash', 'AP2', 'Node.js', 'PostgreSQL', 'Docker'],
   postable: ['Go', 'Next.js', 'PostgreSQL', 'Supabase', 'Stripe', 'Docker'],
-  algoflow: ['Next.js', 'TypeScript', 'Tailwind CSS', 'Recharts'],
+  coldEmail: ['Python', 'FastAPI', 'SQLAlchemy', 'Alembic', 'PostgreSQL', 'OpenAI', 'JWT', 'APScheduler', 'pytest'],
+  algoflow: ['Next.js', 'TypeScript', 'FastAPI', 'Python', 'Tailwind CSS', 'Recharts'],
 };
 
 const SKILLS = {
@@ -274,6 +279,21 @@ export const content: Record<Lang, Content> = {
           image: '/projects/agent-cockpit.png',
         },
         {
+          name: 'testa',
+          period: 'Oct 2026 — present',
+          role: 'Creator',
+          summary:
+            'MCP server that lets coding agents like Claude Code, Codex and Cursor test the feature they just built, on the web through Playwright and on the iOS Simulator, including React Native apps.',
+          highlights: [
+            'Reads the git diff (feature_context) to plan scenarios, then runs them with assertions via run_scenario.',
+            'Replay with self-heal when the UI changes, accessibility audits with axe-core and network mocks.',
+            'Guardrails: needs_human escalation and explicit confirmation before risky actions like payments or deletes.',
+          ],
+          tech: TECH.testa,
+          links: PROJECT_LINKS.testa,
+          image: '/projects/testa.png',
+        },
+        {
           name: 'Monity',
           period: 'Jan 2025 — Dec 2025',
           role: 'Founder, full-stack',
@@ -300,7 +320,8 @@ export const content: Record<Lang, Content> = {
             'Google ADK agent on Gemini 2.0 Flash handling 50+ concurrent conversations with session-based state.',
           ],
           tech: TECH.behold,
-          links: [],
+          links: PROJECT_LINKS.behold,
+          image: '/projects/behold.png',
         },
         {
           name: 'sofIA',
@@ -314,7 +335,7 @@ export const content: Record<Lang, Content> = {
           ],
           tech: TECH.sofia,
           links: PROJECT_LINKS.sofia,
-          image: '/projects/sofia.png',
+          image: '/projects/sofia-cover.png',
         },
         {
           name: 'Postable',
@@ -331,12 +352,26 @@ export const content: Record<Lang, Content> = {
           image: '/projects/postable.png',
         },
         {
+          name: 'Cold Email Customization',
+          period: 'Jan 2026 — Feb 2026',
+          role: 'Full-stack developer',
+          summary:
+            'Outreach automation that researches each lead with OpenAI web search and writes a personalized 4-email sequence plus LinkedIn messages, then schedules and sends them.',
+          highlights: [
+            'Clean architecture on FastAPI: domain ports, use cases and SQLAlchemy repositories, with Alembic migrations on PostgreSQL.',
+            'APScheduler-driven sending with retries for failed emails, CSV lead import/export and JWT auth.',
+          ],
+          tech: TECH.coldEmail,
+          links: PROJECT_LINKS.coldEmail,
+          image: '/projects/cold-email.png',
+        },
+        {
           name: 'AlgoFlow',
           period: '2025',
           role: 'Solo developer',
           summary:
-            'Interactive algorithm visualizer with frame-by-frame playback and synchronized pseudocode. 25+ algorithms across sorting, searching, graphs and DP. Apache 2.0.',
-          highlights: ['200+ users.'],
+            'Interactive algorithm visualizer with frame-by-frame playback and synchronized pseudocode. 31 algorithms across 4 categories: sorting, searching, data structures and DP. Apache 2.0.',
+          highlights: ['FastAPI backend for step-by-step code execution in 8 languages.', '200+ users.'],
           tech: TECH.algoflow,
           links: PROJECT_LINKS.algoflow,
           image: '/projects/algoflow.png',
@@ -498,6 +533,21 @@ export const content: Record<Lang, Content> = {
           image: '/projects/agent-cockpit.png',
         },
         {
+          name: 'testa',
+          period: 'Out 2026 — atual',
+          role: 'Criador',
+          summary:
+            'Servidor MCP que permite a agentes de código como Claude Code, Codex e Cursor testar a feature que acabaram de implementar, na web via Playwright e no iOS Simulator, incluindo apps React Native.',
+          highlights: [
+            'Lê o git diff (feature_context) para planejar cenários e os executa com asserções via run_scenario.',
+            'Replay com self-heal quando a interface muda, auditoria de acessibilidade com axe-core e mocks de rede.',
+            'Guardrails: escalonamento needs_human e confirmação explícita antes de ações de risco, como pagamentos ou exclusões.',
+          ],
+          tech: TECH.testa,
+          links: PROJECT_LINKS.testa,
+          image: '/projects/testa.png',
+        },
+        {
           name: 'Monity',
           period: 'Jan 2025 — Dez 2025',
           role: 'Fundador, full-stack',
@@ -524,7 +574,8 @@ export const content: Record<Lang, Content> = {
             'Agente em Google ADK com Gemini 2.0 Flash atendendo 50+ conversas simultâneas com estado por sessão.',
           ],
           tech: TECH.behold,
-          links: [],
+          links: PROJECT_LINKS.behold,
+          image: '/projects/behold.png',
         },
         {
           name: 'sofIA',
@@ -538,7 +589,7 @@ export const content: Record<Lang, Content> = {
           ],
           tech: TECH.sofia,
           links: PROJECT_LINKS.sofia,
-          image: '/projects/sofia.png',
+          image: '/projects/sofia-cover.png',
         },
         {
           name: 'Postable',
@@ -555,12 +606,26 @@ export const content: Record<Lang, Content> = {
           image: '/projects/postable.png',
         },
         {
+          name: 'Cold Email Customization',
+          period: 'Jan 2026 — Fev 2026',
+          role: 'Desenvolvedor full-stack',
+          summary:
+            'Automação de prospecção que pesquisa cada lead com a busca web da OpenAI e escreve uma sequência personalizada de 4 emails e mensagens de LinkedIn, depois agenda e envia.',
+          highlights: [
+            'Arquitetura limpa em FastAPI: ports de domínio, casos de uso e repositórios SQLAlchemy, com migrações Alembic em PostgreSQL.',
+            'Envio agendado com APScheduler e retentativa de emails falhos, importação/exportação de leads em CSV e autenticação JWT.',
+          ],
+          tech: TECH.coldEmail,
+          links: PROJECT_LINKS.coldEmail,
+          image: '/projects/cold-email.png',
+        },
+        {
           name: 'AlgoFlow',
           period: '2025',
           role: 'Desenvolvedor solo',
           summary:
-            'Visualizador interativo de algoritmos com reprodução quadro a quadro e pseudocódigo sincronizado. 25+ algoritmos de ordenação, busca, grafos e PD. Apache 2.0.',
-          highlights: ['200+ usuários.'],
+            'Visualizador interativo de algoritmos com reprodução quadro a quadro e pseudocódigo sincronizado. 31 algoritmos em 4 categorias: ordenação, busca, estruturas de dados e PD. Apache 2.0.',
+          highlights: ['Backend em FastAPI com execução de código passo a passo em 8 linguagens.', '200+ usuários.'],
           tech: TECH.algoflow,
           links: PROJECT_LINKS.algoflow,
           image: '/projects/algoflow.png',

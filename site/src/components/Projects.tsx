@@ -39,9 +39,15 @@ export default function Projects() {
                   />
                 </a>
               ) : (
-                <div className="flex aspect-[16/9] flex-col justify-center border-b hairline bg-panel p-6">
-                  <Bullets items={p.highlights} />
-                </div>
+                <a
+                  href={primary?.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={p.name}
+                  className="flex aspect-[16/9] items-center justify-center border-b hairline bg-panel p-6"
+                >
+                  <span className="text-2xl font-semibold tracking-tight text-dim">{p.name}</span>
+                </a>
               )}
 
               <div className="flex flex-1 flex-col p-5">
@@ -51,6 +57,11 @@ export default function Projects() {
                 </div>
                 <p className="mt-0.5 text-[13px] text-dim">{p.role}</p>
                 <p className="mt-3 text-[15px] leading-6 text-muted">{p.summary}</p>
+                {!p.image && p.highlights.length > 0 && (
+                  <div className="mt-4">
+                    <Bullets items={p.highlights} />
+                  </div>
+                )}
 
                 <div className="mt-auto flex flex-wrap items-baseline justify-between gap-x-6 gap-y-2 pt-5 text-[13px]">
                   <p className="text-dim">{p.tech.slice(0, 4).join(', ')}</p>
